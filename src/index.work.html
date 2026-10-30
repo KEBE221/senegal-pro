@@ -1,0 +1,2473 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Ladies &amp; Gentlemen — Salon &amp; Spa | Taaru Auto — Lavage &amp; Detailing, Thiès</title>
+<meta name="description" content="Deux univers, une seule adresse à Thiès : Ladies & Gentlemen Salon & Spa (beauté, coiffure, massages, hammam, boutique) et Taaru Auto (lavage auto, detailing, tapis & linge). Glissez pour passer d'un univers à l'autre.">
+<meta name="theme-color" content="#0a0a0c">
+<meta property="og:title" content="Ladies & Gentlemen × Taaru Auto — Deux univers, une seule adresse">
+<meta property="og:description" content="Salon & Spa premium et centre de lavage & detailing automobile à Thiès. Faites laver votre véhicule pendant que vous profitez de votre beauté et bien-être !">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/jpeg" href="{{ICO_LG}}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700;800&family=Oswald:wght@400;500;600;700&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"BeautySalon","name":"Ladies & Gentlemen Salon & Spa","telephone":"+221710317585","address":{"@type":"PostalAddress","addressLocality":"Thiès","addressCountry":"SN"},"url":"https://ladiesandgentlemen.store/"},
+{"@type":"AutoWash","name":"Taaru Auto — Lavage, Détailing & Entretien","telephone":"+221710317585","address":{"@type":"PostalAddress","addressLocality":"Thiès","addressCountry":"SN"},"openingHours":["Mo-Fr 11:00-22:00","Sa-Su 11:00-23:00"]}]}
+</script>
+
+<!-- ================================================================
+     CSS 1/3 — MOTEUR DUAL-UNIVERS (stage / track / switcher / hints)
+     ================================================================ -->
+<style id="s-core">
+*{margin:0;padding:0;box-sizing:border-box;outline:none;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{overflow:hidden;background:#0a0a0c;font-family:'Barlow',sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+img{-webkit-user-drag:none;user-select:none}
+button{font-family:inherit;cursor:pointer}
+
+/* ---- STAGE : la scène fixe qui contient les deux mondes ---- */
+#stage{position:fixed;inset:0;overflow:hidden;touch-action:pan-y;cursor:grab}
+#stage.dragging{cursor:grabbing}
+#stage.dragging *{pointer-events:none!important}
+#track{display:flex;height:100%;width:200%;will-change:transform;transition:transform .95s cubic-bezier(.22,.9,.26,1)}
+#track.notrans{transition:none!important}
+.world{width:50%;height:100%;position:relative;overflow:hidden}
+.world-scroll{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+
+/* Barres d' défilement discrètes par univers */
+.world-lg .world-scroll::-webkit-scrollbar,.main-content::-webkit-scrollbar{width:6px}
+.world-lg .world-scroll::-webkit-scrollbar-track,.main-content::-webkit-scrollbar-track{background:#eddcc1}
+.world-lg .world-scroll::-webkit-scrollbar-thumb,.main-content::-webkit-scrollbar-thumb{background:#8a533c;border-radius:10px}
+.taaru-scroll::-webkit-scrollbar{width:8px}
+.taaru-scroll::-webkit-scrollbar-track{background:#0a0a0c}
+.taaru-scroll::-webkit-scrollbar-thumb{background:#dcb658;border-radius:10px}
+
+/* ---- SWITCHER D'UNIVERS (pill fixe bas-centre) ---- */
+.uni-switcher{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:6000;display:flex;width:min(540px,calc(100vw - 24px));background:rgba(10,10,12,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.14);border-radius:60px;padding:5px;box-shadow:0 14px 40px rgba(0,0,0,.45)}
+.uni-btn{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;gap:9px;flex:1 1 0;min-width:0;border:none;background:transparent;color:#c9c9c4;padding:10px 16px;border-radius:50px;font-family:'Barlow',sans-serif;font-weight:600;font-size:.82rem;letter-spacing:.4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .45s ease}
+.uni-mono{width:28px;height:28px;border-radius:50%;overflow:hidden;flex-shrink:0;box-shadow:0 2px 10px rgba(0,0,0,.4)}
+.uni-mono img{width:100%;height:100%;object-fit:cover;display:block}
+.uni-mono.lg{background:#f6ecdb;border:1px solid rgba(238,181,50,.55)}
+.uni-mono.ta{background:#0c0c0e;border:1px solid rgba(220,182,88,.6)}
+.uni-thumb{position:absolute;top:5px;bottom:5px;left:5px;width:calc(50% - 5px);border-radius:50px;transition:transform .55s cubic-bezier(.22,.9,.26,1),background .45s ease;z-index:1}
+body[data-universe="lg"] .uni-thumb{transform:translateX(0);background:linear-gradient(135deg,#f3d596,#eeb532)}
+body[data-universe="lg"] .uni-btn[data-go="0"]{color:#2c2014}
+body[data-universe="taaru"] .uni-thumb{transform:translateX(100%);background:linear-gradient(135deg,#dcb658,#f4e0a4);box-shadow:0 0 22px rgba(220,182,88,.35)}
+body[data-universe="taaru"] .uni-btn[data-go="1"]{color:#111}
+@media (max-width:760px){.swipe-invite{bottom:calc(180px + env(safe-area-inset-bottom));font-size:.74rem;padding:10px 18px}}
+@media (max-width:560px){
+  .uni-btn{padding:9px 13px;font-size:.7rem;gap:6px}
+  .uni-btn .uni-name{max-width:82px;overflow:hidden;text-overflow:ellipsis}
+  .uni-mono{width:22px;height:22px;font-size:.55rem}
+}
+
+/* ---- MANETTES DE BORD (bords gauche/droit) ---- */
+.edge-hint{position:fixed;top:50%;transform:translateY(-50%);z-index:5500;display:flex;align-items:center;gap:10px;border:none;padding:16px 10px;border-radius:0 18px 18px 0;background:linear-gradient(135deg,#dcb658,#f4e0a4);color:#111;font-family:'Oswald',sans-serif;font-weight:600;font-size:.72rem;letter-spacing:2.5px;text-transform:uppercase;box-shadow:-6px 0 30px rgba(220,182,88,.25);transition:transform .5s cubic-bezier(.22,.9,.26,1),opacity .5s ease;writing-mode:vertical-rl}
+.edge-hint .eh-txt{display:inline-flex;align-items:center;gap:10px;writing-mode:vertical-rl}
+.edge-hint i{writing-mode:horizontal-tb;font-size:.8rem}
+.edge-hint.edge-right{right:0;border-radius:16px 0 0 16px;animation:edgePulse 2.6s ease-in-out infinite}
+.edge-hint.edge-left{left:0;border-radius:0 16px 16px 0;flex-direction:row-reverse;animation:edgePulseL 2.6s ease-in-out infinite}
+@keyframes edgePulse{0%,100%{transform:translateY(-50%) translateX(0)}50%{transform:translateY(-50%) translateX(-7px)}}
+@keyframes edgePulseL{0%,100%{transform:translateY(-50%) translateX(0)}50%{transform:translateY(-50%) translateX(7px)}}
+.edge-hint.edge-left{background:linear-gradient(135deg,#eeb532,#f3d596);color:#2c2014}
+body[data-universe="lg"] .edge-left{opacity:0;pointer-events:none;transform:translateY(-50%) translateX(-120%)}
+body[data-universe="taaru"] .edge-right{opacity:0;pointer-events:none;transform:translateY(-50%) translateX(120%)}
+@media (max-width:760px){.edge-hint{display:none}}
+
+/* ---- INVITATION AU GLISSEMENT (1ère visite) ---- */
+.swipe-invite{position:fixed;left:50%;bottom:calc(86px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:5900;display:flex;align-items:center;gap:12px;background:rgba(10,10,12,.85);backdrop-filter:blur(10px);border:1px solid rgba(220,182,88,.45);color:#f6e7b8;padding:12px 22px;border-radius:50px;font-size:.82rem;font-weight:600;letter-spacing:.5px;box-shadow:0 12px 34px rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .6s ease,transform .6s ease}
+.swipe-invite.show{opacity:1;animation:inviteFloat 2.2s ease-in-out infinite}
+.swipe-invite.hide{opacity:0}
+.swipe-invite .si-arrow{display:inline-flex;color:#dcb658;animation:siSlide 1.6s ease-in-out infinite}
+@keyframes siSlide{0%,100%{transform:translateX(6px);opacity:.4}50%{transform:translateX(-10px);opacity:1}}
+@keyframes inviteFloat{0%,100%{margin-bottom:0}50%{margin-bottom:6px}}
+
+/* ---- TOAST GLOBAL ---- */
+#toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(24px);z-index:9500;background:linear-gradient(135deg,#1c1712,#2c2014);color:#f3d596;border:1px solid rgba(238,181,50,.55);padding:14px 26px;border-radius:50px;font-size:.85rem;font-weight:600;letter-spacing:.4px;opacity:0;pointer-events:none;transition:all .45s cubic-bezier(.22,.9,.26,1);box-shadow:0 14px 40px rgba(0,0,0,.4);max-width:88vw;text-align:center}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ---- Utilitaires ---- */
+.reveal-on-scroll{opacity:0;transform:translateY(30px);transition:opacity .85s cubic-bezier(.22,.9,.26,1),transform .85s cubic-bezier(.22,.9,.26,1)}
+.reveal-on-scroll.visible{opacity:1;transform:translateY(0)}
+.img-dead{visibility:hidden}
+.imgwrap-fallback{background:linear-gradient(150deg,rgba(138,83,60,.14),rgba(238,181,50,.1)),repeating-linear-gradient(45deg,rgba(138,83,60,.05) 0 14px,transparent 14px 28px)}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  #track{transition:none!important}
+}
+</style>
+
+<!-- ================================================================
+     CSS 2/3 — UNIVERS "LADIES & GENTLEMEN" (luxe beige / cuivre / or)
+     ================================================================ -->
+<style id="s-lg">
+.world-lg{
+  --primary:#8a533c;--primary-dark:#44322a;--primary-light:#f3d596;
+  --secondary:#eeb532;--secondary-dark:#d5c3b2;
+  --text-main:#2c2c2c;--text-muted:#5a5a5a;--bg-body:#eddcc1;
+  --font-display:'Cormorant Garamond',serif;--font-ui:'Montserrat',sans-serif;
+  --glass-bg:#ffffff;--glass-border:rgba(138,83,60,.15);
+  --shadow-smooth:0 10px 30px rgba(138,83,60,.08);
+  --shadow-card:0 5px 15px rgba(138,83,60,.06);
+  --shadow-float:0 15px 35px rgba(238,181,50,.15);
+  --shadow-hover:0 20px 40px rgba(138,83,60,.12);
+  --ease-luxury:cubic-bezier(.23,1,.32,1);
+  --sidebar-width:320px;
+  background:var(--bg-body);color:var(--text-main);font-family:var(--font-ui);
+}
+/* Ambiance lumineuse scopée au monde LG */
+.lg-glow{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0;animation:breathe 10s ease-in-out infinite alternate}
+@keyframes breathe{from{opacity:.05;transform:scale(1)}to{opacity:.15;transform:scale(1.1)}}
+.lg-glow.g1{width:60vw;height:60vw;background:rgba(238,181,50,.25);top:-8%;right:-8%}
+.lg-glow.g2{width:70vw;height:70vw;background:rgba(237,220,193,.5);bottom:-10%;left:-8%;animation-delay:-2s}
+.lg-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(138,83,60,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(138,83,60,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:0;mask-image:radial-gradient(circle at 60% 40%,black 20%,transparent 90%);-webkit-mask-image:radial-gradient(circle at 60% 40%,black 20%,transparent 90%)}
+
+/* ---- SIDEBAR LUXE FLOTTANTE ---- */
+.lg-frame{position:relative;height:100%;display:flex;z-index:2}
+.lg-side-slot{flex:0 0 auto;width:calc(var(--sidebar-width) + 4rem);padding:2rem 0 2rem 2rem}
+.sidebar{width:var(--sidebar-width);height:100%;background:#fff;border-radius:30px;border:1px solid rgba(238,181,50,.3);box-shadow:0 15px 50px rgba(138,83,60,.1),inset 0 0 0 1px rgba(255,255,255,.8);padding:2.6rem 2rem 2rem;display:flex;flex-direction:column;position:relative;overflow-y:auto;scrollbar-width:none}
+.sidebar::-webkit-scrollbar{display:none}
+.sidebar::before{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,rgba(138,83,60,.05) 0 1px,transparent 1px 22px),repeating-linear-gradient(-45deg,rgba(138,83,60,.04) 0 1px,transparent 1px 22px);z-index:0;pointer-events:none}
+.sidebar>*{position:relative;z-index:2}
+.mobile-menu-close-btn{display:none}
+.brand{text-align:center;margin-bottom:2.6rem;position:relative;padding-bottom:1.6rem}
+.brand::after{content:"";position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:70px;height:1px;background:linear-gradient(90deg,transparent,var(--secondary),transparent)}
+.brand img{width:96px;height:96px;display:block;margin:0 auto 1.2rem;border-radius:50%;object-fit:cover;border:2px solid var(--primary);padding:4px;background:#fff;box-shadow:0 5px 15px rgba(138,83,60,.15);transition:transform .6s var(--ease-luxury)}
+.brand:hover img{transform:scale(1.05)}
+.brand span{display:block;font-family:var(--font-ui);font-size:.68rem;letter-spacing:3px;text-transform:uppercase;color:var(--primary);font-weight:700;margin-top:8px}
+.nav-menu{display:flex;flex-direction:column;gap:.35rem}
+.nav-link{font-size:.86rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);cursor:pointer;transition:all .3s ease;position:relative;padding:14px 10px;opacity:.75;text-align:center;border-radius:10px;user-select:none}
+.nav-link:hover,.nav-link.active{opacity:1;color:var(--primary-dark);background-color:rgba(238,181,50,.08)}
+.nav-link.active{border-bottom:2px solid var(--secondary)}
+.sidebar-footer{margin-top:auto;text-align:center;font-size:.68rem;color:var(--text-muted);opacity:.85;padding-top:1.5rem}
+.sidebar-footer strong{color:var(--primary)}
+.social-row{display:flex;gap:12px;justify-content:center;margin-top:1.2rem}
+.social-link{width:34px;height:34px;border:1px solid #eee;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--text-main);transition:.4s var(--ease-luxury);text-decoration:none;background:#fff;font-size:.85rem}
+.social-link:hover{background:var(--secondary);color:#fff;border-color:var(--secondary);transform:translateY(-3px);box-shadow:0 5px 15px rgba(238,181,50,.3)}
+.lg-go-taaru{margin-top:1.4rem;width:100%;border:1px dashed var(--secondary);background:rgba(238,181,50,.06);color:var(--primary-dark);border-radius:14px;padding:13px 12px;font-size:.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:6px;transition:.4s var(--ease-luxury)}
+.lg-go-taaru i{font-size:1rem;color:var(--secondary)}
+.lg-go-taaru:hover{background:var(--secondary);color:#fff;border-color:var(--secondary);transform:translateY(-2px);box-shadow:0 8px 20px rgba(238,181,50,.3)}
+.lg-go-taaru:hover i{color:#fff}
+
+/* ---- NAV MOBILE FLOTTANTE + DRAWER ---- */
+.mobile-float-nav{display:none;position:absolute;top:0;left:0;right:0;z-index:1150;align-items:center;gap:12px;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding:12px 16px calc(12px);box-shadow:0 8px 30px rgba(138,83,60,.12);border-bottom:1px solid rgba(238,181,50,.25);padding-top:calc(12px + env(safe-area-inset-top))}
+.mobile-float-logo{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--primary);padding:2px;background:#fff}
+.mobile-brand-text{font-family:var(--font-display);font-size:1.15rem;font-weight:700;color:var(--primary-dark);flex:1;line-height:1.1}
+.mobile-toggle-float{width:42px;height:42px;border-radius:12px;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:.3s}
+.mobile-toggle-float:hover{background:var(--primary-dark)}
+.sidebar-backdrop{position:absolute;inset:0;background:rgba(44,32,26,.45);backdrop-filter:blur(3px);z-index:1140;opacity:0;pointer-events:none;transition:opacity .4s ease}
+.sidebar-backdrop.active{opacity:1;pointer-events:all}
+
+/* ---- CONTENU PRINCIPAL (scroller du monde LG) ---- */
+.main-content{flex:1;min-width:0;height:100%;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;position:relative;background:var(--bg-body);padding-top:0}
+.main-content::-webkit-scrollbar{display:none}
+
+/* ---- SYSTEME DE PAGES (SPA) ---- */
+.page-view{display:none;min-height:100%;padding-bottom:110px;position:relative}
+.page-view.active{display:block;animation:fadeInPage .8s var(--ease-luxury)}
+#home.page-view{padding-bottom:0}
+@keyframes fadeInPage{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:translateY(0)}}
+
+/* ---- TYPOGRAPHIE EDITORIALE ---- */
+.section-dream{padding:5.5rem 8%;position:relative;z-index:1}
+.modern-header{text-align:center;margin-bottom:4.5rem;position:relative;padding-top:1.5rem}
+.modern-subtitle{display:inline-block;font-family:var(--font-ui);font-size:.62rem;letter-spacing:.6em;text-transform:uppercase;color:var(--secondary);margin-bottom:1.6rem;font-weight:700;position:relative}
+.modern-subtitle::after{content:'';position:absolute;width:44px;height:2px;background:var(--primary);bottom:-9px;left:50%;transform:translateX(-50%)}
+.modern-title{font-family:var(--font-display);font-size:clamp(2.4rem,5.5vw,4.6rem);font-weight:600;color:var(--primary-dark);line-height:1.08;letter-spacing:-1px;margin-bottom:1rem}
+
+/* ---- BOUTONS ---- */
+.btn-dream,.btn-hero{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:1.1rem 3rem;background:var(--primary);color:#fff;font-weight:600;text-transform:uppercase;letter-spacing:2px;font-size:.74rem;border-radius:50px;text-decoration:none;transition:all .3s var(--ease-luxury);border:none;position:relative;overflow:hidden;box-shadow:0 4px 15px rgba(138,83,60,.3)}
+.btn-dream::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);transition:.8s}
+.btn-dream:hover,.btn-hero:hover{background:var(--primary-dark);color:#fff;box-shadow:0 8px 25px rgba(68,50,42,.4);transform:translateY(-2px)}
+.btn-dream:hover::before{left:200%}
+.btn-hero{cursor:pointer}
+
+/* ---- HERO SLIDER ---- */
+.hero-slider{height:100vh;height:100dvh;width:100%;position:relative;overflow:hidden}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1.4s ease-in-out}
+.slide.active{opacity:1}
+.slide-bg{width:100%;height:100%;background-size:cover;background-position:center;transform:scale(1.08);transition:transform 9s linear;background-color:#44322a}
+.slide.active .slide-bg{transform:scale(1)}
+.hero-content{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;z-index:10;background:linear-gradient(to bottom,rgba(44,32,26,.25),rgba(44,32,26,.05) 40%,rgba(44,32,26,.45))}
+.hero-text{max-width:900px;padding:2rem}
+.hero-label{font-size:.78rem;letter-spacing:6px;text-transform:uppercase;margin-bottom:1.8rem;display:block;color:#fff;font-weight:700;text-shadow:0 2px 10px rgba(0,0,0,.55)}
+.hero-title{font-family:var(--font-display);font-size:clamp(3.2rem,9vw,7.5rem);line-height:.95;margin-bottom:2.4rem;font-weight:600;letter-spacing:-2px;color:#fff;text-shadow:0 3px 24px rgba(0,0,0,.55)}
+.slide.active .hero-label,.slide.active .hero-title{animation:heroUp 1.1s var(--ease-luxury) both}
+.slide.active .hero-title{animation-delay:.12s}
+@keyframes heroUp{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:translateY(0)}}
+.slider-dots{position:absolute;bottom:calc(42px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);display:flex;gap:12px;z-index:20}
+.dot{width:8px;height:8px;background:rgba(255,255,255,.4);border-radius:50%;cursor:pointer;transition:all .3s;padding:0;border:none}
+.dot.active{width:30px;border-radius:10px;background:var(--secondary)}
+.hero-uni-chip{position:absolute;top:calc(96px + env(safe-area-inset-top));right:24px;z-index:20;display:inline-flex;align-items:center;gap:10px;background:rgba(10,10,12,.72);backdrop-filter:blur(8px);border:1px solid rgba(220,182,88,.5);color:#f6e7b8;font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:10px 18px;border-radius:50px;transition:.35s}
+.hero-uni-chip i{color:#dcb658}
+.hero-uni-chip:hover{background:#dcb658;color:#111;transform:translateX(4px)}
+.hero-uni-chip:hover i{color:#111}
+@media (max-width:760px){.hero-uni-chip{top:auto;bottom:96px;right:50%;transform:translateX(50%)}}
+
+/* ---- BLOCS SERVICES ---- */
+.service-block{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center;margin-bottom:6.5rem}
+.service-block.reverse{direction:rtl}
+.service-block.reverse .service-info{direction:ltr}
+.service-img-wrap{height:440px;width:100%;border-radius:20px;overflow:hidden;box-shadow:var(--shadow-card);border:1px solid rgba(238,181,50,.2);background:#fff;position:relative;transition:transform .6s var(--ease-luxury)}
+.service-img-wrap img{width:100%;height:100%;object-fit:cover;transition:1s var(--ease-luxury)}
+.service-block:hover .service-img-wrap{transform:scale(1.01);border-color:var(--secondary);box-shadow:var(--shadow-float)}
+.service-block:hover .service-img-wrap img{transform:scale(1.08)}
+.service-info h3{font-family:var(--font-display);font-size:2.4rem;margin-bottom:1.6rem;color:var(--primary-dark);font-weight:600;letter-spacing:-1px}
+.service-info .svc-note{margin-bottom:1.4rem;color:var(--text-muted);font-style:italic}
+.price-menu{list-style:none;margin-top:1.6rem;border-top:1px solid rgba(138,83,60,.1);background:#fff;padding:1rem;border-radius:15px;box-shadow:var(--shadow-card)}
+.price-item{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:1.05rem .4rem;border-bottom:1px solid rgba(0,0,0,.03);transition:.3s}
+.price-item:last-child{border-bottom:none}
+.price-item:hover{padding-left:12px;background:linear-gradient(90deg,rgba(238,181,50,.07),transparent)}
+.p-name h4{font-size:1.08rem;font-weight:600;color:var(--text-main)}
+.p-name small{color:var(--text-muted);font-weight:500}
+.p-price{font-family:var(--font-display);font-size:1.35rem;color:var(--primary);font-weight:700;white-space:nowrap}
+
+/* ---- PACKS (BENTO) ---- */
+.packs-wrapper{max-width:1400px;margin:0 auto}
+.bento-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:2rem;margin-bottom:4.5rem}
+.premium-card{background:#fff;border:1px solid rgba(238,181,50,.18);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow-card);transition:all .45s var(--ease-luxury);position:relative}
+.premium-card::before{content:"";position:absolute;top:0;left:-80%;width:55%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-18deg);transition:left .8s ease;z-index:3;pointer-events:none}
+.premium-card:hover{transform:translateY(-7px);box-shadow:var(--shadow-hover);border-color:var(--secondary)}
+.premium-card:hover::before{left:150%}
+.pack-image{width:100%;height:240px;object-fit:cover;display:block;transition:transform .6s var(--ease-luxury);background:#efe4d3}
+.premium-card:hover .pack-image{transform:scale(1.05)}
+.card-header{padding:1.4rem 1.4rem .4rem;text-align:center}
+.card-badge{display:inline-block;font-size:.58rem;text-transform:uppercase;letter-spacing:.2em;color:var(--secondary);font-weight:800;margin-bottom:.8rem;border:1px solid var(--secondary);padding:5px 15px;border-radius:30px;background:rgba(238,181,50,.06)}
+#packs .card-badge{background:var(--secondary-dark);color:var(--primary-dark);border:none;font-size:.62rem;letter-spacing:1px;padding:6px 14px;font-weight:700}
+.card-title{font-family:var(--font-display);font-size:1.9rem;font-weight:600;color:var(--primary);line-height:1.1;margin-bottom:.4rem}
+.card-price{font-family:var(--font-ui);font-size:1.1rem;color:var(--secondary);font-weight:800;display:block;margin-bottom:.8rem;letter-spacing:.5px}
+#packs .card-price{font-size:1.15rem}
+.card-desc{padding:0 1.5rem 1.4rem;font-size:.9rem;color:var(--text-muted);line-height:1.65;text-align:center;flex-grow:1}
+.btn-card{align-self:center;padding:.95rem 2.4rem;border:1px solid var(--primary);color:var(--primary);font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;border-radius:6px;background:transparent;margin:0 auto 1.5rem;font-weight:700;transition:all .35s ease;width:calc(100% - 3rem)}
+.btn-card:hover{background:var(--primary);color:#fff;box-shadow:0 5px 15px rgba(138,83,60,.3)}
+.premium-card.gold-border{border:1px solid var(--secondary)}
+.premium-card.copper-border{border:1px solid var(--primary)}
+.btn-card.solid{background:var(--primary);border-color:var(--primary);color:#fff}
+.btn-card.solid:hover{background:var(--primary-dark)}
+
+/* ---- LISTES & MENUS ---- */
+.menu-section-split{margin-bottom:4rem}
+.menu-cat-label{font-family:var(--font-display);font-size:2.3rem;color:var(--primary-dark);margin-bottom:2.6rem;text-align:center;font-weight:600;letter-spacing:-1px;border-bottom:1px solid rgba(138,83,60,.1);padding-bottom:1.6rem}
+.modern-list{display:flex;flex-direction:column;gap:1.1rem;max-width:820px;margin:0 auto;background:#fff;padding:1.8rem;border-radius:20px;border:1px solid rgba(238,181,50,.12);box-shadow:var(--shadow-card)}
+.modern-item{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding-bottom:.9rem;border-bottom:1px solid rgba(0,0,0,.03);transition:.3s}
+.modern-item:last-child{border-bottom:none;padding-bottom:0}
+.modern-item:hover{transform:translateX(8px)}
+.item-name{font-family:var(--font-display);font-size:1.28rem;color:var(--text-main);font-weight:600}
+.item-price{font-family:var(--font-ui);font-size:1rem;font-weight:700;color:var(--primary);white-space:nowrap}
+.mini-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:2.5rem}
+.mini-col-title{font-family:var(--font-display);font-size:1.7rem;color:var(--primary);margin-bottom:1.4rem;text-align:center;font-weight:600;border-bottom:1px solid rgba(138,83,60,.1);padding-bottom:1rem}
+
+/* ---- BOUTIQUE ---- */
+.shop-hero{position:relative;width:100%;height:64vh;min-height:420px;overflow:hidden;margin-bottom:4rem;box-shadow:var(--shadow-smooth);display:flex;align-items:center;justify-content:center;background:linear-gradient(150deg,#44322a,#171009)}
+.shop-hero-video{position:absolute;top:50%;left:50%;min-width:100%;min-height:100%;width:auto;height:auto;transform:translate(-50%,-50%);object-fit:cover;animation:shopZoom 26s ease-in-out infinite alternate}
+@keyframes shopZoom{from{transform:translate(-50%,-50%) scale(1)}to{transform:translate(-50%,-50%) scale(1.18)}}
+.shop-hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(44,32,26,.25),rgba(44,32,26,.62));display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:2rem;color:#fff;z-index:2}
+.shop-hero-title-group{animation:heroUp 1.6s .4s var(--ease-luxury) both}
+.shop-hero-img{background-size:cover;background-position:center}
+.shop-hero h2{font-family:var(--font-display);font-size:clamp(2.8rem,7vw,6rem);margin-bottom:1rem;text-shadow:0 5px 25px rgba(0,0,0,.4);font-style:italic;font-weight:700;letter-spacing:-1px}
+.shop-hero p{font-size:clamp(.72rem,1.6vw,1rem);color:#f3d596;letter-spacing:5px;text-transform:uppercase;font-weight:800;border-top:1px solid rgba(255,255,255,.5);border-bottom:1px solid rgba(255,255,255,.5);padding:10px 0}
+.shop-tabs-container{display:flex;justify-content:center;margin-bottom:4rem;padding:0 1.5rem}
+.shop-tabs{display:flex;gap:8px;background:rgba(255,255,255,.75);backdrop-filter:blur(15px);padding:9px;border-radius:50px;border:1px solid rgba(238,181,50,.25);box-shadow:var(--shadow-card);overflow-x:auto;max-width:100%;scrollbar-width:none}
+.shop-tabs::-webkit-scrollbar{display:none}
+.shop-tab{font-size:.72rem;color:var(--text-muted);padding:.75rem 1.5rem;transition:all .4s var(--ease-luxury);border-radius:40px;font-weight:700;letter-spacing:1px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;background:transparent;border:none}
+.shop-tab:hover{color:var(--primary-dark)}
+.shop-tab.active{color:#fff;background:linear-gradient(135deg,var(--primary),var(--primary-dark));box-shadow:0 5px 15px rgba(138,83,60,.25)}
+.products-container{display:none}
+.products-container.active{display:block;animation:fadeInPage .7s var(--ease-luxury)}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:2.2rem;padding:0 4%;margin-bottom:5rem}
+.product-card{background:#fff;border-radius:22px;overflow:hidden;position:relative;box-shadow:var(--shadow-card);transition:all .55s var(--ease-luxury);cursor:pointer;border:1px solid rgba(238,181,50,.08);display:flex;flex-direction:column}
+.product-card:hover{transform:translateY(-8px);border-color:rgba(238,181,50,.35);box-shadow:0 20px 50px rgba(138,83,60,.16)}
+.product-img-wrap{height:330px;overflow:hidden;position:relative;background:linear-gradient(150deg,#f6ecdb,#efe4d3)}
+.product-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform 1.6s cubic-bezier(.19,1,.22,1)}
+.product-card:hover .product-img-wrap img{transform:scale(1.1)}
+.prod-badge{position:absolute;top:16px;left:16px;background:rgba(255,255,255,.95);color:var(--primary-dark);font-size:.55rem;text-transform:uppercase;letter-spacing:1.5px;padding:7px 14px;border-radius:30px;font-weight:800;z-index:2;box-shadow:0 4px 10px rgba(0,0,0,.08);border:1px solid var(--primary-light)}
+.product-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(44,32,26,.12),transparent 55%);display:flex;align-items:center;justify-content:center;opacity:0;transition:.5s;z-index:2}
+.product-card:hover .product-overlay{opacity:1}
+.btn-view{background:rgba(255,255,255,.92);color:var(--primary-dark);padding:1rem 2.4rem;border-radius:50px;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;transform:translateY(20px);transition:.5s cubic-bezier(.34,1.56,.64,1);border:1px solid rgba(238,181,50,.5);box-shadow:0 10px 25px rgba(0,0,0,.1)}
+.product-card:hover .btn-view{transform:translateY(0)}
+.product-info{padding:1.6rem 1.2rem;text-align:center;flex-grow:1;display:flex;flex-direction:column;gap:.45rem}
+.product-brand{font-size:.58rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--secondary);font-weight:800}
+.product-name{font-family:var(--font-display);font-size:1.45rem;color:var(--text-main);font-weight:600;line-height:1.15;font-style:italic}
+.product-price{color:var(--primary-dark);font-weight:700;font-size:1.1rem;font-family:var(--font-display);margin-top:auto}
+
+/* ---- MODALE PRODUIT ---- */
+.modal-overlay{position:absolute;inset:0;background:rgba(44,32,26,.42);backdrop-filter:blur(16px);z-index:4000;display:flex;align-items:center;justify-content:center;padding:18px;opacity:0;pointer-events:none;transition:opacity .45s ease}
+.modal-overlay.active{opacity:1;pointer-events:all}
+.modal-content{background:#fff;width:100%;max-width:1000px;max-height:88%;overflow-y:auto;border-radius:34px;display:grid;grid-template-columns:1.15fr 1fr;box-shadow:0 60px 120px rgba(68,50,42,.3);transform:scale(.92) translateY(36px);transition:transform .6s var(--ease-luxury);position:relative}
+.modal-overlay.active .modal-content{transform:scale(1) translateY(0)}
+.modal-img{min-height:440px;background:#efe4d3}
+.modal-img img{width:100%;height:100%;object-fit:cover;display:block}
+.modal-close{position:absolute;top:16px;right:16px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.94);border:1px solid rgba(238,181,50,.4);display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--primary-dark);z-index:5;transition:.3s;box-shadow:0 6px 18px rgba(0,0,0,.12)}
+.modal-close:hover{background:var(--primary);color:#fff;transform:rotate(90deg)}
+.modal-details{padding:3.2rem 2.6rem;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(circle at top right,#ffffff,#faf6ef)}
+.modal-brand{color:var(--secondary);text-transform:uppercase;letter-spacing:3px;font-size:.68rem;font-weight:800;margin-bottom:1rem;display:flex;align-items:center;gap:14px}
+.modal-brand::before{content:'';width:38px;height:1px;background:var(--secondary)}
+.modal-title{font-family:var(--font-display);font-size:2.2rem;color:var(--primary-dark);font-weight:600;margin-bottom:.6rem;line-height:1.1}
+.modal-price{font-family:var(--font-display);font-size:1.7rem;color:var(--primary);font-weight:700;margin-bottom:1.4rem}
+.modal-desc{font-size:.95rem;color:var(--text-muted);line-height:1.75;margin-bottom:2.2rem}
+.btn-modal-action{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--primary);color:#fff;border:none;padding:1.05rem 2.4rem;border-radius:50px;font-size:.74rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;transition:.35s var(--ease-luxury);box-shadow:0 8px 22px rgba(138,83,60,.3)}
+.btn-modal-action:hover{background:var(--primary-dark);transform:translateY(-2px)}
+
+/* ---- LIGHTBOX ---- */
+.lightbox-overlay{position:absolute;inset:0;background:rgba(20,14,10,.92);backdrop-filter:blur(10px);z-index:4500;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s}
+.lightbox-overlay.active{opacity:1;pointer-events:all}
+.lightbox-content{max-width:92%;max-height:86%;object-fit:contain;border-radius:14px;box-shadow:0 30px 90px rgba(0,0,0,.6)}
+.lightbox-close{position:absolute;top:20px;right:26px;font-size:2.4rem;color:#fff;cursor:pointer;line-height:1;transition:.3s;z-index:2}
+.lightbox-close:hover{color:var(--secondary);transform:rotate(90deg)}
+
+/* ---- MODALE VIDEO ---- */
+.video-modal-overlay{position:absolute;inset:0;background:rgba(10,7,5,.94);z-index:4600;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s}
+.video-modal-overlay.active{opacity:1;pointer-events:all}
+.video-modal-content{width:min(92vw,960px);position:relative}
+.video-modal-content video{width:100%;max-height:78vh;border-radius:18px;box-shadow:0 30px 90px rgba(0,0,0,.6);background:#000}
+.close-video-btn{position:absolute;top:-52px;right:0;font-size:2rem;color:#fff;background:none;border:none;transition:.3s}
+.close-video-btn:hover{color:var(--secondary);transform:rotate(90deg)}
+
+/* ---- GALERIE ---- */
+.gallery-filters{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:3.5rem}
+.filter-btn{padding:.7rem 1.6rem;border-radius:40px;border:1px solid rgba(138,83,60,.25);background:#fff;color:var(--text-muted);font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;transition:.35s var(--ease-luxury)}
+.filter-btn:hover{border-color:var(--secondary);color:var(--primary-dark)}
+.filter-btn.active{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border-color:transparent;box-shadow:0 5px 15px rgba(138,83,60,.28)}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.4rem}
+.gallery-item,.gallery-video-card{position:relative;height:300px;border-radius:18px;overflow:hidden;cursor:pointer;background:linear-gradient(150deg,#f6ecdb,#e7d7bd)}
+.gallery-item img,.gallery-video-bg{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease-luxury)}
+.gallery-item:hover img,.gallery-video-card:hover .gallery-video-bg{transform:scale(1.07)}
+.gallery-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(44,32,26,.72),transparent 55%);opacity:0;transition:.45s;display:flex;align-items:flex-end;padding:1.2rem}
+.gallery-item:hover .gallery-overlay,.gallery-video-card:hover .gallery-overlay{opacity:1}
+.gallery-text{color:#fff;font-weight:600;font-size:.95rem;transform:translateY(12px);transition:.45s;display:flex;flex-direction:column;gap:4px}
+.gallery-item:hover .gallery-text{transform:translateY(0)}
+.gallery-cat-tag{font-size:.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--secondary);font-weight:800}
+.video-badge{position:absolute;top:14px;left:14px;background:rgba(0,0,0,.65);backdrop-filter:blur(6px);color:#fff;font-size:.62rem;font-weight:700;padding:6px 12px;border-radius:30px;display:flex;align-items:center;gap:6px;z-index:2}
+.video-play-button{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;background:rgba(238,181,50,.92);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.1rem;z-index:2;transition:.4s var(--ease-bounce,.4s);box-shadow:0 10px 26px rgba(0,0,0,.3)}
+.gallery-video-card:hover .video-play-button{transform:translate(-50%,-50%) scale(1.14);background:var(--secondary)}
+.video-label{position:absolute;bottom:0;left:0;right:0;padding:1rem;background:linear-gradient(to top,rgba(0,0,0,.7),transparent);color:#fff;font-weight:600;font-size:.85rem;z-index:2}
+.hidden-gallery{display:none}
+
+/* ---- CONTACT ---- */
+.contact-wrapper{display:grid;grid-template-columns:1.1fr 1fr;gap:3rem;max-width:1200px;margin:0 auto}
+.contact-form-area{background:#fff;border-radius:24px;padding:3rem;box-shadow:var(--shadow-card);border:1px solid rgba(238,181,50,.12)}
+.contact-form-area h3{font-family:var(--font-display);font-size:2.1rem;color:var(--primary-dark);margin-bottom:.4rem}
+.contact-form-area>p{color:var(--text-muted);margin-bottom:2.4rem}
+.form-group{position:relative;margin-bottom:1.6rem}
+.form-input{width:100%;background:rgba(237,220,193,.25);border:1px solid rgba(138,83,60,.18);border-radius:14px;padding:1.2rem 1.2rem .9rem;font-family:var(--font-ui);font-size:.95rem;color:var(--text-main);transition:.3s;resize:vertical}
+.form-input:focus{border-color:var(--secondary);background:#fff;box-shadow:0 0 0 4px rgba(238,181,50,.15)}
+.form-label{position:absolute;left:1.2rem;top:1rem;font-size:.85rem;color:var(--text-muted);pointer-events:none;transition:.25s ease;background:transparent;padding:0 4px}
+.form-input:focus+.form-label,.form-input:not(:placeholder-shown)+.form-label{top:-9px;font-size:.62rem;color:var(--primary);background:#fff;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.contact-right-panel{position:relative;border-radius:24px;overflow:hidden;min-height:560px;background:linear-gradient(160deg,var(--primary-dark),var(--primary));display:flex;flex-direction:column;justify-content:flex-end;box-shadow:var(--shadow-hover)}
+.contact-img{position:absolute;inset:0;background-image:linear-gradient(to bottom,rgba(68,50,42,.3),rgba(68,50,42,.9)),var(--img-lg-contact);background-size:cover;background-position:center}
+.world-lg{--img-lg-contact:url({{LG_INTERIOR}})}
+.contact-info-overlay{position:relative;z-index:2;padding:2.4rem;color:#fff}
+.hours-box{background:rgba(255,255,255,.1);backdrop-filter:blur(12px);border:1px solid rgba(243,213,150,.3);border-radius:18px;padding:1.4rem;margin-bottom:1.6rem}
+.hours-box h4{font-family:var(--font-display);font-size:1.25rem;color:var(--primary-light);margin-bottom:.9rem}
+.hours-row{display:flex;justify-content:space-between;font-size:.85rem;padding:.35rem 0;color:#f5ead6}
+.info-item{display:flex;gap:14px;align-items:flex-start;margin-bottom:1.1rem}
+.info-icon{width:42px;height:42px;border-radius:12px;background:rgba(238,181,50,.2);border:1px solid rgba(238,181,50,.4);display:flex;align-items:center;justify-content:center;color:var(--primary-light);flex-shrink:0}
+.info-text h4{font-size:.72rem;text-transform:uppercase;letter-spacing:2px;color:var(--secondary);margin-bottom:2px}
+.info-text p{font-size:.95rem;color:#fff}
+.contact-socials-large{display:flex;gap:12px;margin-top:.6rem}
+.map-container{position:relative;border-radius:24px;overflow:hidden;box-shadow:var(--shadow-card);border:1px solid rgba(238,181,50,.2);height:420px}
+.map-container iframe{width:100%;height:100%;border:0;filter:sepia(.25) saturate(.9)}
+.map-label{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.95);padding:12px 26px;border-radius:50px;font-family:var(--font-display);font-weight:700;font-size:1.05rem;color:var(--primary-dark);box-shadow:0 10px 30px rgba(0,0,0,.15);white-space:nowrap}
+
+/* ---- WIDGET WHATSAPP LG (or liquide) ---- */
+.wa-widget-container{position:absolute;right:20px;bottom:calc(20px + env(safe-area-inset-bottom));z-index:3600;display:flex;flex-direction:column;align-items:flex-end;gap:14px;pointer-events:none}
+.wa-widget-container .wa-float-btn,.wa-widget-container .wa-chat-box.active{pointer-events:all}
+.wa-chat-box{width:min(340px,calc(100vw - 40px));background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 24px 70px rgba(44,32,26,.35);border:1px solid rgba(238,181,50,.3);transform:translateY(24px) scale(.94);opacity:0;pointer-events:none;transition:all .45s var(--ease-luxury);transform-origin:bottom right}
+.wa-chat-box.active{transform:translateY(0) scale(1);opacity:1;pointer-events:all}
+.wa-header{background:linear-gradient(135deg,var(--primary),var(--primary-dark));padding:1rem 1.2rem;display:flex;align-items:center;justify-content:space-between}
+.wa-profile{display:flex;align-items:center;gap:12px}
+.wa-avatar{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid var(--secondary);background:#fff}
+.wa-info h4{color:#fff;font-size:.95rem}
+.wa-info span{color:var(--primary-light);font-size:.68rem;display:flex;align-items:center;gap:5px}
+.wa-info span::before{content:"";width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px #4ade80}
+.wa-close-btn{background:none;border:none;color:rgba(255,255,255,.8);font-size:1rem;transition:.3s}
+.wa-close-btn:hover{color:#fff;transform:rotate(90deg)}
+.wa-body{padding:1.2rem;height:250px;overflow-y:auto;background:#faf6ef;display:flex;flex-direction:column;gap:10px}
+.wa-msg{max-width:82%;padding:.75rem 1rem;border-radius:16px;font-size:.85rem;line-height:1.5;position:relative}
+.wa-msg.received{background:#fff;border:1px solid rgba(138,83,60,.12);border-bottom-left-radius:4px;align-self:flex-start;box-shadow:0 3px 10px rgba(138,83,60,.06)}
+.wa-msg.sent{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
+.wa-time{display:block;font-size:.58rem;opacity:.6;margin-top:4px;text-align:right}
+.wa-footer{display:flex;padding:.8rem;gap:8px;background:#fff;border-top:1px solid rgba(138,83,60,.08)}
+.wa-input{flex:1;border:1px solid rgba(138,83,60,.18);border-radius:40px;padding:.7rem 1.1rem;font-size:.85rem;font-family:var(--font-ui)}
+.wa-input:focus{border-color:var(--secondary)}
+.wa-send-btn{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--secondary),var(--primary));color:#fff;border:none;font-size:.95rem;transition:.3s;flex-shrink:0}
+.wa-send-btn:hover{transform:scale(1.08)}
+.wa-float-btn{width:62px;height:62px;border-radius:50%;background:linear-gradient(135deg,#25d366,#128c5e);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.7rem;box-shadow:0 12px 34px rgba(37,211,102,.45);transition:.4s var(--ease-luxury);position:relative;border:none}
+.wa-float-btn::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid rgba(37,211,102,.5);animation:waPulse 2s ease-out infinite}
+@keyframes waPulse{0%{transform:scale(.9);opacity:1}100%{transform:scale(1.35);opacity:0}}
+.wa-float-btn:hover{transform:scale(1.1) rotate(6deg)}
+.wa-badge{position:absolute;top:-2px;right:-2px;background:#e53e3e;color:#fff;font-size:.65rem;font-weight:800;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+
+/* ---- RESPONSIVE LG ---- */
+@media (max-width:1124px){
+  .lg-side-slot{width:calc(var(--sidebar-width) + 2.5rem);padding:1.5rem 0 1.5rem 1.5rem}
+  .section-dream{padding:4rem 5%}
+}
+@media (max-width:1024px){
+  .lg-side-slot{display:contents}
+  .sidebar{position:absolute;top:0;left:0;height:100%;width:min(320px,86vw);border-radius:0;z-index:1200;transform:translateX(-110%);transition:transform .55s var(--ease-luxury);box-shadow:20px 0 60px rgba(44,32,26,.25)}
+  .sidebar.active{transform:translateX(0)}
+  .mobile-menu-close-btn{display:block}
+  .mobile-float-nav{display:flex}
+  .main-content{padding-top:66px}
+  .hero-slider{height:calc(100dvh - 66px)}
+  .contact-wrapper{grid-template-columns:1fr}
+  .service-block{grid-template-columns:1fr;gap:2rem;margin-bottom:4.5rem}
+  .service-block.reverse{direction:ltr}
+  .modal-content{grid-template-columns:1fr;max-height:86%}
+  .modal-img{min-height:280px;max-height:320px}
+  .modal-details{padding:2.2rem 1.6rem}
+}
+@media (max-width:640px){
+  .section-dream{padding:3.2rem 5%}
+  .modern-header{margin-bottom:3rem}
+  .products-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1rem}
+  .product-img-wrap{height:210px}
+  .product-name{font-size:1.15rem}
+  .bento-grid{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+  .gallery-item,.gallery-video-card{height:210px}
+  .contact-form-area{padding:1.8rem 1.4rem}
+  .map-container{height:320px}
+  .shop-hero{height:46vh;min-height:320px}
+  .wa-widget-container{right:14px;bottom:calc(84px + env(safe-area-inset-bottom))}
+  .hero-title{font-size:clamp(2.6rem,13vw,4rem)}
+}
+</style>
+
+<!-- ================================================================
+     CSS 3/3 — UNIVERS "TAARU AUTO" (carbone / jaune industriel)
+     ================================================================ -->
+<style id="s-taaru">
+.world-taaru{
+  --ty:#dcb658;--ty2:#ffd84d;--td:#0a0a0c;--tp:#131316;--tpl:#1b1b21;
+  --tl:rgba(255,255,255,.09);--tx:#f7f7f4;--tm:#a3a39c;
+  --fos:'Oswald',sans-serif;--fab:'Barlow',sans-serif;
+  background:var(--td);color:var(--tx);font-family:var(--fab);
+}
+.taaru-scroll{background:
+  radial-gradient(1000px 500px at 85% -5%,rgba(220,182,88,.09),transparent 60%),
+  radial-gradient(800px 500px at -10% 30%,rgba(220,182,88,.05),transparent 60%),
+  repeating-linear-gradient(45deg,rgba(255,255,255,.014) 0 2px,transparent 2px 14px),
+  repeating-linear-gradient(-45deg,rgba(255,255,255,.014) 0 2px,transparent 2px 14px),
+  var(--td)}
+/* ---- NAV TAARU ---- */
+.taaru-nav{position:sticky;top:0;z-index:900;display:flex;align-items:center;gap:14px;padding:12px clamp(14px,4vw,42px);background:rgba(10,10,12,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--tl)}
+.t-logo{display:inline-flex;align-items:center;gap:2px;font-family:var(--fos);font-style:italic;font-weight:700;font-size:1.28rem;letter-spacing:.5px;line-height:1;user-select:none}
+.t-logo .t-a{color:#fff;text-shadow:0 0 18px rgba(220,182,88,.25)}
+.t-logo .t-b{background:linear-gradient(135deg,var(--ty),#f4e0a4);color:#111;padding:2px 8px 3px;transform:skewX(-10deg);border-radius:3px;margin-left:4px;box-shadow:0 0 20px rgba(220,182,88,.35)}
+.t-logo .t-swoosh{color:var(--ty);margin-right:6px;font-size:1.05rem;transform:scaleX(-1)}
+.taaru-links{display:flex;gap:4px;margin-left:auto}
+.taaru-links a{color:var(--tm);text-decoration:none;font-family:var(--fos);font-size:.72rem;letter-spacing:2px;text-transform:uppercase;padding:9px 13px;border-radius:8px;transition:.3s;position:relative}
+.taaru-links a:hover{color:var(--ty);background:rgba(220,182,88,.07)}
+.taaru-links a::after{content:"";position:absolute;left:13px;right:13px;bottom:5px;height:2px;background:var(--ty);transform:scaleX(0);transition:transform .3s;transform-origin:left}
+.taaru-links a:hover::after{transform:scaleX(1)}
+.ta-nav-call{display:inline-flex;align-items:center;gap:9px;background:linear-gradient(135deg,var(--ty),#f4e0a4);color:#111;font-family:var(--fos);font-weight:600;font-size:.74rem;letter-spacing:1px;text-transform:uppercase;padding:10px 18px;border-radius:10px;text-decoration:none;transition:.3s;box-shadow:0 0 24px rgba(220,182,88,.25);white-space:nowrap}
+.ta-nav-call:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(220,182,88,.4)}
+.ta-nav-burger{display:none;margin-left:auto;width:42px;height:42px;border-radius:10px;border:1px solid var(--tl);background:rgba(255,255,255,.04);color:var(--tx);font-size:1rem}
+.ta-go-lg{display:inline-flex;align-items:center;gap:8px;border:1px dashed rgba(243,213,150,.5);background:rgba(243,213,150,.06);color:#f3d596;font-size:.66rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:9px 14px;border-radius:40px;transition:.35s;white-space:nowrap}
+.ta-go-lg:hover{background:#f3d596;color:#2c2014;border-color:#f3d596}
+@media (max-width:900px){
+  .taaru-links{display:none}
+  .ta-nav-burger{display:inline-flex;align-items:center;justify-content:center}
+  .ta-go-lg{display:none}
+  .taaru-nav .ta-nav-call{margin-left:auto}
+  .ta-nav-call .tn-hide{display:none}
+}
+.taaru-drawer{position:fixed;top:0;right:0;bottom:0;width:min(320px,85vw);background:#101014;border-left:1px solid var(--tl);z-index:5000;transform:translateX(110%);transition:transform .5s cubic-bezier(.22,.9,.26,1);padding:1.6rem;display:flex;flex-direction:column;gap:6px}
+.taaru-drawer.active{transform:translateX(0)}
+.taaru-drawer a{color:var(--tx);text-decoration:none;font-family:var(--fos);letter-spacing:2px;text-transform:uppercase;font-size:.9rem;padding:14px 12px;border-bottom:1px solid var(--tl);transition:.3s}
+.taaru-drawer a:hover{color:var(--ty);padding-left:18px}
+.taaru-drawer .td-close{align-self:flex-end;background:none;border:none;color:var(--tm);font-size:1.3rem;margin-bottom:.6rem}
+.ta-drawer-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(3px);z-index:4900;opacity:0;pointer-events:none;transition:.4s}
+.ta-drawer-backdrop.active{opacity:1;pointer-events:all}
+
+/* ---- HERO TAARU ---- */
+.ta-hero{position:relative;min-height:92vh;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:2.5rem;padding:clamp(2.2rem,4.5vh,3.6rem) clamp(16px,5vw,64px) calc(7.5rem + env(safe-area-inset-bottom));overflow:hidden}
+.ta-hero::before{content:"";position:absolute;left:-60px;top:0;bottom:0;width:220px;background:repeating-linear-gradient(-45deg,var(--ty) 0 22px,transparent 22px 44px);opacity:.07;pointer-events:none}
+.ta-hero-badge{display:inline-flex;align-items:center;gap:9px;background:rgba(220,182,88,.1);border:1px solid rgba(220,182,88,.45);color:var(--ty);font-family:var(--fos);font-size:.68rem;letter-spacing:2.5px;text-transform:uppercase;padding:9px 16px;border-radius:40px;margin-bottom:1rem;animation:taIn .8s .1s both}
+.ta-hero-badge .blink{width:8px;height:8px;border-radius:50%;background:#25d366;box-shadow:0 0 10px #25d366;animation:blink 1.6s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.ta-hero-kicker{font-family:var(--fos);font-weight:600;color:var(--tm);letter-spacing:4px;text-transform:uppercase;font-size:clamp(.72rem,1.4vw,.9rem);margin-bottom:.7rem;animation:taIn .8s .18s both}
+.ta-hero h1{font-family:var(--fos);font-weight:700;text-transform:uppercase;font-size:clamp(2.3rem,4.6vw,4.1rem);line-height:1.04;letter-spacing:1px;margin-bottom:1rem;animation:taIn .9s .26s both}
+.ta-hero h1 .hl{color:var(--ty);text-shadow:0 0 34px rgba(220,182,88,.35)}
+.ta-hero h1 .outline{color:transparent;-webkit-text-stroke:2px rgba(255,255,255,.85)}
+.ta-hero-sub{color:var(--tm);font-size:clamp(.92rem,1.5vw,1.02rem);max-width:520px;line-height:1.68;margin-bottom:1.5rem;animation:taIn .9s .34s both}
+.ta-hero-sub strong{color:var(--tx)}
+.ta-hero-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:1.6rem;animation:taIn .9s .42s both}
+.btn-ta{display:inline-flex;align-items:center;justify-content:center;gap:11px;padding:1.05rem 2rem;border-radius:12px;font-family:var(--fos);font-weight:600;font-size:.8rem;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:.35s cubic-bezier(.22,.9,.26,1);border:none}
+.btn-ta.primary{background:linear-gradient(135deg,var(--ty),#f4e0a4);color:#111;box-shadow:0 10px 34px rgba(220,182,88,.3)}
+.btn-ta.primary:hover{transform:translateY(-3px);box-shadow:0 16px 44px rgba(220,182,88,.45)}
+.btn-ta.ghost{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.25);color:var(--tx)}
+.btn-ta.ghost:hover{border-color:var(--ty);color:var(--ty);transform:translateY(-3px)}
+.btn-ta.wa{background:#25d366;color:#fff}
+.btn-ta.wa:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(37,211,102,.4)}
+.ta-hero-stats{display:flex;flex-wrap:wrap;gap:clamp(1rem,3vw,2.6rem);animation:taIn .9s .5s both}
+.ta-stat{border-left:3px solid var(--ty);padding-left:14px}
+.ta-stat b{display:block;font-family:var(--fos);font-size:1.3rem;color:#fff;letter-spacing:1px}
+.ta-stat span{font-size:.68rem;color:var(--tm);text-transform:uppercase;letter-spacing:1.5px}
+.ta-hero-visual{position:relative;animation:taIn 1.1s .3s both}
+.ta-hero-img{position:relative;border-radius:20px;overflow:hidden;border:1px solid rgba(220,182,88,.3);box-shadow:0 34px 90px rgba(0,0,0,.6),0 0 60px rgba(220,182,88,.08);aspect-ratio:4/3;background-size:cover;background-position:center}
+.ta-hero-img::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,12,.55),transparent 45%)}
+.ta-hero-frame{position:absolute;inset:auto -14px -14px auto;top:26px;left:26px;border:2px solid var(--ty);border-radius:20px;pointer-events:none;z-index:0;opacity:.55}
+.ta-float-card{position:absolute;background:rgba(16,16,20,.92);backdrop-filter:blur(10px);border:1px solid rgba(220,182,88,.4);border-radius:14px;padding:.9rem 1.1rem;box-shadow:0 18px 50px rgba(0,0,0,.5);z-index:3;animation:floatY 4s ease-in-out infinite}
+.ta-float-card b{display:block;font-family:var(--fos);color:var(--ty);font-size:1.15rem;letter-spacing:.5px}
+.ta-float-card span{font-size:.62rem;color:var(--tm);text-transform:uppercase;letter-spacing:1.5px}
+.ta-float-card.fc1{top:6%;left:-20px}
+.ta-float-card.fc2{bottom:10%;right:-14px;animation-delay:-2s}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.ta-hero-deco{position:absolute;bottom:-6px;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--ty) 30%,var(--ty) 70%,transparent);opacity:.6}
+/* ---- v3 — HERO SERVICES SLIDER (à la place de la voiture) ---- */
+.ta-hero-slider{position:relative;border-radius:20px;overflow:hidden;border:1px solid rgba(220,182,88,.3);box-shadow:0 34px 90px rgba(0,0,0,.6),0 0 60px rgba(220,182,88,.08);aspect-ratio:4/3;background:#0b0b0e;touch-action:pan-y;cursor:grab}
+.ta-hero-slider:active{cursor:grabbing}
+.ta-hslide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;visibility:hidden;transition:opacity .85s ease,visibility 0s .85s}
+.ta-hslide.active{opacity:1;visibility:visible;transition:opacity .85s ease;z-index:1}
+.ta-hslide.active::before{content:"";position:absolute;inset:0;background-image:inherit;background-size:inherit;background-position:inherit;animation:taKen 9s ease-out both}
+@keyframes taKen{from{transform:scale(1.12)}to{transform:scale(1.02)}}
+.ta-hslide::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(7,7,9,.86) 4%,rgba(7,7,9,.3) 50%,rgba(7,7,9,.06))}
+.ta-hslide-in{position:absolute;z-index:2;left:clamp(1rem,3vw,1.9rem);right:clamp(1rem,3vw,1.9rem);bottom:clamp(2.7rem,6vw,3.5rem);transform:translateY(16px);opacity:0;transition:.7s .3s cubic-bezier(.22,.9,.26,1)}
+.ta-hslide.active .ta-hslide-in{transform:none;opacity:1}
+.ta-hslide-in small{font-family:var(--fos);color:var(--ty);letter-spacing:2.5px;text-transform:uppercase;font-size:.68rem;display:block;margin-bottom:6px;text-shadow:0 2px 10px rgba(0,0,0,.5)}
+.ta-hslide-in h3{font-family:var(--fos);letter-spacing:1px;text-transform:uppercase;font-size:clamp(1.15rem,2.6vw,1.7rem);color:#fff;text-shadow:0 4px 24px rgba(0,0,0,.65)}
+.ta-hslide-in span{display:inline-flex;align-items:center;gap:8px;color:#e8dcc2;font-size:.74rem;margin-top:.5rem;text-shadow:0 2px 8px rgba(0,0,0,.6)}
+.ta-hs-arrow{position:absolute;z-index:4;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:1px solid rgba(220,182,88,.45);background:rgba(10,10,12,.55);backdrop-filter:blur(8px);color:#fff;font-size:.8rem;display:grid;place-items:center;cursor:pointer;transition:.3s;opacity:.9}
+.ta-hs-arrow:hover{background:var(--ty);color:#111;border-color:var(--ty)}
+.ta-hs-arrow.prev{left:12px}.ta-hs-arrow.next{right:12px}
+.ta-hs-dots{position:absolute;z-index:4;left:0;right:0;bottom:14px;display:flex;justify-content:center;gap:8px}
+.ta-hs-dot{width:9px;height:9px;border-radius:6px;border:none;background:rgba(255,255,255,.35);cursor:pointer;transition:.35s;padding:0}
+.ta-hs-dot.active{background:var(--ty);width:26px;box-shadow:0 0 12px rgba(220,182,88,.6)}
+@media (max-width:640px){.ta-hs-arrow{display:none}}
+@media (prefers-reduced-motion:reduce){.ta-hslide.active::before{animation:none}}
+@keyframes taIn{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@media (max-width:960px){
+  .ta-hero{grid-template-columns:1fr;min-height:auto;padding-top:2.5rem}
+  .ta-hero-visual{order:-1;max-width:560px}
+  .ta-float-card.fc1{left:8px}
+  .ta-float-card.fc2{right:8px}
+}
+
+/* ---- BANDEAU DÉFILANT ---- */
+.ta-marquee{background:linear-gradient(135deg,var(--ty),#f4e0a4);color:#111;overflow:hidden;padding:13px 0;transform:rotate(-1.2deg) scale(1.02);border-top:3px solid #111;border-bottom:3px solid #111;box-shadow:0 14px 40px rgba(220,182,88,.15)}
+.ta-marquee-inner{display:flex;width:max-content;animation:marq 26s linear infinite}
+.ta-marquee span{font-family:var(--fos);font-weight:600;font-size:1rem;letter-spacing:3px;text-transform:uppercase;white-space:nowrap;padding:0 1.6rem;display:inline-flex;align-items:center;gap:1.6rem}
+.ta-marquee i{font-size:.7rem}
+@keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---- SECTIONS GENERIQUES ---- */
+.ta-section{padding:clamp(3.5rem,8vh,6rem) clamp(16px,5vw,64px);position:relative}
+.ta-sec-head{margin-bottom:3rem;max-width:760px}
+.ta-sec-head.center{margin-left:auto;margin-right:auto;text-align:center}
+.ta-kicker{display:inline-flex;align-items:center;gap:12px;font-family:var(--fos);color:var(--ty);letter-spacing:4px;text-transform:uppercase;font-size:.72rem;font-weight:600;margin-bottom:1rem}
+.ta-kicker::before{content:"";width:34px;height:3px;background:var(--ty);transform:skewX(-20deg)}
+.ta-sec-head h2{font-family:var(--fos);font-weight:700;text-transform:uppercase;font-size:clamp(1.9rem,4.6vw,3.4rem);line-height:1.05;letter-spacing:1px}
+.ta-sec-head h2 .hl{color:var(--ty)}
+.ta-sec-head p{color:var(--tm);margin-top:1rem;line-height:1.75;font-size:1rem}
+
+/* ---- GRILLE SERVICES ---- */
+.ta-svc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:1.4rem}
+.ta-svc{position:relative;background:linear-gradient(160deg,var(--tp),var(--tpl));border:1px solid var(--tl);border-radius:18px;padding:1.7rem 1.5rem 1.5rem;transition:.4s cubic-bezier(.22,.9,.26,1);overflow:hidden}
+.ta-svc::after{content:attr(data-num);position:absolute;top:10px;right:16px;font-family:var(--fos);font-weight:700;font-size:2.6rem;color:rgba(255,255,255,.045);line-height:1;transition:.4s}
+.ta-svc:hover{transform:translateY(-8px);border-color:rgba(220,182,88,.55);box-shadow:0 24px 60px rgba(0,0,0,.45),0 0 40px rgba(220,182,88,.07)}
+.ta-svc:hover::after{color:rgba(220,182,88,.14)}
+.ta-svc-ico{width:56px;height:56px;border-radius:15px;background:linear-gradient(135deg,rgba(220,182,88,.16),rgba(220,182,88,.05));border:1px solid rgba(220,182,88,.4);display:flex;align-items:center;justify-content:center;color:var(--ty);font-size:1.35rem;margin-bottom:1.1rem;transition:.4s}
+.ta-svc:hover .ta-svc-ico{background:linear-gradient(135deg,var(--ty),#f4e0a4);color:#111;transform:rotate(-6deg) scale(1.06)}
+.ta-svc h3{font-family:var(--fos);font-weight:600;font-size:1.06rem;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:.45rem}
+.ta-svc p{color:var(--tm);font-size:.85rem;line-height:1.6;margin-bottom:.9rem}
+.ta-svc-price{font-family:var(--fos);color:var(--ty);font-size:.8rem;letter-spacing:1px;text-transform:uppercase}
+.ta-svc-price small{color:var(--tm);letter-spacing:.5px;text-transform:none;font-family:var(--fab)}
+
+/* ---- TARIFS ---- */
+.ta-filter-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:2.4rem}
+.ta-chip{background:rgba(255,255,255,.04);border:1px solid var(--tl);color:var(--tm);font-family:var(--fos);font-size:.72rem;letter-spacing:2px;text-transform:uppercase;padding:10px 20px;border-radius:40px;transition:.3s}
+.ta-chip:hover{color:var(--ty);border-color:rgba(220,182,88,.5)}
+.ta-chip.active{background:linear-gradient(135deg,var(--ty),#f4e0a4);color:#111;border-color:transparent;box-shadow:0 8px 26px rgba(220,182,88,.3)}
+.ta-tarifs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.6rem}
+.ta-price-card{background:var(--tp);border:1px solid var(--tl);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:.45s cubic-bezier(.22,.9,.26,1);position:relative}
+.ta-price-card:hover{transform:translateY(-8px);border-color:rgba(220,182,88,.55);box-shadow:0 26px 70px rgba(0,0,0,.5)}
+.ta-price-card.hidden{display:none}
+.ta-price-head{background:linear-gradient(135deg,var(--ty),#f4e0a4);color:#111;padding:1.15rem 1.4rem;display:flex;align-items:center;gap:14px;position:relative;overflow:hidden}
+.ta-price-head::after{content:"";position:absolute;right:-20px;top:-20px;width:90px;height:90px;background:rgba(0,0,0,.08);transform:rotate(45deg)}
+.ta-price-head i{font-size:1.3rem}
+.ta-price-head h3{font-family:var(--fos);font-weight:700;font-size:1.02rem;letter-spacing:1.5px;text-transform:uppercase;line-height:1.15}
+.ta-price-head .tph-tag{margin-left:auto;background:rgba(0,0,0,.14);font-family:var(--fab);font-size:.58rem;font-weight:700;letter-spacing:1px;text-transform:none;padding:4px 10px;border-radius:20px;white-space:nowrap}
+.ta-price-body{padding:1.1rem 1.4rem .4rem;flex-grow:1}
+.ta-price-row{display:flex;align-items:baseline;gap:10px;padding:.62rem 0;border-bottom:1px dashed rgba(255,255,255,.08);font-size:.88rem}
+.ta-price-row:last-child{border-bottom:none}
+.ta-price-row .pr-name{color:#e9e9e4;flex-shrink:1}
+.ta-price-row .pr-dots{flex:1;border-bottom:1px dotted rgba(255,255,255,.18);transform:translateY(-3px);min-width:14px}
+.ta-price-row .pr-val{font-family:var(--fos);color:var(--ty);font-weight:600;white-space:nowrap;font-size:.95rem;letter-spacing:.5px}
+.ta-price-row .pr-val small{color:var(--tm);font-family:var(--fab);font-weight:400}
+.ta-price-foot{padding:1rem 1.4rem 1.3rem}
+.btn-ta.book{width:100%;padding:.85rem 1rem;font-size:.72rem;background:rgba(220,182,88,.09);border:1px solid rgba(220,182,88,.5);color:var(--ty)}
+.btn-ta.book:hover{background:linear-gradient(135deg,var(--ty),#f4e0a4);color:#111}
+.ta-price-note{display:flex;flex-wrap:wrap;gap:6px 14px;padding:.7rem 1.4rem 0;font-size:.7rem;color:var(--tm)}
+.ta-price-note span{display:inline-flex;align-items:center;gap:6px}
+.ta-price-note i{color:var(--ty);font-size:.65rem}
+
+/* ---- BANDE MAISON / LIVRAISON ---- */
+.ta-maison{position:relative;overflow:hidden}
+.ta-maison-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:saturate(.9)}
+.ta-maison-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,10,12,.96) 20%,rgba(10,10,12,.75) 55%,rgba(10,10,12,.45))}
+.ta-maison-inner{position:relative;z-index:2;max-width:640px}
+.ta-maison-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.2rem;margin-top:2.2rem;max-width:900px}
+.ta-mcard{background:rgba(19,19,22,.92);backdrop-filter:blur(8px);border:1px solid rgba(220,182,88,.3);border-radius:16px;padding:1.3rem;transition:.35s}
+.ta-mcard:hover{transform:translateY(-6px);border-color:var(--ty)}
+.ta-mcard h4{font-family:var(--fos);letter-spacing:1.5px;text-transform:uppercase;font-size:.95rem;display:flex;align-items:center;gap:10px;margin-bottom:.3rem}
+.ta-mcard h4 i{color:var(--ty)}
+.ta-mcard .mc-price{font-family:var(--fos);color:var(--ty);font-size:1.05rem;margin-bottom:.7rem}
+.ta-mcard .mc-price small{color:var(--tm);font-family:var(--fab);font-size:.68rem}
+.ta-mcard ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+.ta-mcard li{font-size:.8rem;color:var(--tm);display:flex;gap:8px;align-items:center}
+.ta-mcard li i{color:var(--ty);font-size:.62rem}
+.ta-colis{display:flex;flex-wrap:wrap;align-items:center;gap:1.4rem;background:linear-gradient(135deg,rgba(220,182,88,.12),rgba(220,182,88,.04));border:1px solid rgba(220,182,88,.45);border-radius:18px;padding:1.5rem 1.7rem;margin-top:2.4rem;max-width:900px}
+.ta-colis i{font-size:1.8rem;color:var(--ty)}
+.ta-colis h4{font-family:var(--fos);letter-spacing:1px;text-transform:uppercase;font-size:1rem}
+.ta-colis p{color:var(--tm);font-size:.85rem}
+.ta-colis .btn-ta{margin-left:auto}
+@media (max-width:760px){.ta-colis .btn-ta{margin-left:0;width:100%}}
+
+/* ---- GARANTIES ---- */
+.ta-guarantee{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1px;background:var(--tl);border:1px solid var(--tl);border-radius:18px;overflow:hidden}
+.ta-g{background:var(--tp);padding:1.6rem 1.1rem;text-align:center;transition:.35s}
+.ta-g:hover{background:var(--tpl)}
+.ta-g i{font-size:1.5rem;color:var(--ty);margin-bottom:.8rem;display:block}
+.ta-g b{font-family:var(--fos);font-weight:600;font-size:.78rem;letter-spacing:1.5px;text-transform:uppercase;display:block;line-height:1.4}
+
+/* ---- ATELIER (galerie images) ---- */
+.ta-atelier{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.4rem}
+.ta-at-item{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--tl);aspect-ratio:4/3;background-size:cover;background-position:center;transition:.5s cubic-bezier(.22,.9,.26,1);cursor:default}
+.ta-at-item:hover{transform:translateY(-6px) scale(1.01);border-color:rgba(220,182,88,.5);box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.ta-at-item::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,12,.7),transparent 50%)}
+.ta-at-item .ta-at-label{position:absolute;left:1.2rem;bottom:1rem;z-index:2;font-family:var(--fos);letter-spacing:2px;text-transform:uppercase;font-size:.82rem;color:#fff}
+.ta-at-item .ta-at-label small{display:block;color:var(--ty);font-size:.6rem;letter-spacing:2.5px;margin-bottom:3px}
+
+/* ---- INFOS PRATIQUES ---- */
+.ta-infos{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+.ta-info-card{background:var(--tp);border:1px solid var(--tl);border-radius:20px;padding:1.8rem;transition:.4s}
+.ta-info-card:hover{border-color:rgba(220,182,88,.45)}
+.ta-info-card h3{font-family:var(--fos);letter-spacing:2px;text-transform:uppercase;font-size:.95rem;display:flex;align-items:center;gap:12px;margin-bottom:1.2rem}
+.ta-info-card h3 i{color:var(--ty);background:rgba(220,182,88,.1);border:1px solid rgba(220,182,88,.4);width:42px;height:42px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;font-size:1rem}
+.ta-hours-row{display:flex;justify-content:space-between;padding:.6rem 0;border-bottom:1px dashed rgba(255,255,255,.08);font-size:.9rem;color:var(--tm)}
+.ta-hours-row:last-child{border-bottom:none}
+.ta-hours-row b{color:var(--tx);font-weight:600}
+.ta-hours-row .open-tag{background:rgba(37,211,102,.12);color:#4ade80;border:1px solid rgba(37,211,102,.4);font-size:.6rem;font-weight:800;letter-spacing:1.5px;padding:4px 10px;border-radius:20px;text-transform:uppercase}
+.ta-phone-big{display:flex;flex-direction:column;gap:10px}
+.ta-phone-big a{display:flex;align-items:center;gap:12px;color:var(--tx);text-decoration:none;font-family:var(--fos);font-size:1.25rem;letter-spacing:1px;transition:.3s}
+.ta-phone-big a i{color:var(--ty)}
+.ta-phone-big a:hover{color:var(--ty);transform:translateX(6px)}
+.ta-addr{color:var(--tm);line-height:1.8;font-size:.95rem}
+.ta-addr b{color:var(--tx)}
+.ta-map{width:100%;height:100%;min-height:280px;border:0;filter:grayscale(.4) contrast(1.05);border-radius:20px}
+.ta-map-wrap{border:1px solid var(--tl);border-radius:20px;overflow:hidden;padding:0;background:var(--tp)}
+
+/* ---- FOOTER TAARU ---- */
+.ta-footer{border-top:1px solid var(--tl);background:#070709;padding:3.2rem clamp(16px,5vw,64px) calc(5.6rem + env(safe-area-inset-bottom));position:relative;overflow:hidden}
+.ta-footer::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--ty),transparent)}
+.ta-footer-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:2.5rem;max-width:1300px;margin:0 auto 2.6rem}
+.ta-footer .t-logo{font-size:1.6rem}
+.ta-footer p{color:var(--tm);font-size:.88rem;line-height:1.75;margin-top:1rem;max-width:380px}
+.ta-footer h5{font-family:var(--fos);letter-spacing:2.5px;text-transform:uppercase;font-size:.78rem;color:var(--ty);margin-bottom:1.1rem}
+.ta-footer ul{list-style:none;display:flex;flex-direction:column;gap:.65rem}
+.ta-footer ul a{color:var(--tm);text-decoration:none;font-size:.9rem;transition:.3s;display:inline-flex;gap:9px;align-items:center}
+.ta-footer ul a:hover{color:var(--ty);transform:translateX(5px)}
+.ta-footer ul a i{font-size:.6rem;color:var(--ty)}
+.ta-footer-bottom{max-width:1300px;margin:0 auto;padding-top:1.8rem;border-top:1px solid var(--tl);display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between;color:var(--tm);font-size:.78rem}
+.ta-footer-bottom .uni-cta{display:inline-flex;align-items:center;gap:10px;border:1px dashed rgba(243,213,150,.5);background:rgba(243,213,150,.05);color:#f3d596;font-size:.68rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:10px 18px;border-radius:40px;transition:.35s}
+.ta-footer-bottom .uni-cta:hover{background:#f3d596;color:#2c2014}
+@media (max-width:860px){.ta-footer-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.ta-footer-grid{grid-template-columns:1fr}}
+
+/* ---- WIDGET WHATSAPP TAARU (variante sombre) ---- */
+.wa-taaru .wa-chat-box{background:#141418;border:1px solid rgba(220,182,88,.35);box-shadow:0 24px 70px rgba(0,0,0,.6)}
+.wa-taaru .wa-header{background:linear-gradient(135deg,#1c1c22,#111);border-bottom:2px solid var(--ty)}
+.wa-taaru .wa-avatar{border-color:var(--ty);background:#0a0a0c;display:flex;align-items:center;justify-content:center;font-family:var(--fos);font-weight:700;color:var(--ty);font-size:.9rem}
+.wa-taaru .wa-info span{color:var(--ty)}
+.wa-taaru .wa-body{background:#0e0e11}
+.wa-taaru .wa-msg.received{background:#1b1b21;color:var(--tx);border-color:var(--tl)}
+.wa-taaru .wa-msg.sent{background:linear-gradient(135deg,var(--ty),#f4e0a4);color:#111}
+.wa-taaru .wa-footer{background:#141418;border-top:1px solid var(--tl)}
+.wa-taaru .wa-input{background:#0e0e11;border-color:var(--tl);color:var(--tx)}
+.wa-taaru .wa-send-btn{background:linear-gradient(135deg,var(--ty),#f4e0a4);color:#111}
+.wa-taaru .wa-float-btn{background:linear-gradient(135deg,var(--ty),#c99b32);box-shadow:0 12px 34px rgba(220,182,88,.4)}
+.wa-taaru .wa-float-btn::after{border-color:rgba(220,182,88,.55)}
+.wa-taaru .wa-badge{background:#e53e3e}
+
+/* ---- VISUELS TAARU (base64 embarqués = fichier 100% autonome) ---- */
+.world-taaru{--img-ta-hero:url(data:B64);--img-ta-tapis:url(data:B64);--img-ta-detail:url(data:B64);--img-ta-foam:url({{TA_FOAM}});--img-ta-interior:url({{TA_INTERIOR}});--img-ta-moto:url({{TA_MOTO}});--img-ta-linge:url({{TA_LINGE}});--img-ta-detail2:url({{TA_DETAIL2}})}
+.ta-img-foam{background-image:var(--img-ta-foam)}
+.ta-img-interior{background-image:var(--img-ta-interior)}
+.ta-img-moto{background-image:var(--img-ta-moto)}
+.ta-img-linge{background-image:var(--img-ta-linge)}
+.ta-img-detail2{background-image:var(--img-ta-detail2)}
+.ta-img-hero{background-image:var(--img-ta-hero)}
+.ta-img-tapis{background-image:var(--img-ta-tapis)}
+.ta-img-hero2{background-image:var(--img-ta-detail)}
+.ta-img-tapis2{background-image:var(--img-ta-tapis)}
+.ta-img-hero3{background-image:var(--img-ta-hero)}
+/* ---- MISC TAARU ---- */
+.ta-hazard{height:14px;background:repeating-linear-gradient(-45deg,var(--ty) 0 18px,#111 18px 36px);opacity:.85}
+noscript.ta-noscript{display:block;padding:2rem;text-align:center;background:#dcb658;color:#111;font-weight:700}
+
+/* ---- v2 — LOGOS RÉELS ---- */
+.t-logo-img{height:50px;width:auto;display:block;filter:drop-shadow(0 0 16px rgba(220,182,88,.28))}
+.taaru-nav{gap:12px}
+.ta-footer .t-logo-img{height:100px}
+.lgt-logo{width:46px;height:46px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px rgba(238,181,50,.35)}
+.hc-ta{width:24px;height:24px;border-radius:50%;object-fit:cover;flex-shrink:0;box-shadow:0 0 0 1px rgba(244,224,164,.55)}
+.wa-taaru .wa-avatar{overflow:hidden;padding:0}
+.wa-taaru .wa-avatar img{width:100%;height:100%;object-fit:cover;display:block}
+/* ---- v2 — MULTIPAGE TAARU ---- */
+.ta-page{display:none}
+.ta-page.active{display:block;animation:taPageIn .8s cubic-bezier(.22,.9,.26,1)}
+@keyframes taPageIn{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.taaru-links a.on-page{color:var(--ty)}
+.taaru-links a.on-page::after{transform:scaleX(1)}
+.ta-page-head{padding:clamp(2.6rem,6vh,4.2rem) clamp(16px,5vw,64px) 0}
+/* Aperçu services (accueil Taaru) */
+.ta-preview{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:1.3rem}
+.ta-pcard{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--tl);aspect-ratio:4/3.1;background-size:cover;background-position:center;display:flex;align-items:flex-end;transition:.45s cubic-bezier(.22,.9,.26,1);cursor:pointer}
+.ta-pcard::before{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(7,7,9,.92) 8%,rgba(7,7,9,.25) 55%,rgba(7,7,9,.05));transition:.45s}
+.ta-pcard:hover{transform:translateY(-7px);border-color:rgba(220,182,88,.6);box-shadow:0 26px 60px rgba(0,0,0,.5)}
+.ta-pcard:hover::before{background:linear-gradient(to top,rgba(7,7,9,.95) 10%,rgba(7,7,9,.3) 60%,rgba(7,7,9,.08))}
+.ta-pcard-in{position:relative;z-index:2;padding:1.15rem 1.2rem;width:100%}
+.ta-pcard-in small{font-family:var(--fos);color:var(--ty);letter-spacing:2.5px;text-transform:uppercase;font-size:.6rem;display:block;margin-bottom:4px}
+.ta-pcard-in h3{font-family:var(--fos);letter-spacing:1px;text-transform:uppercase;font-size:1.02rem;color:#fff}
+.ta-pcard-in span{display:inline-flex;align-items:center;gap:7px;color:var(--tm);font-size:.72rem;margin-top:.45rem;transition:.3s}
+.ta-pcard:hover .ta-pcard-in span{color:var(--ty)}
+/* Bande CTA devis (accueil) */
+.ta-cta-band{display:flex;flex-wrap:wrap;align-items:center;gap:1.6rem;background:linear-gradient(135deg,rgba(220,182,88,.16),rgba(220,182,88,.05));border:1px solid rgba(220,182,88,.5);border-radius:22px;padding:2rem clamp(1.4rem,4vw,2.6rem);margin-top:3.4rem;position:relative;overflow:hidden}
+.ta-cta-band::after{content:"";position:absolute;right:-40px;top:-40px;width:160px;height:160px;background:rgba(220,182,88,.12);transform:rotate(45deg);border-radius:30px}
+.ta-cta-band h3{font-family:var(--fos);letter-spacing:1px;text-transform:uppercase;font-size:clamp(1.15rem,2.6vw,1.6rem);color:#fff}
+.ta-cta-band p{color:var(--tm);font-size:.9rem;margin-top:.3rem;max-width:520px}
+.ta-cta-band .btn-ta{margin-left:auto}
+@media (max-width:860px){.ta-cta-band .btn-ta{margin-left:0;width:100%}}
+/* Bande invitation Salon LG */
+.ta-duo{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:1.8rem;background:linear-gradient(120deg,rgba(243,213,150,.1),rgba(243,213,150,.03));border:1px dashed rgba(243,213,150,.5);border-radius:22px;padding:1.7rem clamp(1.3rem,4vw,2.4rem);margin-top:1.6rem}
+.ta-duo img{width:76px;height:76px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px rgba(238,181,50,.4),0 14px 34px rgba(0,0,0,.4)}
+.ta-duo h4{font-family:var(--fos);letter-spacing:1.5px;text-transform:uppercase;color:#f3d596;font-size:1rem;margin-bottom:.3rem}
+.ta-duo p{color:var(--tm);font-size:.85rem;max-width:560px}
+.btn-lg-soft{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(243,213,150,.55);background:rgba(243,213,150,.08);color:#f3d596;font-family:var(--fos);font-size:.72rem;letter-spacing:2px;text-transform:uppercase;padding:.9rem 1.6rem;border-radius:12px;text-decoration:none;transition:.35s;white-space:nowrap}
+.btn-lg-soft:hover{background:#f3d596;color:#2c2014;transform:translateY(-2px)}
+@media (max-width:900px){.ta-duo{grid-template-columns:1fr;text-align:center;justify-items:center}.ta-duo img{margin:0 auto}}
+/* Page header Taaru (pages internes) */
+.ta-pagehead{padding:clamp(3rem,7vh,5rem) clamp(16px,5vw,64px) 0}
+/* Footer offset when active page short — garde le footer naturel */
+#ta-tarifs-p .ta-tarifs-grid{margin-bottom:1rem}
+@media (max-width:560px){.t-logo-img{height:44px}.ta-footer .t-logo-img{height:84px}}
+</style>
+
+</head>
+<body data-universe="lg">
+<noscript><span class="ta-noscript">Activez JavaScript pour vivre l'expérience complète des deux univers.</span></noscript>
+
+<div id="stage">
+<div id="track">
+
+<!-- ══════════════════════════════════════════════════════════════
+     MONDE 1 — LADIES & GENTLEMEN SALON & SPA
+     ══════════════════════════════════════════════════════════════ -->
+<section class="world world-lg" id="world-lg" aria-label="Univers Ladies and Gentlemen">
+<div class="lg-glow g1"></div><div class="lg-glow g2"></div><div class="lg-grid-bg"></div>
+
+<div class="lg-frame">
+<div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleSidebar()"></div>
+<!-- SIDEBAR -->
+<div class="lg-side-slot">
+<aside class="sidebar" id="sidebar" aria-label="Navigation principale">
+<div class="mobile-menu-close-btn" onclick="toggleSidebar()" style="text-align:right;margin-bottom:14px;cursor:pointer"><i class="fas fa-times" style="font-size:1.4rem;color:var(--text-muted)"></i></div>
+<div>
+<div class="brand">
+<img src="{{LG_MED_260}}" alt="Logo Ladies &amp; Gentlemen">
+<span>Salon de Beauté · Spa</span>
+</div>
+<nav class="nav-menu">
+<a onclick="switchPage('home')" class="nav-link active" id="link-home" role="button" tabindex="0">Accueil</a>
+<a onclick="switchPage('services')" class="nav-link" id="link-services" role="button" tabindex="0">La Carte</a>
+<a onclick="switchPage('packs')" class="nav-link" id="link-packs" role="button" tabindex="0">Packs &amp; Offres</a>
+<a onclick="switchPage('products')" class="nav-link" id="link-products" role="button" tabindex="0">Boutique</a>
+<a onclick="switchPage('gallery')" class="nav-link" id="link-gallery" role="button" tabindex="0">Galerie</a>
+<a onclick="switchPage('contact')" class="nav-link" id="link-contact" role="button" tabindex="0">Rendez-vous</a>
+</nav>
+</div>
+<button class="lg-go-taaru" onclick="goTo(1)" aria-label="Découvrir Taaru Auto">
+<img src="{{TA_LOGO_150}}" alt="" class="lgt-logo" loading="lazy">
+<span>Notre espace auto<br><strong style="letter-spacing:2px">TAARU AUTO</strong></span>
+</button>
+<div class="sidebar-footer">
+<strong>Thiès</strong> — Ouvert 7j/7<br>© <span class="yr"></span> Ladies &amp; Gentlemen
+<div class="social-row">
+<a href="https://wa.me/221710317585" target="_blank" rel="noopener" class="social-link" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+<a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+<a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+<a href="#" class="social-link" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+</div>
+</div>
+</aside>
+</div>
+
+<!-- MAIN -->
+<main class="main-content" id="lgScroll">
+
+<!-- ===== PAGE ACCUEIL ===== -->
+<section id="home" class="page-view active">
+<div class="hero-slider" id="heroSlider">
+<div class="slide active"><div class="slide-bg" style="background-image:url('{{LG_HERO_HEADSPA}}'),linear-gradient(160deg,#5a4030,#171009)"></div>
+<div class="hero-content"><div class="hero-text"><span class="hero-label">Head Spa</span><h1 class="hero-title">Lueurs<br>Apaisantes</h1><a onclick="switchPage('services')" class="btn-hero" role="button" tabindex="0">Découvrir</a></div></div></div>
+<div class="slide"><div class="slide-bg" style="background-image:url('{{LG_HERO_GENTLEMAN}}'),linear-gradient(160deg,#3a2a20,#100b07)"></div>
+<div class="hero-content"><div class="hero-text"><span class="hero-label">Gentleman's Club</span><h1 class="hero-title">Élégance<br>Signature</h1><button onclick="bookPack('Prise de RDV - Pour Lui','Merci de me contacter')" class="btn-hero">Prendre RDV</button></div></div></div>
+<div class="slide"><div class="slide-bg" style="background-image:url('{{LG_HERO_BRAIDS}}'),linear-gradient(160deg,#6a4a34,#1c120b)"></div>
+<div class="hero-content"><div class="hero-text"><span class="hero-label">Pour Elle</span><h1 class="hero-title">Tresses<br>Infinies</h1><a onclick="switchPage('packs')" class="btn-hero" role="button" tabindex="0">Voir les Offres</a></div></div></div>
+<div class="slide"><div class="slide-bg" style="background-image:url('{{LG_HERO_PEDICURE}}'),linear-gradient(160deg,#54402e,#140e08)"></div>
+<div class="hero-content"><div class="hero-text"><span class="hero-label">Pédicure Spa</span><h1 class="hero-title">Pas de<br>Velours</h1><button onclick="bookPack('Soin Pédicure','Intéressé par un soin pieds')" class="btn-hero">Réserver</button></div></div></div>
+<div class="slide"><div class="slide-bg" style="background-image:url('{{LG_HERO_MASSAGE}}'),linear-gradient(160deg,#503a2a,#130d08)"></div>
+<div class="hero-content"><div class="hero-text"><span class="hero-label">Relaxation</span><h1 class="hero-title">Mouvement<br>Fluide</h1><button onclick="bookPack('Massage','Je veux réserver un Massage')" class="btn-hero">Réserver</button></div></div></div>
+<div class="slide"><div class="slide-bg" style="background-image:url('{{LG_HERO_HAMMAM}}'),linear-gradient(160deg,#463424,#110c07)"></div>
+<div class="hero-content"><div class="hero-text"><span class="hero-label">Rituel de Chaleur</span><h1 class="hero-title">Danse de<br>Vapeur</h1><button onclick="bookPack('Damp','Je veux réserver un Damp')" class="btn-hero">Réserver</button></div></div></div>
+<button class="hero-uni-chip" onclick="goTo(1)" aria-label="Aller chez Taaru Auto"><img src="{{TA_LOGO_64}}" alt="" class="hc-ta" loading="lazy"> Faites laver votre voiture chez Taaru Auto <i class="fas fa-chevron-right" style="font-size:.6rem"></i></button>
+<div class="slider-dots">
+<div class="dot active" onclick="manualSlide(0)" role="button" aria-label="Slide 1"></div>
+<div class="dot" onclick="manualSlide(1)" role="button" aria-label="Slide 2"></div>
+<div class="dot" onclick="manualSlide(2)" role="button" aria-label="Slide 3"></div>
+<div class="dot" onclick="manualSlide(3)" role="button" aria-label="Slide 4"></div>
+<div class="dot" onclick="manualSlide(4)" role="button" aria-label="Slide 5"></div>
+<div class="dot" onclick="manualSlide(5)" role="button" aria-label="Slide 6"></div>
+</div>
+</div>
+</section>
+
+<!-- ===== PAGE SERVICES ===== -->
+<section id="services" class="page-view">
+<div class="section-dream">
+<div class="modern-header reveal-on-scroll">
+<span class="modern-subtitle">La Carte</span>
+<h2 class="modern-title">Nos Services</h2>
+<p style="max-width:600px;margin:0 auto;color:var(--text-muted);font-size:1.05rem">Une expérience complète pour sublimer chaque instant.</p>
+</div>
+
+<div class="service-block reveal-on-scroll">
+<div class="service-img-wrap"><img src="{{LG_SVC_COIFFURE}}" alt="Coiffure femme — tresses & tissages" loading="lazy"></div>
+<div class="service-info">
+<h3>Coiffure Femme</h3>
+
+<ul class="price-menu">
+<li class="price-item"><div class="p-name"><h4>Tresses simples</h4></div><div class="p-price">5 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Tresses simples (enfant)</h4></div><div class="p-price">3 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Tresses avec mèche</h4></div><div class="p-price">dès 10 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Tresses avec mèche (enfant)</h4></div><div class="p-price">dès 5 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Knotless long</h4></div><div class="p-price">10 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Ponytail</h4></div><div class="p-price">10 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Perruque</h4></div><div class="p-price">10 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Twist simple</h4></div><div class="p-price">8 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Twist + teinture</h4></div><div class="p-price">13 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Twist 2 boules + teinture</h4></div><div class="p-price">30 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Twist 3 boules + teinture</h4></div><div class="p-price">35 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Twist 4 boules + teinture</h4></div><div class="p-price">40 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Défissage</h4></div><div class="p-price">dès 5 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Départ locks</h4></div><div class="p-price">dès 30 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Resserrage locks</h4></div><div class="p-price">dès 15 000 F</div></li>
+</ul>
+</div>
+</div>
+<div class="service-block reverse reveal-on-scroll">
+<div class="service-img-wrap"><img src="{{LG_SVC_BARBER}}" alt="Barber homme — dégradé & taille" loading="lazy"></div>
+<div class="service-info">
+<h3>Coiffure Homme</h3>
+
+<ul class="price-menu">
+<li class="price-item"><div class="p-name"><h4>Dégradé / Taper</h4></div><div class="p-price">10 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Dégradé / Taper (enfant)</h4></div><div class="p-price">2 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Raser</h4></div><div class="p-price">5 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Raser bouclé à zéro</h4></div><div class="p-price">5 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Entretien locks</h4></div><div class="p-price">10 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Resserrage locks</h4></div><div class="p-price">20 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Démarrage locks</h4></div><div class="p-price">dès 30 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Etifor</h4></div><div class="p-price">1 500 F</div></li>
+</ul>
+</div>
+</div>
+<div class="service-block reveal-on-scroll">
+<div class="service-img-wrap"><img src="{{LG_SVC_VISAGE}}" alt="Soin du visage en institut" loading="lazy"></div>
+<div class="service-info">
+<h3>Soins Visage</h3>
+<p class="svc-note">Des protocoles sur mesure pour révéler votre éclat naturel.</p>
+<ul class="price-menu">
+<li class="price-item"><div class="p-name"><h4>Soin classique</h4></div><div class="p-price">15 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Soin hydratant</h4></div><div class="p-price">20 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Soin anti-taches</h4></div><div class="p-price">25 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Soin éclat</h4></div><div class="p-price">30 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Soin premium</h4></div><div class="p-price">40 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Soin anti-âge</h4></div><div class="p-price">50 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Nettoyage profond</h4></div><div class="p-price">60 000 F</div></li>
+</ul>
+</div>
+</div>
+<div class="service-block reverse reveal-on-scroll">
+<div class="service-img-wrap"><img src="{{LG_SVC_ONGLERIE}}" alt="Manucure & pose d'ongles" loading="lazy"></div>
+<div class="service-info">
+<h3>Manucure &amp; Pédicure</h3>
+
+<ul class="price-menu">
+<li class="price-item"><div class="p-name"><h4>Manucure simple</h4></div><div class="p-price">5 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Manucure gel</h4></div><div class="p-price">10 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Pédicure simple</h4></div><div class="p-price">7 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Pédicure gel</h4></div><div class="p-price">12 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Pose faux ongles</h4></div><div class="p-price">dès 15 000 F</div></li>
+</ul>
+</div>
+</div>
+<div class="service-block reveal-on-scroll">
+<div class="service-img-wrap"><img src="{{LG_SVC_MAKEUP}}" alt="Maquillage professionnel sur peau métissée" loading="lazy"></div>
+<div class="service-info">
+<h3>Maquillage</h3>
+<p class="svc-note">Un teint parfait et lumineux, du maquillage de jour au look de mariée inoubliable.</p>
+<ul class="price-menu">
+<li class="price-item"><div class="p-name"><h4>Maquillage jour</h4></div><div class="p-price">10 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Maquillage soirée</h4></div><div class="p-price">15 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Maquillage &amp; Faux cils</h4></div><div class="p-price">18 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Essai mariée</h4></div><div class="p-price">20 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Maquillage mariée</h4></div><div class="p-price">dès 30 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Prestation mariée à domicile</h4></div><div class="p-price">dès 40 000 F</div></li>
+</ul>
+</div>
+</div>
+<div class="service-block reverse reveal-on-scroll">
+<div class="service-img-wrap"><img src="{{LG_SVC_EPILATION}}" alt="Épilation et soin du regard en institut" loading="lazy"></div>
+<div class="service-info">
+<h3>Épilation &amp; Regard</h3>
+<p class="svc-note">Une peau douce et nette, un regard dessiné à la cire chaude, en toute délicatesse.</p>
+<ul class="price-menu">
+<li class="price-item"><div class="p-name"><h4>Épilation sourcils</h4></div><div class="p-price">3 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Épilation lèvre</h4></div><div class="p-price">2 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Épilation visage complet</h4></div><div class="p-price">5 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Rehaussement de cils</h4></div><div class="p-price">15 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Épilation demi-jambes</h4></div><div class="p-price">8 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Épilation jambes complètes</h4></div><div class="p-price">12 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Épilation maillot</h4></div><div class="p-price">8 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Épilation intégrale</h4></div><div class="p-price">dès 20 000 F</div></li>
+</ul>
+</div>
+</div>
+<div class="service-block reveal-on-scroll">
+<div class="service-img-wrap"><img src="{{LG_SVC_DAMP}}" alt="Damp — rituel de chaleur traditionnel" loading="lazy"></div>
+<div class="service-info">
+<h3>Damp &amp; Soins Traditionnels</h3>
+<p class="svc-note">Nos rituels de chaleur hérités de la tradition : sable chaud, plantes et beurre de karité.</p>
+<ul class="price-menu">
+<li class="price-item"><div class="p-name"><h4>Damp poche de sable chaud, plante &amp; karité</h4></div><div class="p-price">17 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Damp bain, soulou &amp; pierre chaude</h4></div><div class="p-price">35 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Hammam + Damp VIP</h4></div><div class="p-price">50 000 F</div></li>
+</ul>
+</div>
+</div>
+<div class="service-block reverse reveal-on-scroll">
+<div class="service-img-wrap"><img src="{{LG_G_HAMMAM2}}" alt="Gommage & enveloppement corporel" loading="lazy"></div>
+<div class="service-info">
+<h3>Gommage &amp; Enveloppement</h3>
+<p class="svc-note">Une peau neuve, lissée et parfumée, du gommage à l'enveloppement complet.</p>
+<ul class="price-menu">
+<li class="price-item"><div class="p-name"><h4>Gommage</h4></div><div class="p-price">20 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Gommage + Masque + Enveloppement</h4></div><div class="p-price">30 000 F</div></li>
+</ul>
+</div>
+</div>
+<div class="service-block reveal-on-scroll">
+<div class="service-img-wrap"><img src="{{LG_SVC_MASSAGE}}" alt="Massage professionnel relaxant" loading="lazy"></div>
+<div class="service-info">
+<h3>Massages</h3>
+<p class="svc-note">Lâchez prise : des rituels expertisés, du massage dorsal au massage 4 mains.</p>
+<ul class="price-menu">
+<li class="price-item"><div class="p-name"><h4>Massage dorsal<small>(35 min)</small></h4></div><div class="p-price">15 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Massage relaxant<small>(45 min)</small></h4></div><div class="p-price">20 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Massage tonifiant<small>(45 min)</small></h4></div><div class="p-price">25 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Massage 4 mains<small>(30 min)</small></h4></div><div class="p-price">25 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Massage minceur<small>(60 min)</small></h4></div><div class="p-price">15 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Massage pierres chaudes<small>(45 min)</small></h4></div><div class="p-price">20 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Massage + Hammam<small>(30 min)</small></h4></div><div class="p-price">50 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Massage + Hammam<small>(45 min)</small></h4></div><div class="p-price">60 000 F</div></li>
+</ul>
+</div>
+</div>
+<div class="service-block reverse reveal-on-scroll">
+<div class="service-img-wrap"><img src="{{LG_G_HAMMAM3}}" alt="Hammam traditionnel" loading="lazy"></div>
+<div class="service-info">
+<h3>Hammam</h3>
+
+<ul class="price-menu">
+<li class="price-item"><div class="p-name"><h4>Hammam + Gommage</h4></div><div class="p-price">25 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Hammam + Gommage + Damp</h4></div><div class="p-price">60 000 F</div></li>
+</ul>
+</div>
+</div>
+<div class="service-block reveal-on-scroll">
+<div class="service-img-wrap"><img src="{{LG_SVC_YOGA}}" alt="Yoga & fitness — espace bien-être" loading="lazy"></div>
+<div class="service-info">
+<h3>Yoga &amp; Fitness</h3>
+<p class="svc-note">Accès à notre espace Yoga &amp; Fitness : corps tonique et esprit léger garantis.</p>
+<ul class="price-menu">
+<li class="price-item"><div class="p-name"><h4>Séance découverte</h4></div><div class="p-price">5 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Séance unique</h4></div><div class="p-price">10 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Carte 4 séances</h4></div><div class="p-price">30 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Carte 8 séances</h4></div><div class="p-price">50 000 F</div></li>
+<li class="price-item"><div class="p-name"><h4>Accès illimité (1 mois)</h4></div><div class="p-price">80 000 F</div></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ===== PAGE PACKS ===== -->
+<section id="packs" class="page-view">
+<div class="section-dream">
+<div class="modern-header reveal-on-scroll">
+<span class="modern-subtitle">Excellence &amp; Prestige</span>
+<h2 class="modern-title">L'Expérience Signature</h2>
+</div>
+<div class="packs-wrapper">
+
+<div class="modern-header reveal-on-scroll" style="margin-bottom:2.5rem">
+<h3 style="font-family:var(--font-display);font-size:2.2rem;color:var(--text-main);font-weight:600">Collection Dame</h3>
+</div>
+<div class="bento-grid">
+<div class="premium-card reveal-on-scroll">
+<img src="{{LG_HERO_PEDICURE}}" alt="Pack Soin Express femme" class="pack-image" loading="lazy">
+<div class="card-header"><span class="card-badge">Essentiel</span><h3 class="card-title">Soin Express</h3><span class="card-price">25 000 FCFA</span></div>
+<p class="card-desc">Pédicure et manucure simple, coup d'éclat, shampoing, massage.</p>
+<button onclick="bookPack('Soin Express (Dame)','25 000 FCFA')" class="btn-card">Réserver</button>
+</div>
+<div class="premium-card reveal-on-scroll">
+<img src="{{LG_SVC_HEADSPA}}" alt="Pack Tête Parfaite" class="pack-image" loading="lazy">
+<div class="card-header"><span class="card-badge">Radiance</span><h3 class="card-title">Tête Parfaite</h3><span class="card-price">25 000 FCFA</span></div>
+<p class="card-desc">Shampoing, casque, massage, tresses simple, soin de visage express.</p>
+<button onclick="bookPack('Tête Parfaite','25 000 FCFA')" class="btn-card">Réserver</button>
+</div>
+<div class="premium-card reveal-on-scroll">
+<img src="{{LG_SVC_VISAGE}}" alt="Pack Relax Max femme" class="pack-image" loading="lazy">
+<div class="card-header"><span class="card-badge">Détente</span><h3 class="card-title">Relax Max</h3><span class="card-price">28 000 FCFA</span></div>
+<p class="card-desc">Pédicure et manucure spa + massage, coup d'éclat, shampoing + massage.</p>
+<button onclick="bookPack('Relax Max','28 000 FCFA')" class="btn-card">Réserver</button>
+</div>
+<div class="premium-card gold-border reveal-on-scroll">
+<img src="{{LG_PK_ROYAL}}" alt="Pack Lady premium" class="pack-image" loading="lazy">
+<div class="card-header"><span class="card-badge">Premium</span><h3 class="card-title">Pack Lady</h3><span class="card-price">40 000 FCFA</span></div>
+<p class="card-desc">Rituel premium (soin complet, pédicure &amp; manucure VIP), parfum de collection offert.</p>
+<button onclick="bookPack('Pack Lady','40 000 FCFA')" class="btn-card">Réserver</button>
+</div>
+<div class="premium-card copper-border reveal-on-scroll">
+<img src="{{LG_HERO_BRAIDS}}" alt="Pack Reine du Jour" class="pack-image" loading="lazy">
+<div class="card-header"><span class="card-badge" style="color:var(--primary);border-color:var(--primary)">Ultimate</span><h3 class="card-title">Reine du Jour</h3><span class="card-price" style="color:var(--primary)">45 000 FCFA</span></div>
+<p class="card-desc">Soin complet, pédicure et manucure VIP, pose ongles, coiffure, maquillage &amp; jus offert.</p>
+<button onclick="bookPack('Reine du Jour','45 000 FCFA')" class="btn-card solid">Réserver</button>
+</div>
+</div>
+
+<div class="modern-header reveal-on-scroll" style="margin-bottom:2.5rem">
+<h3 style="font-family:var(--font-display);font-size:2.2rem;color:var(--text-main);font-weight:600">Gentleman's Club</h3>
+</div>
+<div class="bento-grid">
+<div class="premium-card reveal-on-scroll">
+<img src="{{LG_HERO_GENTLEMAN}}" alt="Pack Soin Express homme" class="pack-image" loading="lazy">
+<div class="card-header"><span class="card-badge">Essentiel</span><h3 class="card-title">Soin Express</h3><span class="card-price">12 000 FCFA</span></div>
+<p class="card-desc">Coiffure, massage, pédicure express.</p>
+<button onclick="bookPack('Soin Express (Homme)','12 000 FCFA')" class="btn-card">Réserver</button>
+</div>
+<div class="premium-card reveal-on-scroll">
+<img src="{{LG_SVC_BARBER}}" alt="Pack Relax Max homme" class="pack-image" loading="lazy">
+<div class="card-header"><span class="card-badge">Détente</span><h3 class="card-title">Relax Max</h3><span class="card-price">30 000 FCFA</span></div>
+<p class="card-desc">Coiffure, pédicure et manucure spa + massage, coup d'éclat.</p>
+<button onclick="bookPack('Relax Max (Homme)','30 000 FCFA')" class="btn-card">Réserver</button>
+</div>
+<div class="premium-card copper-border reveal-on-scroll">
+<img src="{{LG_PK_GENTLEMAN}}" alt="Pack Gentleman" class="pack-image" loading="lazy">
+<div class="card-header"><span class="card-badge" style="color:var(--primary);border-color:var(--primary)">Elite</span><h3 class="card-title">Pack Gentleman</h3><span class="card-price" style="color:var(--primary)">45 000 FCFA</span></div>
+<p class="card-desc">Rituel premium (soin complet, coiffure et barbe, pédicure &amp; manucure VIP), parfum de collection offert.</p>
+<button onclick="bookPack('Pack Gentleman','45 000 FCFA')" class="btn-card solid">Réserver</button>
+</div>
+</div>
+
+<div class="modern-header reveal-on-scroll" style="margin-bottom:2.5rem">
+<h3 style="font-family:var(--font-display);font-size:2.2rem;color:var(--text-main);font-weight:600">Rituels Spa</h3>
+</div>
+<div class="bento-grid">
+<div class="premium-card reveal-on-scroll">
+<img src="{{LG_SVC_DAMP}}" alt="Gommage &amp; Damp" class="pack-image" loading="lazy">
+<div class="card-header"><span class="card-badge">Signature</span><h3 class="card-title">Gommage &amp; Damp</h3><span class="card-price">40 000 FCFA</span></div>
+<p class="card-desc">Gommage intégral suivi d'un enveloppement Damp traditionnel — peau neuve garantie.</p>
+<button onclick="bookPack('Gommage & Damp','40 000 FCFA')" class="btn-card">Réserver</button>
+</div>
+<div class="premium-card reveal-on-scroll">
+<img src="{{LG_G_HAMMAM2}}" alt="Hammam Royal" class="pack-image" loading="lazy">
+<div class="card-header"><span class="card-badge">Royal</span><h3 class="card-title">Hammam Royal</h3><span class="card-price">60 000 FCFA</span></div>
+<p class="card-desc">Hammam, gommage et Damp : le rituel complet des reines et des rois.</p>
+<button onclick="bookPack('Hammam Royal','60 000 FCFA')" class="btn-card">Réserver</button>
+</div>
+<div class="premium-card reveal-on-scroll">
+<img src="{{LG_SVC_YOGA}}" alt="Hammam &amp; Yoga" class="pack-image" loading="lazy">
+<div class="card-header"><span class="card-badge">Équilibre</span><h3 class="card-title">Hammam &amp; Yoga</h3><span class="card-price">40 000 FCFA</span></div>
+<p class="card-desc">Hammam + gommage, puis accès à l'espace Yoga &amp; Fitness — corps et esprit alignés.</p>
+<button onclick="bookPack('Hammam & Yoga','40 000 FCFA')" class="btn-card">Réserver</button>
+</div>
+<div class="premium-card gold-border reveal-on-scroll">
+<img src="{{LG_G_HAMMAM3}}" alt="Le Grand Rituel" class="pack-image" loading="lazy">
+<div class="card-header"><span class="card-badge" style="color:var(--primary);border-color:var(--primary)">Ultimate</span><h3 class="card-title">Le Grand Rituel</h3><span class="card-price" style="color:var(--primary)">60 000 FCFA</span></div>
+<p class="card-desc">Hammam + gommage + massage + enveloppement + accès yoga : l'expérience absolue Ladies &amp; Gentlemen.</p>
+<button onclick="bookPack('Le Grand Rituel','60 000 FCFA')" class="btn-card solid">Réserver</button>
+</div>
+</div>
+
+<div class="modern-header reveal-on-scroll" style="margin-bottom:2.5rem">
+<h3 style="font-family:var(--font-display);font-size:2.2rem;color:var(--text-main);font-weight:600">Duo &amp; Complicité</h3>
+</div>
+<div class="bento-grid">
+<div class="premium-card reveal-on-scroll">
+<img src="{{LG_PK_COUPLE}}" alt="Pack Tom &amp; Jerry en duo" class="pack-image" loading="lazy">
+<div class="card-header"><span class="card-badge">Fun</span><h3 class="card-title">Tom &amp; Jerry</h3><span class="card-price">23 000 FCFA</span></div>
+<p class="card-desc">Pédicure &amp; manucure express, smoothies, photo souvenir, baby foot, Uno couple gratuite + vidéo.</p>
+<button onclick="bookPack('Tom & Jerry','23 000 FCFA')" class="btn-card">Réserver</button>
+</div>
+<div class="premium-card copper-border reveal-on-scroll">
+<img src="{{LG_PK_ROMANTIC}}" alt="Pack Évasion Amoureuse" class="pack-image" loading="lazy">
+<div class="card-header"><span class="card-badge" style="color:var(--primary);border-color:var(--primary)">Romance</span><h3 class="card-title">Evasion Amoureuse</h3><span class="card-price" style="color:var(--primary)">60 000 FCFA</span></div>
+<p class="card-desc">Pédicure spa + manucure express, coup d'éclat femme, coiffure homme, smoothies GM, photo souvenir.</p>
+<button onclick="bookPack('Evasion Amoureuse','60 000 FCFA')" class="btn-card solid">Réserver</button>
+</div>
+<div class="premium-card gold-border reveal-on-scroll">
+<img src="{{LG_PK_PARADISE}}" alt="Pack Paradise — écrin spa" class="pack-image" loading="lazy">
+<div class="card-header"><span class="card-badge">Luxe</span><h3 class="card-title">Pack Paradise</h3><span class="card-price">55 000 FCFA</span></div>
+<p class="card-desc">Pédicure &amp; manucure VIP, parfum de collection offert, photo souvenir.</p>
+<button onclick="bookPack('Pack Paradise','55 000 FCFA')" class="btn-card">Réserver</button>
+</div>
+</div>
+
+<div class="menu-section-split reveal-on-scroll">
+<div class="menu-cat-label">Coiffure Homme</div>
+<div class="modern-list">
+<div class="modern-item"><span class="item-name">Dégradé</span><span class="item-price">2 500 F</span></div>
+<div class="modern-item"><span class="item-name">Taper</span><span class="item-price">3 000 F</span></div>
+<div class="modern-item"><span class="item-name">Raser</span><span class="item-price">2 000 F</span></div>
+<div class="modern-item"><span class="item-name">Raser Dégradé</span><span class="item-price">2 500 F</span></div>
+<div class="modern-item"><span class="item-name">Dégradé Enfant</span><span class="item-price">2 000 F</span></div>
+<div class="modern-item"><span class="item-name">Raser Enfant</span><span class="item-price">1 500 F</span></div>
+<div class="modern-item"><span class="item-name">Boule à Zéro</span><span class="item-price">1 500 F</span></div>
+<div class="modern-item"><span class="item-name">Circuit VIP</span><span class="item-price">5 000 F</span></div>
+<div class="modern-item"><span class="item-name">Curly / Coloration / Teinte</span><span class="item-price">3 000 - 5 000 F</span></div>
+<div class="modern-item"><span class="item-name">Etiffort</span><span class="item-price">1 000 F</span></div>
+</div>
+</div>
+
+<div class="menu-section-split reveal-on-scroll">
+<div class="menu-cat-label">Coiffure Femme</div>
+<div class="modern-list">
+<div class="modern-item"><span class="item-name">Tresses (Simple / mèches)</span><span class="item-price">5 000 - 10 000 F</span></div>
+<div class="modern-item"><span class="item-name">Défrisage</span><span class="item-price">dès 5 000 F</span></div>
+<div class="modern-item"><span class="item-name">Mèche Knotless long</span><span class="item-price">10 000 F</span></div>
+<div class="modern-item"><span class="item-name">Twists (Simple / teinture)</span><span class="item-price">8 000 - 40 000 F</span></div>
+<div class="modern-item"><span class="item-name">Perruques (Pose, Soin, Custom)</span><span class="item-price">5 000 - 10 000 F</span></div>
+<div class="modern-item"><span class="item-name">Traitements (Séance / Cure)</span><span class="item-price">15k / 40k F</span></div>
+</div>
+</div>
+
+<div class="modern-header reveal-on-scroll">
+<h2 class="modern-title" style="font-size:clamp(1.9rem,4.5vw,3.2rem)">Institut &amp; Détails</h2>
+</div>
+<div class="mini-grid">
+<div class="reveal-on-scroll">
+<h4 class="mini-col-title">Pédicure</h4>
+<div class="modern-list" style="gap:1.1rem">
+<div class="modern-item" style="border:none;padding-bottom:0"><span class="item-name" style="font-size:1.2rem">Express</span><span class="item-price">7 000 F</span></div>
+<div class="modern-item" style="border:none;padding-bottom:0"><span class="item-name" style="font-size:1.2rem">Spa</span><span class="item-price">10 000 F</span></div>
+<div class="modern-item" style="border:none;padding-bottom:0"><span class="item-name" style="font-size:1.2rem">VIP</span><span class="item-price">15 000 F</span></div>
+</div>
+<div style="height:2.5rem"></div>
+<h4 class="mini-col-title">Manucure</h4>
+<div class="modern-list" style="gap:1.1rem">
+<div class="modern-item" style="border:none;padding-bottom:0"><span class="item-name" style="font-size:1.2rem">Express</span><span class="item-price">3 000 F</span></div>
+<div class="modern-item" style="border:none;padding-bottom:0"><span class="item-name" style="font-size:1.2rem">Spa</span><span class="item-price">5 000 F</span></div>
+<div class="modern-item" style="border:none;padding-bottom:0"><span class="item-name" style="font-size:1.2rem">VIP</span><span class="item-price">7 000 F</span></div>
+</div>
+</div>
+<div class="reveal-on-scroll">
+<h4 class="mini-col-title">Soin de Visage</h4>
+<div class="modern-list" style="gap:1.1rem">
+<div class="modern-item" style="border:none;padding-bottom:0"><span class="item-name" style="font-size:1.2rem">Soin Express</span><span class="item-price">7 000 F</span></div>
+<div class="modern-item" style="border:none;padding-bottom:0"><span class="item-name" style="font-size:1.2rem">Coup d'Éclat</span><span class="item-price">10 000 F</span></div>
+<div class="modern-item" style="border:none;padding-bottom:0"><span class="item-name" style="font-size:1.2rem">Soin Complet</span><span class="item-price">15 000 F</span></div>
+</div>
+<div style="height:2.5rem"></div>
+<h4 class="mini-col-title">Onglerie</h4>
+<div class="modern-list" style="gap:1.1rem">
+<div class="modern-item" style="border:none;padding-bottom:0"><span class="item-name" style="font-size:1.2rem">Vernis (Semi/Perm)</span><span class="item-price">1 500 / 5 000 F</span></div>
+<div class="modern-item" style="border:none;padding-bottom:0"><span class="item-name" style="font-size:1.2rem">Pose Simple</span><span class="item-price">3 000 F</span></div>
+<div class="modern-item" style="border:none;padding-bottom:0"><span class="item-name" style="font-size:1.2rem">Pose Perm + Déco</span><span class="item-price">8 000 F</span></div>
+<div class="modern-item" style="border:none;padding-bottom:0"><span class="item-name" style="font-size:1.2rem">Pose Gel (X, XL, XXL)</span><span class="item-price">15 000 F</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ===== PAGE BOUTIQUE ===== -->
+<section id="products" class="page-view">
+<div class="section-dream">
+<div class="modern-header reveal-on-scroll">
+<span class="modern-subtitle">L'Univers du Luxe</span>
+<h2 class="modern-title">La Boutique</h2>
+</div>
+<div class="shop-hero reveal-on-scroll">
+<div class="shop-hero-video shop-hero-img" role="img" aria-label="Boutique parfums Ladies &amp; Gentlemen" style="background-image:url('{{PR_SHOP}}')"></div>
+<div class="shop-hero-overlay">
+<div class="shop-hero-title-group">
+<h2>Collection Exclusive</h2>
+<p>Découvrez nos sélections préférées</p>
+</div>
+</div>
+</div>
+<div class="shop-tabs-container reveal-on-scroll">
+<div class="shop-tabs" role="tablist" aria-label="Catégories boutique">
+<button class="shop-tab active" onclick="switchShopCategory('femme',this)" role="tab" aria-selected="true">Femme</button>
+<button class="shop-tab" onclick="switchShopCategory('homme',this)" role="tab" aria-selected="false">Homme</button>
+<button class="shop-tab" onclick="switchShopCategory('unisexe',this)" role="tab" aria-selected="false">Unisexe</button>
+<button class="shop-tab" onclick="switchShopCategory('senteurs',this)" role="tab" aria-selected="false">Senteurs</button>
+<button class="shop-tab" onclick="switchShopCategory('cosmetiques',this)" role="tab" aria-selected="false">Cosmétiques</button>
+<button class="shop-tab" onclick="switchShopCategory('divers',this)" role="tab" aria-selected="false">Divers</button>
+<button class="shop-tab" onclick="switchShopCategory('accessoires',this)" role="tab" aria-selected="false">Accessoires</button>
+</div>
+</div>
+<div id="cat-femme" class="products-container active"><div class="products-grid" data-shop="femme"></div></div>
+<div id="cat-homme" class="products-container"><div class="products-grid" data-shop="homme"></div></div>
+<div id="cat-unisexe" class="products-container"><div class="products-grid" data-shop="unisexe"></div></div>
+<div id="cat-senteurs" class="products-container"><div class="products-grid" data-shop="senteurs"></div></div>
+<div id="cat-cosmetiques" class="products-container"><div class="products-grid" data-shop="cosmetiques"></div></div>
+<div id="cat-divers" class="products-container"><div class="products-grid" data-shop="divers"></div></div>
+<div id="cat-accessoires" class="products-container"><div class="products-grid" data-shop="accessoires"></div></div>
+</div>
+</section>
+
+<!-- ===== PAGE GALERIE ===== -->
+<section id="gallery" class="page-view">
+<div class="section-dream">
+<div class="modern-header reveal-on-scroll">
+<span class="modern-subtitle">Inspirations</span>
+<h2 class="modern-title">Galerie Rêve</h2>
+<p style="text-align:center;max-width:600px;margin:0 auto;color:var(--text-muted)">Plongez dans un univers de beauté et de bien-être.</p>
+</div>
+<div class="gallery-filters reveal-on-scroll" id="galleryFilters">
+<button class="filter-btn active" onclick="filterGallery('all')">Tout</button>
+<button class="filter-btn" onclick="filterGallery('headspa')">Head Spa</button>
+<button class="filter-btn" onclick="filterGallery('massage')">Massage</button>
+<button class="filter-btn" onclick="filterGallery('damp')">Damp</button>
+<button class="filter-btn" onclick="filterGallery('hammam')">Hammam</button>
+<button class="filter-btn" onclick="filterGallery('visage')">Soin Visage</button>
+<button class="filter-btn" onclick="filterGallery('pedicure')">Pédicure</button>
+<button class="filter-btn" onclick="filterGallery('barber')">Barber</button>
+</div>
+<div class="gallery-grid" id="galleryGrid"></div>
+</div>
+</section>
+
+<!-- ===== PAGE CONTACT ===== -->
+<section id="contact" class="page-view">
+<div class="section-dream">
+<div class="modern-header reveal-on-scroll">
+<span class="modern-subtitle">Contact</span>
+<h2 class="modern-title">Nous Trouver</h2>
+</div>
+<div class="contact-wrapper reveal-on-scroll">
+<div class="contact-form-area">
+<h3>Prendre Rendez-vous</h3>
+<p>Réservez votre moment de détente en quelques clics.</p>
+<form onsubmit="handleContactSubmit(event)">
+<div class="form-group"><input type="text" class="form-input" id="contactName" placeholder=" " required><label class="form-label" for="contactName">Votre Nom</label></div>
+<div class="form-group"><input type="tel" class="form-input" id="contactPhone" placeholder=" " required><label class="form-label" for="contactPhone">Téléphone</label></div>
+<div class="form-group"><textarea class="form-input" id="contactMsg" rows="4" placeholder=" " required></textarea><label class="form-label" for="contactMsg">Message ou Service Souhaité</label></div>
+<button type="submit" class="btn-dream" style="width:100%;margin-top:1.6rem">Envoyer <i class="fab fa-whatsapp" style="font-size:1rem"></i></button>
+</form>
+</div>
+<div class="contact-right-panel">
+<div class="contact-img"></div>
+<div class="contact-info-overlay">
+<div class="hours-box">
+<h4>Horaires d'Ouverture</h4>
+<div class="hours-row"><span>Lundi — Vendredi</span><span>11h00 — 22h00</span></div>
+<div class="hours-row"><span>Samedi — Dimanche</span><span>11h00 — 23h00</span></div>
+<div class="hours-row"><span>Jours d'ouverture</span><span style="font-style:italic;color:var(--secondary);font-weight:700">7j/7</span></div>
+</div>
+<div class="info-item">
+<div class="info-icon"><i class="fas fa-phone-alt"></i></div>
+<div class="info-text"><h4>Téléphone</h4><p>+221 71 031 75 85</p><p>+221 78 555 70 70</p></div>
+</div>
+<div class="info-item">
+<div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+<div class='info-text'><h4>Adresse</h4><p>Grand Standing, avant l’hôtel Phoenix — Thiès<br><small style='opacity:.8'>LG &amp; Taaru Auto, côte à côte</small></p></div>
+</div>
+<h4 style="font-family:var(--font-display);font-size:1.3rem;color:#fff;margin:1.6rem 0 .8rem">Suivez-nous</h4>
+<div class="contact-socials-large">
+<a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+<a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+<a href="https://wa.me/221710317585" target="_blank" rel="noopener" class="social-link" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+<a href="#" class="social-link" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+</div>
+</div>
+</div>
+</div>
+<div class="map-container reveal-on-scroll" style="margin-top:4rem">
+<iframe src="https://www.google.com/maps?q=Thi%C3%A8s%2C%20S%C3%A9n%C3%A9gal&output=embed" loading="lazy" title="Localisation Ladies &amp; Gentlemen — Thiès" referrerpolicy="no-referrer-when-downgrade"></iframe>
+<div class="map-label">Ladies &amp; Gentlemen Salon — Thiès</div>
+</div>
+</div>
+</section>
+
+</main>
+</div><!-- /lg-frame -->
+
+<!-- NAV MOBILE -->
+<div class="mobile-float-nav">
+<img src="{{LG_MED_150}}" class="mobile-float-logo" alt="Logo LG">
+<div class="mobile-brand-text">Ladies &amp; Gentlemen</div>
+<button class="mobile-toggle-float" onclick="toggleSidebar()" aria-label="Ouvrir le menu"><i class="fas fa-bars"></i></button>
+</div>
+
+<!-- MODALE PRODUIT -->
+<div class="modal-overlay" id="productModal" onclick="closeModal(event)" role="dialog" aria-modal="true" aria-label="Détail produit">
+<div class="modal-content" onclick="event.stopPropagation()">
+<button class="modal-close" onclick="closeModal()" aria-label="Fermer"><i class="fas fa-times"></i></button>
+<div class="modal-img"><img id="m-img" src="" alt="Détail produit"></div>
+<div class="modal-details">
+<span id="m-brand" class="modal-brand">Marque</span>
+<h2 id="m-title" class="modal-title">Nom du produit</h2>
+<span id="m-price" class="modal-price">00 000 FCFA</span>
+<p id="m-desc" class="modal-desc">Description détaillée du produit…</p>
+<button class="btn-modal-action" onclick="orderProduct()"><i class="fab fa-whatsapp"></i> Commander</button>
+</div>
+</div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)" role="dialog" aria-modal="true" aria-label="Aperçu photo">
+<div class="lightbox-close" onclick="closeLightbox()" aria-label="Fermer">&times;</div>
+<img class="lightbox-content" id="lightbox-img" src="" alt="Vue complète">
+</div>
+
+<!-- MODALE VIDEO -->
+<div class="video-modal-overlay" id="videoModal" onclick="closeVideoModal(event)" role="dialog" aria-modal="true" aria-label="Lecture vidéo">
+<div class="video-modal-content" onclick="event.stopPropagation()">
+<button class="close-video-btn" onclick="closeVideoModal()" aria-label="Fermer">&times;</button>
+<video id="mainVideoPlayer" controls playsinline></video>
+</div>
+</div>
+
+<!-- WIDGET WHATSAPP LG -->
+<div class="wa-widget-container">
+<div class="wa-chat-box" id="waChatBox" role="dialog" aria-label="Chat WhatsApp">
+<div class="wa-header">
+<div class="wa-profile">
+<img src="{{LG_MED_150}}" class="wa-avatar" alt="Logo LG">
+<div class="wa-info"><h4>Ladies &amp; Gentlemen</h4><span>En ligne</span></div>
+</div>
+<button class="wa-close-btn" onclick="toggleWhatsApp()" aria-label="Fermer le chat"><i class="fas fa-times"></i></button>
+</div>
+<div class="wa-body" id="waBody">
+<div class="wa-msg received">Bonjour et bienvenue chez Ladies &amp; Gentlemen.<br>Comment pouvons-nous sublimer votre journée ?<span class="wa-time">Maintenant</span></div>
+</div>
+<div class="wa-footer">
+<input type="text" class="wa-input" id="waInput" placeholder="Écrivez votre message…" onkeypress="handleWaEnter(event)">
+<button class="wa-send-btn" onclick="sendWhatsAppMessage()" aria-label="Envoyer"><i class="fas fa-paper-plane"></i></button>
+</div>
+</div>
+<button class="wa-float-btn" onclick="toggleWhatsApp()" aria-label="Ouvrir WhatsApp"><i class="fab fa-whatsapp"></i><div class="wa-badge">1</div></button>
+</div>
+
+</section><!-- /world-lg -->
+
+<!-- ══════════════════════════════════════════════════════════════
+     MONDE 2 — TAARU AUTO · LAVAGE, TAPIS & LINGE (THIÈS)
+     ══════════════════════════════════════════════════════════════ -->
+<section class="world world-taaru" id="world-taaru" aria-label="Univers Taaru Auto">
+
+<div class="world-scroll taaru-scroll" id="taaruScroll">
+
+<!-- NAV -->
+<nav class="taaru-nav" aria-label="Navigation Taaru Auto">
+<span class="t-logo"><img src="{{TA_LOGO_150}}" alt="Taaru Auto — Lavage, Détailing, Entretien" class="t-logo-img"></span>
+<div class="taaru-links">
+<a href="#taaru/accueil" data-tp="ta-home" class="on-page" onclick="taNav(event,'ta-home')">Accueil</a>
+<a href="#taaru/services" data-tp="ta-services-p" onclick="taNav(event,'ta-services-p')">Services</a>
+<a href="#taaru/tarifs" data-tp="ta-tarifs-p" onclick="taNav(event,'ta-tarifs-p')">Tarifs</a>
+<a href="#taaru/maison" data-tp="ta-maison-p" onclick="taNav(event,'ta-maison-p')">Tapis &amp; Linge</a>
+<a href="#taaru/contact" data-tp="ta-contact-p" onclick="taNav(event,'ta-contact-p')">Contact</a>
+</div>
+<button class="ta-go-lg" onclick="goTo(0)" aria-label="Retour au salon Ladies and Gentlemen"><i class="fas fa-scissors" style="font-size:.75rem"></i> Salon LG</button>
+<a class="ta-nav-call" href="https://wa.me/221710317585?text=Bonjour%20Taaru%20Auto%2C%20je%20souhaite%20un%20devis%20gratuit" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i><span class="tn-hide">Devis gratuit</span></a>
+<button class="ta-nav-burger" onclick="toggleTaDrawer()" aria-label="Ouvrir le menu"><i class="fas fa-bars"></i></button>
+</nav>
+
+<div class="taaru-drawer" id="taDrawer">
+<button class="td-close" onclick="toggleTaDrawer()" aria-label="Fermer le menu"><i class="fas fa-times"></i></button>
+<a href="#taaru/accueil" data-tp="ta-home" onclick="taNav(event,'ta-home')">Accueil</a>
+<a href="#taaru/services" data-tp="ta-services-p" onclick="taNav(event,'ta-services-p')">Services</a>
+<a href="#taaru/tarifs" data-tp="ta-tarifs-p" onclick="taNav(event,'ta-tarifs-p')">Tarifs</a>
+<a href="#taaru/maison" data-tp="ta-maison-p" onclick="taNav(event,'ta-maison-p')">Tapis &amp; Linge</a>
+<a href="#taaru/contact" data-tp="ta-contact-p" onclick="taNav(event,'ta-contact-p')">Contact</a>
+<a href="#accueil" onclick="goTo(0)" style="color:#f3d596"><i class="fas fa-scissors" style="margin-right:8px"></i>Salon Ladies &amp; Gentlemen</a>
+</div>
+<div class="ta-drawer-backdrop" id="taDrawerBackdrop" onclick="toggleTaDrawer()"></div>
+
+<!-- HERO -->
+<section id="ta-home" class="ta-page active">
+<header class="ta-hero">
+<div>
+<span class="ta-hero-badge"><span class="blink"></span> Ouvert 7j/7 — Thiès</span>
+<p class="ta-hero-kicker">Lavage · Détailing · Entretien · Tapis &amp; Linge</p>
+<h1><span class="outline">Plus qu'un</span> lavage,<br>un cadre <span class="hl">propre</span> &amp; <span class="hl">sain</span> !</h1>
+<p class="ta-hero-sub">Voitures, motos, canapés, matelas, tapis et linge — un <strong>service professionnel</strong> au Grand Standing, avant l'hôtel Phoenix à Thiès. Faites laver votre véhicule pendant que vous profitez du <strong>Salon Ladies &amp; Gentlemen</strong>, juste à côté.</p>
+<div class="ta-hero-ctas">
+<a class="btn-ta wa" href="https://wa.me/221710317585?text=Bonjour%20Taaru%20Auto%2C%20je%20souhaite%20r%C3%A9server%20un%20lavage" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Réserver sur WhatsApp</a>
+<a class="btn-ta ghost" href="#taaru/tarifs" onclick="taNav(event,'ta-tarifs-p')"><i class="fas fa-tags"></i> Voir les tarifs</a>
+</div>
+<div class="ta-hero-stats">
+<div class="ta-stat"><b>7j/7</b><span>Ouvert tous les jours</span></div>
+<div class="ta-stat"><b>2 500 F</b><span>Tapis dès / m²</span></div>
+<div class="ta-stat"><b>100%</b><span>Produits pro</span></div>
+<div class="ta-stat"><b>Gratuit</b><span>Devis rapide</span></div>
+</div>
+</div>
+<div class="ta-hero-visual">
+<div class="ta-hero-frame"></div>
+<div class="ta-hero-slider" id="taHeroSlider" aria-roledescription="carrousel" aria-label="Nos prestations Taaru Auto">
+<div class="ta-hslide ta-img-foam active" data-goto="ta-tarifs-p">
+<div class="ta-hslide-in"><small>dès 2 000 F</small><h3>Lavage Auto</h3><span>Extérieur &amp; intérieur — Voir les tarifs <i class="fas fa-arrow-right"></i></span></div>
+</div>
+<div class="ta-hslide ta-img-interior" data-goto="ta-tarifs-p">
+<div class="ta-hslide-in"><small>dès 3 000 F</small><h3>Nettoyage Intérieur</h3><span>Sièges, moquette &amp; habitacle <i class="fas fa-arrow-right"></i></span></div>
+</div>
+<div class="ta-hslide ta-img-detail2" data-goto="ta-tarifs-p">
+<div class="ta-hslide-in"><small>dès 10 000 F</small><h3>Detailing &amp; Rénovation</h3><span>Brillance miroir garantie <i class="fas fa-arrow-right"></i></span></div>
+</div>
+<div class="ta-hslide ta-img-moto" data-goto="ta-tarifs-p">
+<div class="ta-hslide-in"><small>dès 1 000 F</small><h3>Lavage Moto</h3><span>Toutes cylindrées — Voir les tarifs <i class="fas fa-arrow-right"></i></span></div>
+</div>
+<div class="ta-hslide ta-img-tapis2" data-goto="ta-maison-p">
+<div class="ta-hslide-in"><small>dès 2 500 F/m²</small><h3>Lavage Tapis</h3><span>Shampoing pro &amp; désinfection <i class="fas fa-arrow-right"></i></span></div>
+</div>
+<div class="ta-hslide ta-img-linge" data-goto="ta-maison-p">
+<div class="ta-hslide-in"><small>dès 2 500 F/kg</small><h3>Lave Linge</h3><span>Désinfection &amp; parfum longue durée <i class="fas fa-arrow-right"></i></span></div>
+</div>
+<button class="ta-hs-arrow prev" onclick="taSlideMove(-1)" aria-label="Prestation précédente"><i class="fas fa-chevron-left"></i></button>
+<button class="ta-hs-arrow next" onclick="taSlideMove(1)" aria-label="Prestation suivante"><i class="fas fa-chevron-right"></i></button>
+<div class="ta-hs-dots" role="tablist" aria-label="Choisir une prestation"></div>
+</div>
+<div class="ta-float-card fc1"><b>dès 2 000 F</b><span>Lavage auto simple</span></div>
+<div class="ta-float-card fc2"><b>dès 2 500 F</b><span>Tapis au m²</span></div>
+<div class="ta-hero-deco"></div>
+</div>
+</header>
+
+<!-- MARQUEE -->
+<div class="ta-marquee" aria-hidden="true">
+<div class="ta-marquee-inner" id="taMarqueeInner">
+<span>Lavage Auto <i class="fas fa-certificate"></i> Detailing &amp; Rénovation <i class="fas fa-certificate"></i> Lavage Moteur <i class="fas fa-certificate"></i> Peinture &amp; Tôlerie <i class="fas fa-certificate"></i> Lavage Moto <i class="fas fa-certificate"></i> Lavage Tapis <i class="fas fa-certificate"></i> Lave Linge <i class="fas fa-certificate"></i> Canapés <i class="fas fa-certificate"></i> Matelas <i class="fas fa-certificate"></i> Chaises &amp; Bureaux <i class="fas fa-certificate"></i> Collecte &amp; Livraison <i class="fas fa-certificate"></i> </span>
+</div>
+</div>
+
+
+<!-- APERÇU PRESTATIONS -->
+<div class="ta-section" style="padding-top:1.2rem">
+<div class="ta-sec-head reveal-on-scroll">
+<span class="ta-kicker">Prestations phares</span>
+<h2>Un savoir-faire <span class="hl">auto &amp; maison</span></h2>
+<p>Du simple rinçage au detailing complet, du canapé au tapis de luxe : une équipe pro, des produits haut de gamme, un résultat impeccable — garanti.</p>
+</div>
+<div class="ta-preview reveal-on-scroll">
+<div class="ta-pcard ta-img-foam" onclick="taNav(event,'ta-tarifs-p')" role="button" tabindex="0" aria-label="Lavage auto — voir les tarifs"><div class="ta-pcard-in"><small>dès 2 000 F</small><h3>Lavage Auto</h3><span>Voir les tarifs <i class="fas fa-arrow-right"></i></span></div></div>
+<div class="ta-pcard ta-img-interior" onclick="taNav(event,'ta-tarifs-p')" role="button" tabindex="0" aria-label="Nettoyage intérieur — voir les tarifs"><div class="ta-pcard-in"><small>dès 3 000 F</small><h3>Nettoyage Intérieur</h3><span>Voir les tarifs <i class="fas fa-arrow-right"></i></span></div></div>
+<div class="ta-pcard ta-img-detail2" onclick="taNav(event,'ta-tarifs-p')" role="button" tabindex="0" aria-label="Detailing — voir les tarifs"><div class="ta-pcard-in"><small>dès 10 000 F</small><h3>Detailing &amp; Rénovation</h3><span>Voir les tarifs <i class="fas fa-arrow-right"></i></span></div></div>
+<div class="ta-pcard ta-img-moto" onclick="taNav(event,'ta-tarifs-p')" role="button" tabindex="0" aria-label="Lavage moto — voir les tarifs"><div class="ta-pcard-in"><small>dès 1 000 F</small><h3>Lavage Moto</h3><span>Voir les tarifs <i class="fas fa-arrow-right"></i></span></div></div>
+<div class="ta-pcard ta-img-tapis2" onclick="taNav(event,'ta-maison-p')" role="button" tabindex="0" aria-label="Lavage tapis — découvrir"><div class="ta-pcard-in"><small>dès 2 500 F/m²</small><h3>Lavage Tapis</h3><span>Découvrir <i class="fas fa-arrow-right"></i></span></div></div>
+<div class="ta-pcard ta-img-linge" onclick="taNav(event,'ta-maison-p')" role="button" tabindex="0" aria-label="Linge — découvrir"><div class="ta-pcard-in"><small>dès 2 500 F/kg</small><h3>Lave Linge</h3><span>Découvrir <i class="fas fa-arrow-right"></i></span></div></div>
+</div>
+<div class="ta-cta-band reveal-on-scroll">
+<div>
+<h3>Un devis gratuit en quelques minutes</h3>
+<p>Décrivez votre besoin sur WhatsApp : réponse rapide, prix clair, sans surprise — 7j/7.</p>
+</div>
+<a class="btn-ta primary" href="https://wa.me/221710317585?text=Bonjour%20Taaru%20Auto%2C%20je%20souhaite%20un%20devis%20gratuit" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Demander un devis</a>
+</div>
+<div class="ta-duo reveal-on-scroll">
+<img src="{{LG_MED_260}}" alt="Logo Ladies &amp; Gentlemen" loading="lazy">
+<div>
+<h4>Le salon Ladies &amp; Gentlemen, juste à côté</h4>
+<p>Coiffure, spa, massages, hammam… Faites laver votre véhicule pendant que vous profitez de votre moment beauté.</p>
+</div>
+<button class="btn-lg-soft" onclick="goTo(0)"><i class="fas fa-scissors"></i> Découvrir le salon</button>
+</div>
+</div>
+</section>
+
+<!-- PAGE SERVICES -->
+<section id="ta-services-p" class="ta-page">
+
+<!-- SERVICES -->
+<div class="ta-section" id="ta-services">
+<div class="ta-sec-head reveal-on-scroll">
+<span class="ta-kicker">Nos prestations</span>
+<h2>Un savoir-faire <span class="hl">auto &amp; maison</span></h2>
+<p>Du simple rinçage au detailing complet, du canapé au tapis de luxe : une équipe pro, des produits haut de gamme et un résultat impeccable — garanti.</p>
+</div>
+<div class="ta-svc-grid" id="taSvcGrid"></div>
+</div>
+
+<div class="ta-hazard" aria-hidden="true"></div>
+<!-- ATELIER -->
+<div class="ta-section" style="padding-top:0">
+<div class="ta-sec-head reveal-on-scroll">
+<span class="ta-kicker">L'atelier</span>
+<h2>La <span class="hl">Taaru</span> touch</h2>
+</div>
+<div class="ta-atelier reveal-on-scroll">
+<div class="ta-at-item ta-img-hero2"><div class="ta-at-label"><small>Detailing</small>Rénovation &amp; brillance</div></div>
+<div class="ta-at-item ta-img-tapis2"><div class="ta-at-label"><small>Tapis &amp; linge</small>Nettoyage en profondeur</div></div>
+<div class="ta-at-item ta-img-hero3"><div class="ta-at-label"><small>Lavage premium</small>Finition miroir</div></div>
+</div>
+</div>
+
+
+</section>
+
+<!-- PAGE TARIFS -->
+<section id="ta-tarifs-p" class="ta-page">
+
+<!-- TARIFS -->
+<div class="ta-section" id="ta-tarifs">
+<div class="ta-sec-head reveal-on-scroll">
+<span class="ta-kicker">La carte des prix</span>
+<h2>Tarifs <span class="hl">Taaru Auto</span></h2>
+<p>Des prix clairs, sans surprise. Réservez directement sur WhatsApp — devis gratuit &amp; rapide.</p>
+</div>
+<div class="ta-filter-row reveal-on-scroll" id="taFilterRow" role="tablist" aria-label="Filtrer les tarifs"></div>
+<div class="ta-tarifs-grid" id="taTarifsGrid"></div>
+</div>
+
+<div class="ta-hazard" aria-hidden="true"></div>
+<!-- GARANTIES -->
+<div class="ta-section" style="padding-top:3rem">
+<div class="ta-guarantee reveal-on-scroll">
+<div class="ta-g"><i class="fas fa-droplet"></i><b>Produits professionnels</b></div>
+<div class="ta-g"><i class="fas fa-shield-virus"></i><b>Désinfection anti-bactérienne</b></div>
+<div class="ta-g"><i class="fas fa-wind"></i><b>Séchage rapide</b></div>
+<div class="ta-g"><i class="fas fa-leaf"></i><b>Odeur fraîche longue durée</b></div>
+<div class="ta-g"><i class="fas fa-gem"></i><b>Résultat impeccable</b></div>
+<div class="ta-g"><i class="fas fa-bolt"></i><b>Service rapide 7j/7</b></div>
+</div>
+</div>
+
+
+</section>
+
+<!-- PAGE MAISON -->
+<section id="ta-maison-p" class="ta-page">
+
+<!-- MAISON : TAPIS / LINGE / CANAPÉS -->
+<div class="ta-section ta-maison" id="ta-maison">
+<div class="ta-maison-bg ta-img-tapis" aria-hidden="true"></div>
+<div class="ta-maison-inner">
+<div class="ta-sec-head reveal-on-scroll" style="margin-bottom:0">
+<span class="ta-kicker">Maison &amp; textiles</span>
+<h2>Tapis, linge, canapés <span class="hl">&amp; matelas</span></h2>
+<p>Shampoing professionnel, désinfection anti-bactérienne, désodorisation longue durée et séchage rapide et soigné — le respect de vos fibres, du tapis de luxe au linge d'hôtel.</p>
+</div>
+<div class="ta-maison-cards reveal-on-scroll">
+<div class="ta-mcard">
+<h4><i class="fas fa-couch"></i> Canapés</h4>
+<div class="mc-price">dès 15 000 F <small>/ selon taille</small></div>
+<ul><li><i class="fas fa-check"></i> Lavage en profondeur</li><li><i class="fas fa-check"></i> Détachage</li><li><i class="fas fa-check"></i> Désodorisation</li><li><i class="fas fa-check"></i> Séchage rapide</li></ul>
+</div>
+<div class="ta-mcard">
+<h4><i class="fas fa-bed"></i> Matelas</h4>
+<div class="mc-price">dès 12 000 F <small>/ selon taille</small></div>
+<ul><li><i class="fas fa-check"></i> Lavage en profondeur</li><li><i class="fas fa-check"></i> Anti-acariens</li><li><i class="fas fa-check"></i> Désodorisation</li><li><i class="fas fa-check"></i> Séchage rapide</li></ul>
+</div>
+<div class="ta-mcard">
+<h4><i class="fas fa-chair"></i> Chaises &amp; bureaux</h4>
+<div class="mc-price">dès 3 000 F <small>/ l'unité</small></div>
+<ul><li><i class="fas fa-check"></i> Lavage en profondeur</li><li><i class="fas fa-check"></i> Désinfection</li><li><i class="fas fa-check"></i> Séchage rapide</li></ul>
+</div>
+</div>
+<div class="ta-colis reveal-on-scroll">
+<i class="fas fa-truck-fast"></i>
+<div>
+<h4>Collecte &amp; livraison à domicile</h4>
+<p>À Thiès et environs — tapis, linge, canapés : on passe chez vous, on livre propre.</p>
+</div>
+<a class="btn-ta primary" href="https://wa.me/221710317585?text=Bonjour%20Taaru%20Auto%2C%20je%20souhaite%20une%20collecte%20%C3%A0%20domicile" target="_blank" rel="noopener">Planifier une collecte</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- PAGE CONTACT -->
+<section id="ta-contact-p" class="ta-page">
+
+<!-- INFOS -->
+<div class="ta-section" id="ta-infos" style="padding-top:0">
+<div class="ta-sec-head reveal-on-scroll">
+<span class="ta-kicker">Infos pratiques</span>
+<h2>On vous <span class="hl">attend</span></h2>
+</div>
+<div class="ta-infos reveal-on-scroll">
+<div class="ta-info-card">
+<h3><i class="fas fa-clock"></i> Horaires</h3>
+<div class="ta-hours-row"><span>Lundi — Vendredi</span><b>11h00 — 22h00</b></div>
+<div class="ta-hours-row"><span>Samedi — Dimanche</span><b>11h00 — 23h00</b></div>
+<div class="ta-hours-row"><span>Ouverture</span><span class="open-tag">7j/7</span></div>
+</div>
+<div class="ta-info-card">
+<h3><i class="fas fa-location-dot"></i> Adresse</h3>
+<p class="ta-addr"><b>Grand Standing, avant l'hôtel Phoenix</b><br>Thiès, Sénégal<br><strong style="color:var(--ty)">LG &amp; Taaru Auto — côte à côte</strong><br><small>Lavage de votre voiture pendant votre séance beauté</small></p>
+</div>
+<div class="ta-info-card">
+<h3><i class="fas fa-phone"></i> Contactez-nous</h3>
+<div class="ta-phone-big">
+<a href="tel:+221710317585"><i class="fas fa-phone-volume"></i> 71 031 75 85</a>
+<a href="tel:+221785557070"><i class="fas fa-phone-volume"></i> 78 555 70 70</a>
+</div>
+<div style="display:flex;gap:10px;margin-top:1.3rem;flex-wrap:wrap">
+<a class="btn-ta wa" style="padding:.8rem 1.3rem;font-size:.7rem" href="https://wa.me/221710317585?text=Bonjour%20Taaru%20Auto" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+<span class="btn-ta ghost" style="padding:.8rem 1.3rem;font-size:.7rem"><i class="fas fa-file-invoice-dollar"></i> Devis gratuit &amp; rapide</span>
+</div>
+</div>
+<div class="ta-info-card ta-map-wrap" style="padding:0">
+<iframe class="ta-map" src="https://www.google.com/maps?q=Thi%C3%A8s%2C%20S%C3%A9n%C3%A9gal&output=embed" loading="lazy" title="Localisation Taaru Auto — Thiès" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="ta-footer">
+<div class="ta-footer-grid">
+<div>
+<span class="t-logo"><img src="{{TA_LOGO_460}}" alt="Logo Taaru Auto" class="t-logo-img" loading="lazy"></span>
+<p>Lavage auto, detailing, tapis &amp; linge à Thiès. Plus qu'un lavage : un cadre propre et sain, pour votre voiture comme pour votre maison.</p>
+</div>
+<div>
+<h5>Prestations</h5>
+<ul>
+<li><a href="#taaru/services" onclick="taNav(event,'ta-services-p')"><i class="fas fa-chevron-right"></i>Lavage auto &amp; moto</a></li>
+<li><a href="#taaru/services" onclick="taNav(event,'ta-services-p')"><i class="fas fa-chevron-right"></i>Detailing &amp; rénovation</a></li>
+<li><a href="#taaru/services" onclick="taNav(event,'ta-services-p')"><i class="fas fa-chevron-right"></i>Peinture &amp; tôlerie</a></li>
+<li><a href="#taaru/maison" onclick="taNav(event,'ta-maison-p')"><i class="fas fa-chevron-right"></i>Tapis, linge, canapés</a></li>
+</ul>
+</div>
+<div>
+<h5>Liens utiles</h5>
+<ul>
+<li><a href="#taaru/tarifs" onclick="taNav(event,'ta-tarifs-p')"><i class="fas fa-chevron-right"></i>Tarifs complets</a></li>
+<li><a href="https://wa.me/221710317585" target="_blank" rel="noopener"><i class="fab fa-whatsapp" style="font-size:.8rem"></i>Réserver sur WhatsApp</a></li>
+<li><a href="#" onclick="goTo(0)"><i class="fas fa-scissors"></i>Salon Ladies &amp; Gentlemen</a></li>
+</ul>
+</div>
+</div>
+<div class="ta-footer-bottom">
+<span>© <span class="yr"></span> Taaru Auto — Thiès · Tous droits réservés</span>
+<button class="uni-cta" onclick="goTo(0)"><i class="fas fa-heart" style="color:#8a533c"></i> Deux univers, une seule adresse — glissez vers le Salon</button>
+</div>
+</footer>
+
+</div><!-- /taaru-scroll -->
+
+<!-- WIDGET WHATSAPP TAARU -->
+<div class="wa-widget-container wa-taaru">
+<div class="wa-chat-box" id="waChatBoxTa" role="dialog" aria-label="Chat WhatsApp Taaru Auto">
+<div class="wa-header">
+<div class="wa-profile">
+<span class="wa-avatar"><img src="{{TA_LOGO_64}}" alt="Logo Taaru Auto"></span>
+<div class="wa-info"><h4>Taaru Auto</h4><span>En ligne</span></div>
+</div>
+<button class="wa-close-btn" onclick="toggleWhatsApp('ta')" aria-label="Fermer le chat"><i class="fas fa-times"></i></button>
+</div>
+<div class="wa-body" id="waBodyTa">
+<div class="wa-msg received">Bonjour et bienvenue chez Taaru Auto.<br>Besoin d'un lavage, d'un devis ou d'une collecte à domicile ?<span class="wa-time">Maintenant</span></div>
+</div>
+<div class="wa-footer">
+<input type="text" class="wa-input" id="waInputTa" placeholder="Écrivez votre message…" onkeypress="handleWaEnter(event,'ta')">
+<button class="wa-send-btn" onclick="sendWhatsAppMessage('ta')" aria-label="Envoyer"><i class="fas fa-paper-plane"></i></button>
+</div>
+</div>
+<button class="wa-float-btn" onclick="toggleWhatsApp('ta')" aria-label="Ouvrir WhatsApp Taaru Auto"><i class="fab fa-whatsapp"></i><div class="wa-badge">1</div></button>
+</div>
+
+</section><!-- /world-taaru -->
+
+</div><!-- /track -->
+</div><!-- /stage -->
+
+<!-- SWITCHER D'UNIVERS -->
+<div class="uni-switcher" role="tablist" aria-label="Choisir l'univers">
+<span class="uni-thumb" aria-hidden="true"></span>
+<button class="uni-btn" data-go="0" role="tab" aria-selected="true" onclick="goTo(0)"><span class="uni-mono lg"><img src="{{LG_MED_150}}" alt="Logo Ladies &amp; Gentlemen"></span><span class="uni-name">Ladies &amp; Gentlemen</span></button>
+<button class="uni-btn" data-go="1" role="tab" aria-selected="false" onclick="goTo(1)"><span class="uni-mono ta"><img src="{{TA_LOGO_150}}" alt="Logo Taaru Auto"></span><span class="uni-name">Taaru Auto</span></button>
+</div>
+
+<!-- MANETTES DE BORD -->
+<button class="edge-hint edge-right" data-go="1" onclick="goTo(1)" aria-label="Glisser vers Taaru Auto"><span class="eh-txt">Taaru Auto <i class="fas fa-chevron-right"></i></span></button>
+<button class="edge-hint edge-left" data-go="0" onclick="goTo(0)" aria-label="Revenir au salon Ladies and Gentlemen"><span class="eh-txt"><i class="fas fa-chevron-left"></i> Salon LG</span></button>
+
+<!-- INVITATION AU GLISSEMENT -->
+<div class="swipe-invite" id="swipeInvite"><i class="fas fa-hand-pointer si-arrow"></i> Glissez vers <strong>&nbsp;Taaru Auto</strong></div>
+
+<div id="toast" role="status" aria-live="polite">Redirection vers WhatsApp…</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   LADIES & GENTLEMEN × TAARU AUTO — Moteur "Deux Univers"
+   ═══════════════════════════════════════════════════════════════ */
+"use strict";
+
+/* ---------- 0. CONSTANTES ---------- */
+const WA_NUMBER = "221710317585";
+const stage  = document.getElementById("stage");
+const track  = document.getElementById("track");
+const worlds = [document.getElementById("world-lg"), document.getElementById("world-taaru")];
+const lgScroll   = document.getElementById("lgScroll");
+const taaruScroll= document.getElementById("taaruScroll");
+const TITLES = [
+  "Ladies & Gentlemen — Salon de Beauté & Spa | Thiès",
+  "Taaru Auto — Lavage, Détailing & Entretien | Thiès"
+];
+
+/* ---------- 1. MOTEUR DUAL-UNIVERS ---------- */
+let current = 0, animating = false;
+const scrollerOf = i => (i === 0 ? lgScroll : taaruScroll);
+
+function applyTransform(px, instant){
+  if (instant){ track.classList.add("notrans"); }
+  track.style.transform = "translateX(" + px + "px)";
+  if (instant){ void track.offsetWidth; track.classList.remove("notrans"); }
+}
+function goTo(i, opts){
+  opts = opts || {};
+  i = Math.max(0, Math.min(1, i));
+  if (animating && !opts.instant) return;
+  current = i;
+  applyTransform(-i * stage.clientWidth, !!opts.instant);
+  document.body.dataset.universe = i === 0 ? "lg" : "taaru";
+  worlds.forEach((w, idx) => w.classList.toggle("active-world", idx === i));
+  document.querySelectorAll(".uni-btn").forEach(b => b.setAttribute("aria-selected", b.dataset.go == i ? "true" : "false"));
+  document.title = TITLES[i];
+  try { history.replaceState(null, "", i === 0 ? "#accueil" : ((location.hash || "").toLowerCase().startsWith("#taaru") ? location.hash : "#taaru")); } catch(e){}
+  animating = true;
+  clearTimeout(goTo._t);
+  goTo._t = setTimeout(() => { animating = false; }, opts.instant ? 40 : 980);
+  hideInvite();
+}
+function snapBack(){ applyTransform(-current * stage.clientWidth); }
+
+/* — Molette 100% virtuelle : scroll manuel + bascule d'univers aux bords — */
+let wheelAccV = 0, wheelAccH = 0, wheelTimer = null, wheelCooldown = 0;
+function engineBlocked(){
+  return !!(document.querySelector("#productModal.active, #lightbox.active, #videoModal.active, #taDrawer.active") ||
+            (goTo._t && animating));
+}
+function normDelta(e){
+  const k = e.deltaMode === 1 ? 33 : (e.deltaMode === 2 ? e.target.clientHeight || 800 : 1);
+  return { dx: e.deltaX * k, dy: e.deltaY * k };
+}
+stage.addEventListener("wheel", (e) => {
+  const { dx, dy } = normDelta(e);
+  /* 1. Modale produit ouverte : on la fait défiler manuellement */
+  const pm = document.querySelector("#productModal.active .modal-content");
+  if (pm){
+    e.preventDefault();
+    const maxT = pm.scrollHeight - pm.clientHeight;
+    if ((dy > 0 && pm.scrollTop >= maxT - 1) || (dy < 0 && pm.scrollTop <= 1)) return;
+    pm.scrollTop += dy;
+    return;
+  }
+  /* 2. Lightbox / vidéo / drawer : figé */
+  if (document.querySelector("#lightbox.active, #videoModal.active, #taDrawer.active")){
+    e.preventDefault(); return;
+  }
+  /* 3. Univers actif : scroll virtuel + bascule aux bords */
+  e.preventDefault();
+  const sc = scrollerOf(current);
+  if (Math.abs(dx) > Math.abs(dy) + 4){
+    wheelAccV = 0;
+    if (Math.abs(dx) < 8) return;
+    wheelAccH += dx;
+    clearTimeout(wheelTimer);
+    wheelTimer = setTimeout(() => { wheelAccH = 0; }, 260);
+    if (!animating && Math.abs(wheelAccH) > 90){
+      goTo(current + (wheelAccH > 0 ? 1 : -1)); wheelAccH = 0;
+    }
+    return;
+  }
+  wheelAccH = 0;
+  const maxTop = Math.max(0, sc.scrollHeight - sc.clientHeight);
+  const atTop = sc.scrollTop <= 1, atBottom = sc.scrollTop >= maxTop - 1;
+  if ((dy > 0 && atBottom) || (dy < 0 && atTop)){
+    if (animating) return;
+    wheelAccV += dy;
+    clearTimeout(wheelTimer);
+    wheelTimer = setTimeout(() => { wheelAccV = 0; }, 420);
+    const now = Date.now();
+    if (Math.abs(wheelAccV) > 260 && now - wheelCooldown > 500){
+      wheelCooldown = now; wheelAccV = 0;
+      goTo(current + (dy > 0 ? 1 : -1));
+    }
+  } else {
+    wheelAccV = 0;
+    sc.scrollTop += dy;
+  }
+}, { passive: false });
+
+/* — Tactile : swipe horizontal avec aperçu live — */
+let tX = 0, tY = 0, tT = 0, tMode = null, liveDx = 0, suppressClick = false;
+stage.addEventListener("touchstart", (e) => {
+  if (engineBlocked()) { tMode = "blocked"; return; }
+  if (e.target.closest && e.target.closest("#taHeroSlider")) { tMode = "blocked"; return; }
+  const t = e.touches[0];
+  tX = t.clientX; tY = t.clientY; tT = Date.now();
+  tMode = null; liveDx = 0;
+}, { passive: true });
+stage.addEventListener("touchmove", (e) => {
+  if (tMode === "blocked" || engineBlocked()) return;
+  const t = e.touches[0];
+  const dx = t.clientX - tX, dy = t.clientY - tY;
+  if (!tMode){
+    if (Math.abs(dx) > 16 && Math.abs(dx) > Math.abs(dy) * 1.25) tMode = "h";
+    else if (Math.abs(dy) > 16) tMode = "v";
+  }
+  if (tMode === "h"){
+    e.preventDefault();
+    liveDx = dx;
+    const base = -current * stage.clientWidth;
+    let x = base + dx;
+    if ((current === 0 && dx > 0) || (current === 1 && dx < 0)) x = base + dx * 0.32;
+    track.style.transition = "none";
+    track.style.transform = "translateX(" + x + "px)";
+  }
+}, { passive: false });
+function endTouch(){
+  if (tMode === "h"){
+    const th = stage.clientWidth * 0.14;
+    const vx = liveDx / Math.max(1, Date.now() - tT);
+    if (liveDx < -th || vx < -0.55){ suppressClick = true; goTo(current + 1); }
+    else if (liveDx > th || vx > 0.55){ suppressClick = true; goTo(current - 1); }
+    else snapBack();
+    setTimeout(() => { suppressClick = false; }, 120);
+  }
+  tMode = null; liveDx = 0;
+}
+stage.addEventListener("touchend", endTouch);
+stage.addEventListener("touchcancel", endTouch);
+
+/* — Souris : glisser-déposer desktop avec aperçu live — */
+let pDown = false, pX = 0, pT = 0, pDrag = false;
+const INTERACTIVE = "a,button,input,textarea,select,iframe,.uni-switcher,.edge-hint,.wa-widget-container,.taaru-nav,.sidebar,.shop-tabs,.gallery-filters,.ta-filter-row,.nav-link,.ta-hero-slider";
+stage.addEventListener("pointerdown", (e) => {
+  if (e.button !== 0 || engineBlocked()) return;
+  if (e.target.closest(INTERACTIVE)) return;
+  pDown = true; pX = e.clientX; pT = Date.now(); pDrag = false; liveDx = 0;
+});
+window.addEventListener("pointermove", (e) => {
+  if (!pDown) return;
+  const dx = e.clientX - pX;
+  if (!pDrag && Math.abs(dx) > 9){ pDrag = true; stage.classList.add("dragging"); }
+  if (pDrag){
+    liveDx = dx;
+    const base = -current * stage.clientWidth;
+    let x = base + dx;
+    if ((current === 0 && dx > 0) || (current === 1 && dx < 0)) x = base + dx * 0.32;
+    track.style.transition = "none";
+    track.style.transform = "translateX(" + x + "px)";
+  }
+});
+window.addEventListener("pointerup", () => {
+  if (!pDown) return;
+  pDown = false;
+  stage.classList.remove("dragging");
+  if (pDrag){
+    const th = stage.clientWidth * 0.12;
+    const vx = liveDx / Math.max(1, Date.now() - pT);
+    if (liveDx < -th || vx < -0.5){ suppressClick = true; goTo(current + 1); }
+    else if (liveDx > th || vx > 0.5){ suppressClick = true; goTo(current - 1); }
+    else snapBack();
+    setTimeout(() => { suppressClick = false; }, 120);
+  }
+  pDrag = false; liveDx = 0;
+});
+stage.addEventListener("click", (e) => {
+  if (suppressClick){ e.stopPropagation(); e.preventDefault(); suppressClick = false; }
+}, true);
+
+/* — Clavier — */
+window.addEventListener("keydown", (e) => {
+  const tag = (e.target.tagName || "").toLowerCase();
+  if (tag === "input" || tag === "textarea" || engineBlocked()) return;
+  if (e.key === "ArrowRight") goTo(1);
+  if (e.key === "ArrowLeft")  goTo(0);
+});
+
+/* — Deep-linking : #taaru / #accueil, y compris à chaud (hashchange) — */
+window.addEventListener("hashchange", () => {
+  const h = (location.hash || "").toLowerCase();
+  if (h.startsWith("#taaru")){
+    if (current !== 1) goTo(1);
+    const sub = h.split("/")[1] || "";
+    const page = HASH_TA[sub] || "ta-home";
+    const el = document.getElementById(page);
+    if (el && !el.classList.contains("active")) taGoTo(page);
+  }
+  else if ((h === "#accueil" || h === "" || h === "#") && current !== 0) goTo(0);
+});
+
+/* — Redimensionnement — */
+window.addEventListener("resize", () => applyTransform(-current * stage.clientWidth, true));
+
+/* — Invitation au glissement — */
+const invite = document.getElementById("swipeInvite");
+let inviteShown = false;
+function showInvite(){
+  if (inviteShown) return; inviteShown = true;
+  setTimeout(() => { if (!invite.classList.contains("hide")) invite.classList.add("show"); }, 1400);
+  setTimeout(() => { invite.classList.remove("show"); invite.classList.add("hide"); }, 8500);
+}
+function hideInvite(){ invite.classList.remove("show"); invite.classList.add("hide"); }
+
+/* ---------- 2. SPA LADIES & GENTLEMEN ---------- */
+function switchPage(pageId){
+  lgScroll.scrollTo({ top: 0, behavior: "smooth" });
+  document.querySelectorAll(".nav-link").forEach(l => l.classList.remove("active"));
+  const link = document.getElementById("link-" + pageId);
+  if (link) link.classList.add("active");
+  const pages = document.querySelectorAll("#world-lg .page-view");
+  const target = document.getElementById(pageId);
+  if (!target || target.classList.contains("active")) return;
+  pages.forEach(p => p.classList.remove("active"));
+  void target.offsetWidth;
+  target.classList.add("active");
+  observeReveals(target, lgScroll);
+  const sb = document.getElementById("sidebar");
+  if (sb.classList.contains("active")) toggleSidebar();
+}
+function toggleSidebar(){
+  document.getElementById("sidebar").classList.toggle("active");
+  document.getElementById("sidebarBackdrop").classList.toggle("active");
+}
+
+/* ---------- 3. HERO SLIDER LG ---------- */
+let slideIndex = 0, slideInterval = null;
+const slides = () => document.querySelectorAll("#heroSlider .slide");
+const dots   = () => document.querySelectorAll("#heroSlider .dot");
+function showSlide(n){
+  const sl = slides(), dt = dots();
+  slideIndex = (n + sl.length) % sl.length;
+  sl.forEach(s => s.classList.remove("active"));
+  dt.forEach(d => d.classList.remove("active"));
+  sl[slideIndex].classList.add("active");
+  dt[slideIndex].classList.add("active");
+}
+function manualSlide(n){ showSlide(n); resetTimer(); }
+function startSlider(){ slideInterval = setInterval(() => showSlide(slideIndex + 1), 7000); }
+function resetTimer(){ clearInterval(slideInterval); startSlider(); }
+
+/* ---------- 3bis. HERO SERVICES SLIDER TAARU (à la place de la voiture) ---------- */
+let taSlideIdx = 0, taSlideTimer = null, taHsSwiped = false;
+function taShowSlide(n){
+  const root = document.getElementById("taHeroSlider"); if (!root) return;
+  const sl = root.querySelectorAll(".ta-hslide"), dt = root.querySelectorAll(".ta-hs-dot");
+  if (!sl.length) return;
+  taSlideIdx = (n + sl.length) % sl.length;
+  sl.forEach(s => s.classList.remove("active"));
+  dt.forEach(d => { d.classList.remove("active"); d.setAttribute("aria-selected","false"); });
+  sl[taSlideIdx].classList.add("active");
+  if (dt[taSlideIdx]){ dt[taSlideIdx].classList.add("active"); dt[taSlideIdx].setAttribute("aria-selected","true"); }
+}
+function taSlideMove(step){ taShowSlide(taSlideIdx + step); taSlideRestart(); }
+function taSlideGo(n){ taShowSlide(n); taSlideRestart(); }
+function taSlideRestart(){
+  clearInterval(taSlideTimer);
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  taSlideTimer = setInterval(() => {
+    const w = document.getElementById("world-taaru");
+    if (!w || !w.classList.contains("active-world") || document.hidden) return;
+    taShowSlide(taSlideIdx + 1);
+  }, 4800);
+}
+(function initTaHeroSlider(){
+  const root = document.getElementById("taHeroSlider"); if (!root) return;
+  const dotsBox = root.querySelector(".ta-hs-dots");
+  root.querySelectorAll(".ta-hslide").forEach((s, i) => {
+    s.addEventListener("click", function(){
+      if (taHsSwiped) return;
+      const page = this.getAttribute("data-goto") || "ta-tarifs-p";
+      if (document.getElementById(page)) taNav(null, page);
+    });
+    if (dotsBox){
+      const b = document.createElement("button");
+      b.className = "ta-hs-dot" + (i === 0 ? " active" : "");
+      b.setAttribute("role","tab");
+      b.setAttribute("aria-selected", i === 0 ? "true" : "false");
+      b.setAttribute("aria-label", "Prestation " + (i + 1) + " : " + (s.querySelector("h3") ? s.querySelector("h3").textContent : i + 1));
+      b.onclick = () => taSlideGo(i);
+      dotsBox.appendChild(b);
+    }
+  });
+  root.addEventListener("mouseenter", () => clearInterval(taSlideTimer));
+  root.addEventListener("mouseleave", taSlideRestart);
+  root.addEventListener("focusin", () => clearInterval(taSlideTimer));
+  root.addEventListener("focusout", taSlideRestart);
+  let sx = 0, sy = 0, sdx = 0, tracking = false;
+  root.addEventListener("touchstart", e => {
+    sx = e.touches[0].clientX; sy = e.touches[0].clientY; sdx = 0; tracking = true; taHsSwiped = false;
+    clearInterval(taSlideTimer);
+  }, { passive: true });
+  root.addEventListener("touchmove", e => {
+    if (!tracking) return;
+    sdx = e.touches[0].clientX - sx;
+    const dy = e.touches[0].clientY - sy;
+    if (Math.abs(sdx) > 24 && Math.abs(sdx) > Math.abs(dy) * 1.15) e.preventDefault();
+  }, { passive: false });
+  root.addEventListener("touchend", () => {
+    if (tracking && Math.abs(sdx) > 42){ taHsSwiped = true; taSlideMove(sdx < 0 ? 1 : -1); setTimeout(() => { taHsSwiped = false; }, 150); }
+    tracking = false;
+    taSlideRestart();
+  });
+  root.addEventListener("touchcancel", () => { tracking = false; taSlideRestart(); });
+  taSlideRestart();
+})();
+
+/* ---------- 4. WHATSAPP / TOAST ---------- */
+function openWhatsApp(text){
+  window.open("https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(text), "_blank");
+}
+let toastTimer = null;
+function showToast(msg){
+  const t = document.getElementById("toast");
+  t.textContent = msg || "Redirection vers WhatsApp…";
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
+}
+function handleContactSubmit(e){
+  e.preventDefault();
+  const name = document.getElementById("contactName").value;
+  const phone = document.getElementById("contactPhone").value;
+  const msg = document.getElementById("contactMsg").value;
+  openWhatsApp("Bonjour L&G Salon,\n\n*Nom :* " + name + "\n*Téléphone :* " + phone + "\n*Message :* " + msg);
+  showToast("Votre demande de rendez-vous a été transmise");
+}
+function bookPack(packName, packPrice){
+  openWhatsApp("Bonjour, je souhaite réserver le pack suivant :\n\n*Pack :* " + packName + "\n*Prix :* " + packPrice + "\n\nMerci de confirmer le créneau.");
+  showToast("Votre demande de réservation a été transmise");
+}
+
+/* ---------- 5. BOUTIQUE LG (données) ---------- */
+const PRODUCTS = [
+  /* — FEMME — */
+  {c:"femme",b:"Victoria's Secret",n:"Pink Cutie",p:"1 500 FCFA",d:"Une ode à la douceur et à la féminité. Notes fruitées entourées de pétales de rose.",i:"{{PR_PINK}}",badge:"Best-Seller"},
+  {c:"femme",b:"Collection Privée",n:"Velour Heart",p:"20 000 FCFA",d:"Un cœur velouté qui bat au rythme de la vanille et de l'ambre. Sensualité absolue.",i:"{{PR_OUD}}"},
+  {c:"femme",b:"Maison Luxe",n:"Velvet Delight",p:"6 000 FCFA",d:"Texture soyeuse et envoûtante. Une caresse olfactive qui dure toute la journée.",i:"{{PR_ROSE}}"},
+  {c:"femme",b:"Makeup Glow",n:"Marshmallow Blush",p:"20 000 FCFA",d:"Une touche de couleur douce et lumineuse pour sublimer vos pommettes.",i:"{{PR_CREAM}}",badge:"Nouveauté"},
+  {c:"femme",b:"Gucci Inspired",n:"Flora Intense",p:"6 000 FCFA",d:"Un bouquet floral luxuriant, intense et vibrant. L'élégance à l'état pur.",i:"{{PR_ROSE}}"},
+  /* — HOMME — */
+  {c:"homme",b:"Rolex",n:"Rolex Submariner",p:"15 000 FCFA",d:"L'horlogerie de légende. Un symbole de succès et de prestige intemporel.",i:"{{PR_WATCH_B}}",badge:"Iconique"},
+  {c:"homme",b:"Dior",n:"Sauvage Intense",p:"15 000 FCFA",d:"Une fraîcheur brute et puissante. Notes de tête bergamote et ambroxan.",i:"{{PR_COLOGNE}}"},
+  {c:"homme",b:"Paco Rabanne",n:"One Million",p:"2 500 FCFA",d:"Le parfum de l'homme audacieux. Fraîcheur épicée et notes cuirées.",i:"{{PR_COLOGNE}}"},
+  {c:"homme",b:"Hermès",n:"Chaussure Cuir Noir",p:"15 000 FCFA",d:"Cuir noir supérieur, cousu main. L'élégance classique.",i:"{{PR_SHOES}}",badge:"Exclusif"},
+  {c:"homme",b:"Moussuf",n:"Moussuf Homme",p:"10 000 FCFA",d:"Un sillage aromatique et boisé. Charisme et assurance naturelle.",i:"{{PR_OUD}}"},
+  {c:"homme",b:"Hublot",n:"Big Bang",p:"15 000 FCFA",d:"Design audacieux et mécanique d'exception. Pour l'homme qui ose.",i:"{{PR_WATCH_S}}"},
+  {c:"homme",b:"Longine",n:"La Grande Classique",p:"50 000 FCFA",d:"L'élégance traditionnelle suisse. Précision et raffinement.",i:"{{PR_WATCH_G}}"},
+  {c:"homme",b:"Patek Philippe",n:"Calatrava",p:"15 000 FCFA",d:"Vous ne possédez jamais vraiment une Patek, vous en êtes le gardien.",i:"{{PR_WATCH_S}}",badge:"Rareté"},
+  {c:"homme",b:"Bolun",n:"Chronograph",p:"10 000 FCFA",d:"Style urbain et mécanisme fiable. Le luxe accessible.",i:"{{PR_WATCH_B}}"},
+  {c:"homme",b:"Calepin",n:"Cuir",p:"4 000 FCFA",d:"Style urbain, cuir de qualité. Le détail qui change tout.",i:"{{PR_WALLET}}"},
+  {c:"homme",b:"Calepin",n:"Porte-Cartes Signature",p:"3 000 FCFA",d:"Compact et raffiné — le porte-cartes qui accompagne chaque grande rencontre.",i:"{{PR_WALLET}}"},
+  {c:"homme",b:"Fétiche",n:"1 Bande",p:"2 000 FCFA",d:"Un parfum de caractère pour l'homme exigeant.",i:"{{PR_COLOGNE}}"},
+  /* — UNISEXE — */
+  {c:"unisexe",b:"Oud Collection",n:"Ameerat Al Arab",p:"1 500 FCFA",d:"La princesse arabe. Un parfum riche, oriental et majestueux.",i:"{{PR_OUD}}",badge:"Signature"},
+  {c:"unisexe",b:"Cerave",n:"Gel",p:"13 650 FCFA",d:"Gel nettoyant anti-imperfections.",i:"{{PR_SERUM}}"},
+  {c:"unisexe",b:"Cerave",n:"Sérum",p:"18 460 FCFA",d:"Sérum anti-imperfections.",i:"{{PR_SERUM}}"},
+  {c:"unisexe",b:"La Roche-Posay",n:"Visage & Corps",p:"18 200 FCFA",d:"Soin visage et corps.",i:"{{PR_CREAM}}"},
+  {c:"unisexe",b:"Louis Martin",n:"Evidence",p:"12 000 FCFA",d:"Laissez libre cours à votre imagination. Créativité et fraîcheur.",i:"{{PR_PINK}}"},
+  {c:"unisexe",b:"The Ordinary",n:"Skincare",p:"20 000 FCFA",d:"La routine skincare minimaliste et efficace.",i:"{{PR_SERUM}}"},
+  {c:"unisexe",b:"Centella",n:"Sérum",p:"12 740 FCFA",d:"Sérum apaisant au Centella.",i:"{{PR_SERUM}}"},
+  {c:"unisexe",b:"SVR",n:"Eau Rénovatrice",p:"11 050 FCFA",d:"L'eau qui renouvelle la peau.",i:"{{PR_CREAM}}"},
+  {c:"unisexe",b:"La Roche-Posay",n:"Protection UVA",p:"15 600 FCFA",d:"Protection solaire UVA renforcée.",i:"{{PR_SUN}}"},
+  {c:"unisexe",b:"Louis Martin",n:"Crème Whisper",p:"20 000 FCFA",d:"Une déclaration d'amour douce et captivante.",i:"{{PR_CREAM}}"},
+  {c:"unisexe",b:"Louis Martin",n:"Symphony",p:"20 000 FCFA",d:"Une harmonie parfaite de notes florales et boisées.",i:"{{PR_PINK}}"},
+  {c:"unisexe",b:"Lovers",n:"My Lover",p:"20 000 FCFA",d:"Passion et intensité pour un moment inoubliable.",i:"{{PR_PINK}}"},
+  {c:"unisexe",b:"D&P",n:"Perfumum",p:"15 000 FCFA",d:"Un voyage sensoriel unique.",i:"{{PR_OUD}}"},
+  {c:"unisexe",b:"Tesori d'Oriente",n:"Byzantium",p:"4 000 FCFA",d:"L'histoire ancienne dans un flacon. Myrrhe et Oud.",i:"{{PR_OUD}}"},
+  {c:"unisexe",b:"Tesori d'Oriente",n:"Gris",p:"4 000 FCFA",d:"Finesse et élégance discrète.",i:"{{PR_OUD}}"},
+  {c:"unisexe",b:"Banafa",n:"For Oud",p:"10 000 FCFA",d:"L'essence pure de l'Oud, sublimée par Banafa.",i:"{{PR_OUD}}"},
+  {c:"unisexe",b:"Tesori d'Oriente",n:"Ayurveda",p:"4 000 FCFA",d:"Bien-être et harmonie spirituelle.",i:"{{PR_OUD}}"},
+  {c:"unisexe",b:"Tesori d'Oriente",n:"Karma",p:"4 000 FCFA",d:"Le cycle de la vie et de la beauté.",i:"{{PR_OUD}}"},
+  {c:"unisexe",b:"Tesori d'Oriente",n:"Noir",p:"4 000 FCFA",d:"Fraîcheur nordique et mystère.",i:"{{PR_OUD}}"},
+  {c:"unisexe",b:"Scent Mark",n:"Signature",p:"7 000 FCFA",d:"Marquez les esprits avec une signature olfactive unique.",i:"{{PR_COLOGNE}}"},
+  {c:"unisexe",b:"Secret Night",n:"Mist",p:"18 000 FCFA",d:"Le mystère de la nuit capturé dans un flacon.",i:"{{PR_COLOGNE}}",badge:"Nuit"},
+  {c:"unisexe",b:"Al Ghalib",n:"Oud Al Ghalib",p:"19 000 FCFA",d:"Le vainqueur. Une dominance absolue de l'Oud.",i:"{{PR_OUD}}"},
+  {c:"unisexe",b:"Al Ghalib",n:"Gold Edition",p:"18 000 FCFA",d:"L'édition dorée, plus précieuse et intense.",i:"{{PR_OUD}}",badge:"Or"},
+  {c:"unisexe",b:"Layl",n:"Oud Al Layl",p:"11 000 FCFA",d:"La nuit. Profond, mystérieux et infini.",i:"{{PR_OUD}}"},
+  {c:"unisexe",b:"Raseediya",n:"Oud Al Raseediya",p:"18 000 FCFA",d:"Un trésor ancestral préservé.",i:"{{PR_OUD}}"},
+  {c:"unisexe",b:"Salam Ziva",n:"Oud Al Salam",p:"19 000 FCFA",d:"La paix de l'âme par le parfum. Sérénité absolue.",i:"{{PR_OUD}}"},
+  {c:"unisexe",b:"True Love",n:"Oud Al Sadiq",p:"7 000 FCFA",d:"Une brise saline mêlée à l'Oud rare.",i:"{{PR_OUD}}"},
+  {c:"unisexe",b:"Sultan",n:"Oud Al Sultan",p:"18 000 FCFA",d:"Le roi des parfums. Puissance royale.",i:"{{PR_OUD}}",badge:"Royal"},
+  {c:"unisexe",b:"Bacarat",n:"Oud Bacarat",p:"11 000 FCFA",d:"L'alliance du cristal et de l'Oud. Brillance et profondeur.",i:"{{PR_OUD}}"},
+  {c:"unisexe",b:"Muattar",n:"Oud Chips",p:"6 000 FCFA",d:"Purification et élévation spirituelle.",i:"{{PR_BUKHOOR}}"},
+  {c:"unisexe",b:"Ghaliya",n:"Oumoul Ghaliya",p:"18 000 FCFA",d:"Mère de toute beauté. Une tendresse infinie.",i:"{{PR_OUD}}"},
+  {c:"unisexe",b:"Khasusi",n:"Special",p:"19 000 FCFA",d:"Un parfum unique, comme une signature.",i:"{{PR_OUD}}"},
+  {c:"unisexe",b:"Sadaat",n:"Eau de Parfum",p:"5 000 FCFA",d:"Bénédictions et prospérité.",i:"{{PR_OUD}}"},
+  {c:"unisexe",b:"Nakahat",n:"Nakahat Al Oud",p:"13 000 FCFA",d:"La chaleur du désert, la fraîcheur de l'oasis.",i:"{{PR_OUD}}"},
+  {c:"unisexe",b:"Al Malik",n:"Ser Al Malik",p:"18 000 FCFA",d:"Le secret du roi. Majesté et discrétion.",i:"{{PR_OUD}}",badge:"Secret"},
+  {c:"unisexe",b:"Sama Dubai",n:"Sky Collection",p:"18 000 FCFA",d:"Le ciel de Dubai. Luxe moderne et tradition.",i:"{{PR_OUD}}"},
+  {c:"unisexe",b:"Woody Rose",n:"Floral",p:"8 500 FCFA",d:"L'équilibre parfait entre le bois et la rose.",i:"{{PR_ROSE}}"},
+  {c:"unisexe",b:"Wardi",n:"Rose Oil",p:"1 500 FCFA",d:"Ma rose. Une classique indémodable.",i:"{{PR_ROSE}}"},
+  {c:"unisexe",b:"Nsayeb",n:"Fortune",p:"6 000 FCFA",d:"Une chance et une grâce divine.",i:"{{PR_OUD}}"},
+  {c:"unisexe",b:"Sahara",n:"Maison",p:"15 000 FCFA",d:"L'accueil chaleureux de la maison.",i:"{{PR_CANDLE}}"},
+  {c:"unisexe",b:"Ummi",n:"Al Ghaliya",p:"18 000 FCFA",d:"Mère de toute richesse. Valeur inestimable.",i:"{{PR_OUD}}"},
+  /* — SENTEURS — */
+  {c:"senteurs",b:"Ana Abiyad",n:"Eau de Parfum",p:"6 000 FCFA",d:"Blancheur pure et éclatante.",i:"{{PR_PINK}}"},
+  {c:"senteurs",b:"Ard Alzaafaran",n:"Safran",p:"1 500 FCFA",d:"Le pays du Safran. Épicé et précieux.",i:"{{PR_OUD}}"},
+  {c:"senteurs",b:"Fatima",n:"Bukhoor",p:"25 000 FCFA",d:"Ambiance sacrée et bienveillante.",i:"{{PR_BUKHOOR}}"},
+  {c:"senteurs",b:"Burphrise",n:"Spring",p:"28 000 FCFA",d:"Fraîcheur printanière enveloppante.",i:"{{PR_PINK}}"},
+  {c:"senteurs",b:"California",n:"Dream",p:"40 000 FCFA",d:"L'esprit libre de la Californie. Soleil et océan.",i:"{{PR_CANDLE}}",badge:"Été"},
+  {c:"senteurs",b:"Fragrant Candle",n:"Bougie Parfumée",p:"40 000 FCFA",d:"Une lumière douce et un parfum d'exception pour la maison.",i:"{{PR_CANDLE}}",badge:"Maison"},
+  /* — COSMÉTIQUES (sur demande) — */
+  {c:"cosmetiques",b:"Sélection Institut",n:"Cosmétiques pro",p:"Sur demande",d:"Masques, sérums, gommages et soins professionnels — disponibilité en salon. Contactez-nous sur WhatsApp.",i:"",badge:"Au salon"},
+  /* — DIVERS — */
+  {c:"divers",b:"Sélection LG",n:"Coffrets & attentions",p:"Sur demande",d:"Coffrets cadeaux, mèches, huiles et petites attentions beauté — disponibilité en salon.",i:"",badge:"Au salon"},
+  /* — ACCESSOIRES — */
+  {c:"accessoires",b:"Sélection LG",n:"Accessoires beauté",p:"Sur demande",d:"Perruques, bonnets en satin, foulards et accessoires capillaires — disponibilité en salon.",i:"",badge:"Au salon"}
+
+];
+function renderShop(){
+  document.querySelectorAll("[data-shop]").forEach(grid => {
+    const cat = grid.dataset.shop;
+    const items = PRODUCTS.filter(p => p.c === cat);
+    if (!items.length) return;
+    grid.innerHTML = items.map((p, idx) =>
+      '<div class="product-card reveal-on-scroll" style="transition-delay:' + Math.min(idx * 0.05, 0.4) + 's" onclick="openModal(this)" data-p="' + PRODUCTS.indexOf(p) + '" role="button" tabindex="0" aria-label="' + esc(p.n) + '">' +
+      (p.badge ? '<div class="prod-badge">' + esc(p.badge) + '</div>' : '') +
+      '<div class="product-img-wrap">' + (p.i ? '<img src="' + p.i + '" alt="' + esc(p.n) + '" loading="lazy">' : '') + '</div>' +
+      '<div class="product-overlay"><div class="btn-view">Aperçu</div></div>' +
+      '<div class="product-info"><span class="product-brand">' + esc(p.b) + '</span>' +
+      '<div class="product-name">' + esc(p.n) + '</div>' +
+      '<div class="product-price">' + esc(p.p) + '</div></div></div>'
+    ).join("");
+  });
+}
+function esc(s){ return String(s == null ? "" : s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+let modalProduct = null;
+function openModal(card){
+  const p = PRODUCTS[+card.dataset.p];
+  if (!p) return;
+  modalProduct = p;
+  document.getElementById("m-title").textContent = p.n;
+  document.getElementById("m-brand").textContent = p.b;
+  document.getElementById("m-price").textContent = p.p;
+  document.getElementById("m-desc").textContent = p.d;
+  const img = document.getElementById("m-img");
+  if (p.i){ img.style.display = "block"; img.src = p.i; img.classList.remove("img-dead"); }
+  else { img.style.display = "none"; }
+  document.getElementById("productModal").classList.add("active");
+  lgScroll.style.overflow = "hidden";
+}
+function closeModal(){
+  document.getElementById("productModal").classList.remove("active");
+  lgScroll.style.overflow = "";
+}
+function orderProduct(){
+  if (!modalProduct) return;
+  openWhatsApp("Bonjour, je souhaite commander un produit de la boutique :\n\n*Marque :* " + modalProduct.b + "\n*Produit :* " + modalProduct.n + "\n*Prix :* " + modalProduct.p + "\n\nMerci de me confirmer la disponibilité.");
+  closeModal();
+  showToast("Votre commande a été transmise sur WhatsApp");
+}
+function switchShopCategory(cat, tab){
+  document.querySelectorAll(".shop-tab").forEach(t => { t.classList.remove("active"); t.setAttribute("aria-selected","false"); });
+  tab.classList.add("active"); tab.setAttribute("aria-selected","true");
+  document.querySelectorAll(".products-container").forEach(c => c.classList.remove("active"));
+  const sel = document.getElementById("cat-" + cat);
+  sel.classList.add("active");
+  observeReveals(sel, lgScroll);
+}
+
+/* ---------- 6. GALERIE LG (données) ---------- */
+const GALLERY = [
+  {cat:"headspa",img:"{{LG_SVC_HEADSPA}}",label:"Rituel au Bassin"},
+  {cat:"headspa",img:"{{LG_HERO_HEADSPA}}",label:"Détente Absolue"},
+  {cat:"headspa",img:"{{LG_SVC_COIFFURE}}",label:"Soin & Préparation"},
+  {cat:"massage",img:"{{LG_SVC_MASSAGE}}",label:"Rituel Relaxant"},
+  {cat:"massage",img:"{{LG_HERO_MASSAGE}}",label:"Mouvement Fluide"},
+  {cat:"massage",img:"{{LG_PK_COUPLE}}",label:"Quatre Mains"},
+  {cat:"damp",img:"{{LG_SVC_DAMP}}",label:"Chaleur & Résine"},
+  {cat:"damp",img:"{{LG_G_HAMMAM2}}",label:"Pierres & Vapeur"},
+  {cat:"damp",img:"{{LG_HERO_HAMMAM}}",label:"Enveloppement"},
+  {cat:"hammam",img:"{{LG_G_HAMMAM3}}",label:"Le Grand Rituel"},
+  {cat:"hammam",img:"{{LG_PK_PARADISE}}",label:"Espace Sérénité"},
+  {cat:"hammam",img:"{{LG_HERO_HAMMAM}}",label:"Tradition"},
+  {cat:"visage",img:"{{LG_SVC_VISAGE}}",label:"Masque Précieux"},
+  {cat:"visage",img:"{{LG_G_VISAGE2}}",label:"Préparation Douce"},
+  {cat:"visage",img:"{{LG_PK_ROYAL}}",label:"Éclat Doré"},
+  {cat:"pedicure",img:"{{LG_HERO_PEDICURE}}",label:"Bain de Pétales"},
+  {cat:"pedicure",img:"{{LG_SVC_ONGLERIE}}",label:"Vernis Parfait"},
+  {cat:"pedicure",img:"{{LG_G_PEDI2}}",label:"Art & Douceur"},
+  {cat:"barber",img:"{{LG_SVC_BARBER}}",label:"Coupe Précision"},
+  {cat:"barber",img:"{{LG_HERO_GENTLEMAN}}",label:"Élégance Signature"},
+  {cat:"barber",img:"{{LG_PK_GENTLEMAN}}",label:"Style & Barbe"}
+
+];
+const CAT_LABELS = {headspa:"Head Spa",massage:"Massage",damp:"Damp",hammam:"Hammam",visage:"Soin Visage",pedicure:"Pédicure",barber:"Barber"};
+function renderGallery(){
+  const grid = document.getElementById("galleryGrid");
+  grid.innerHTML = GALLERY.map((g, idx) => {
+    return '<div class="gallery-item reveal-on-scroll" data-category="' + g.cat + '" style="transition-delay:' + Math.min((idx % 8) * 0.05, 0.4) + 's" onclick="openLightbox(this)" role="button" tabindex="0" aria-label="' + esc(g.label) + '">' +
+      '<img src="' + g.img + '" alt="' + esc(CAT_LABELS[g.cat]) + ' — ' + esc(g.label) + '" loading="lazy">' +
+      '<div class="gallery-overlay"><span class="gallery-text"><span class="gallery-cat-tag">' + CAT_LABELS[g.cat] + '</span>' + esc(g.label) + '</span></div></div>';
+  }).join("");
+}
+function filterGallery(cat){
+  document.querySelectorAll("#galleryFilters .filter-btn").forEach(b => b.classList.remove("active"));
+  event && event.target && event.target.classList.add("active");
+  document.querySelectorAll("#galleryGrid .gallery-item, #galleryGrid .gallery-video-card").forEach(el => {
+    el.classList.toggle("hidden-gallery", !(cat === "all" || el.dataset.category === cat));
+  });
+}
+function openLightbox(item){
+  const img = item.querySelector("img");
+  if (!img || img.classList.contains("img-dead")) return;
+  document.getElementById("lightbox-img").src = img.src;
+  document.getElementById("lightbox").classList.add("active");
+  lgScroll.style.overflow = "hidden";
+}
+function closeLightbox(){
+  document.getElementById("lightbox").classList.remove("active");
+  lgScroll.style.overflow = "";
+}
+function openVideoModal(src){
+  const modal = document.getElementById("videoModal");
+  const video = document.getElementById("mainVideoPlayer");
+  video.src = src;
+  modal.classList.add("active");
+  lgScroll.style.overflow = "hidden";
+  video.play().catch(() => {});
+}
+function closeVideoModal(){
+  const modal = document.getElementById("videoModal");
+  const video = document.getElementById("mainVideoPlayer");
+  video.pause(); video.removeAttribute("src"); video.load();
+  modal.classList.remove("active");
+  lgScroll.style.overflow = "";
+}
+
+/* ---------- 7. WIDGET WHATSAPP ---------- */
+function toggleWhatsApp(side){
+  const box = document.getElementById(side === "ta" ? "waChatBoxTa" : "waChatBox");
+  box.classList.toggle("active");
+}
+function handleWaEnter(e, side){ if (e.key === "Enter") sendWhatsAppMessage(side); }
+function sendWhatsAppMessage(side){
+  const input = document.getElementById(side === "ta" ? "waInputTa" : "waInput");
+  const body  = document.getElementById(side === "ta" ? "waBodyTa" : "waBody");
+  const msg = input.value.trim();
+  if (!msg) return;
+  const div = document.createElement("div");
+  div.className = "wa-msg sent";
+  div.innerHTML = esc(msg) + '<span class="wa-time">Maintenant</span>';
+  body.appendChild(div);
+  input.value = "";
+  body.scrollTop = body.scrollHeight;
+  openWhatsApp(msg);
+  showToast("Votre message a été transmis sur WhatsApp");
+}
+
+/* ---------- 8. UNIVERSE TAARU : SERVICES & TARIFS ---------- */
+const TA_SERVICES = [
+  {i:"fa-car-side",t:"Lavage Auto",d:"Extérieur & intérieur : rinçage, savonnage, aspiration, finition.",p:"dès 2 000 F"},
+  {i:"fa-couch",t:"Nettoyage Intérieur",d:"Sièges, moquette & habitacle — shampoing, détachage, cuir & tissu.",p:"dès 3 000 F"},
+  {i:"fa-oil-can",t:"Lavage Moteur",d:"Simple, complet ou VIP avec protection adaptée.",p:"dès 5 000 F"},
+  {i:"fa-car-burst",t:"Lavage Châssis",d:"Simple, complet, avec protection contre la rouille.",p:"dès 7 500 F"},
+  {i:"fa-motorcycle",t:"Lavage Moto",d:"Rinçage, savonnage, dégraissage complet, formule VIP.",p:"dès 1 000 F"},
+  {i:"fa-wand-magic-sparkles",t:"Detailing & Rénovation",d:"Polissage, lustrage VIP, rénovation phares, protection céramique.",p:"dès 10 000 F"},
+  {i:"fa-spray-can-sparkles",t:"Peinture & Tôlerie",d:"Retouche localisée, pare-chocs, complète, débosselage.",p:"dès 15 000 F"},
+  {i:"fa-layer-group",t:"Lavage Tapis",d:"Au m² — standard, VIP, prestige, laine & fibres délicates.",p:"dès 2 500 F/m²"},
+  {i:"fa-shirt",t:"Lave Linge",d:"Au kg — standard, adoucissant, VIP désinfection + parfum.",p:"dès 2 500 F/kg"},
+  {i:"fa-couch",t:"Canapés",d:"Lavage & désinfection en profondeur, détachage, désodorisation.",p:"dès 15 000 F"},
+  {i:"fa-bed",t:"Matelas",d:"Lavage en profondeur, anti-acariens, séchage rapide.",p:"dès 12 000 F"},
+  {i:"fa-chair",t:"Chaises & Bureaux",d:"Lavage, désinfection et séchage rapide.",p:"dès 3 000 F"}
+];
+const TARIFS = [
+  {k:"auto",i:"fa-car-side",t:"Lavage Auto",tag:"Extérieur & intérieur",rows:[
+    ["Lavage simple (rinçage)","2 000 F"],["Lavage simple + savonnage","3 000 F"],
+    ["Lavage + aspiration, rinçage & savonnage","5 000 F"],
+    ["Lavage complet en profondeur (int. + ext.)","10 000 F"],
+    ["Lavage complet 0 km (lustrage premium)","dès 25 000 F"]],
+    notes:["Produits professionnels","Service rapide"]},
+  {k:"auto",i:"fa-couch",t:"Nettoyage Intérieur",tag:"Sièges · moquette · habitacle",rows:[
+    ["Aspiration simple (habitacle)","3 000 F"],["Nettoyage moquette (voiture)","7 500 F"],
+    ["Shampoing sièges tissu","10 000 F"],["Nettoyage sièges complet (tissu)","15 000 F"],
+    ["Nettoyage sièges cuir","20 000 F"],["Nettoyage plafond intérieur","10 000 F"],
+    ["Habitacle complet (moquette, sièges, plastiques)","25 000 F"]],
+    notes:["Détachage efficace","Odeur fraîche longue durée"]},
+  {k:"auto",i:"fa-oil-can",t:"Lavage Moteur",tag:"Protection adaptée",rows:[
+    ["Nettoyage moteur simple","5 000 F"],["Nettoyage moteur complet","10 000 F"],
+    ["Nettoyage moteur VIP (protection adaptée)","15 000 F"]]},
+  {k:"auto",i:"fa-car-burst",t:"Lavage Châssis",tag:"Anti-rouille",rows:[
+    ["Lavage châssis simple","7 500 F"],["Lavage châssis complet","dès 25 000 F"],
+    ["Châssis complet + protection anti-rouille","Sur devis"]]},
+  {k:"moto",i:"fa-motorcycle",t:"Lavage Moto",tag:"Toutes cylindrées",rows:[
+    ["Rinçage simple","1 000 F"],["Lavage avec savonnage","1 500 F"],
+    ["Lavage complet (dégraissage)","3 000 F"],["Lavage moto VIP (nettoyage premium)","5 000 F"],
+    ["Graissage cylindre (> 500 cc)","dès 5 000 F"]]},
+  {k:"carrosserie",i:"fa-wand-magic-sparkles",t:"Detailing & Rénovation",tag:"Brillance miroir",rows:[
+    ["Polissage carrosserie simple","dès 35 000 F"],
+    ["Correction de peinture / lustrage VIP","dès 75 000 F"],
+    ["Rénovation phares (la paire)","dès 15 000 F"],
+    ["Traitement plastique & brillant","dès 10 000 F"],
+    ["Protection céramique","Sur devis"]],
+    notes:["Résultat impeccable"]},
+  {k:"carrosserie",i:"fa-spray-can-sparkles",t:"Peinture & Tôlerie",tag:"Atelier pro",rows:[
+    ["Retouche de peinture localisée","dès 15 000 F"],["Peinture pare-chocs","dès 35 000 F"],
+    ["Peinture d'un élément de carrosserie","dès 40 000 F"],
+    ["Peinture complète voiture","dès 350 000 F"],["Peinture complète SUV / 4x4","Sur devis"],
+    ["Débosselage simple","dès 15 000 F"],["Redressage & réparation tôlerie","Sur devis"],
+    ["Restauration complète carrosserie","Sur devis"]]},
+  {k:"maison",i:"fa-layer-group",t:"Lavage de Tapis",tag:"au m²",rows:[
+    ["Lavage professionnel standard","2 500 F/m²"],["Lavage complet avec shampoing","3 500 F/m²"],
+    ["Lavage VIP avec détachage","4 500 F/m²"],["Lavage Prestige (tapis épais)","5 500 F/m²"],
+    ["Tapis de luxe, laine ou délicat","dès 6 500 F/m²"]],
+    notes:["Shampoing professionnel","Désinfection anti-bactérienne","Séchage rapide et soigné","Respect des fibres"]},
+  {k:"maison",i:"fa-shirt",t:"Lave Linge",tag:"au kg",rows:[
+    ["Lavage standard","2 500 F/kg"],["Lavage complet avec adoucissant","3 500 F/kg"],
+    ["Lavage VIP (désinfection + parfum)","4 500 F/kg"]],
+    notes:["Draps, rideaux, couvertures, couettes, nappes, linge hôtelier…"]},
+  {k:"maison",i:"fa-couch",t:"Canapés",tag:"selon taille",rows:[
+    ["Canapé (lavage & désinfection)","dès 15 000 F"]],
+    notes:["Lavage en profondeur","Détachage","Désodorisation","Séchage rapide"]},
+  {k:"maison",i:"fa-bed",t:"Matelas",tag:"selon taille",rows:[
+    ["Matelas (lavage & désinfection)","dès 12 000 F"]],
+    notes:["Anti-acariens","Désodorisation","Séchage rapide"]},
+  {k:"maison",i:"fa-chair",t:"Chaises & Bureaux",tag:"à l'unité",rows:[
+    ["Chaise / fauteuil de bureau","dès 3 000 F"]],
+    notes:["Désinfection","Séchage rapide"]}
+];
+const TA_FILTERS = [
+  {k:"all",l:"Tous"},{k:"auto",l:"Auto & Moteur"},{k:"moto",l:"Moto"},
+  {k:"carrosserie",l:"Carrosserie"},{k:"maison",l:"Maison & Textiles"}
+];
+function renderTaaru(){
+  document.getElementById("taSvcGrid").innerHTML = TA_SERVICES.map((s, idx) =>
+    '<div class="ta-svc reveal-on-scroll" data-num="' + String(idx + 1).padStart(2, "0") + '">' +
+    '<div class="ta-svc-ico"><i class="fas ' + s.i + '"></i></div>' +
+    '<h3>' + s.t + '</h3><p>' + s.d + '</p>' +
+    '<div class="ta-svc-price">' + s.p + '</div></div>'
+  ).join("");
+  document.getElementById("taFilterRow").innerHTML = TA_FILTERS.map((f, idx) =>
+    '<button class="ta-chip' + (idx === 0 ? ' active' : '') + '" onclick="filterTaarifs(\'' + f.k + '\',this)" role="tab" aria-selected="' + (idx === 0) + '">' + f.l + '</button>'
+  ).join("");
+  document.getElementById("taTarifsGrid").innerHTML = TARIFS.map((g, idx) =>
+    '<div class="ta-price-card reveal-on-scroll" data-k="' + g.k + '">' +
+    '<div class="ta-price-head"><i class="fas ' + g.i + '"></i><h3>' + g.t + '</h3>' +
+    (g.tag ? '<span class="tph-tag">' + g.tag + '</span>' : '') + '</div>' +
+    '<div class="ta-price-body">' + g.rows.map(r =>
+      '<div class="ta-price-row"><span class="pr-name">' + r[0] + '</span><span class="pr-dots"></span><span class="pr-val">' + r[1] + '</span></div>'
+    ).join("") + '</div>' +
+    (g.notes ? '<div class="ta-price-note">' + g.notes.map(n => '<span><i class="fas fa-check"></i>' + n + '</span>').join("") + '</div>' : '') +
+    '<div class="ta-price-foot"><button class="btn-ta book" onclick="bookTaaru(\'' + g.t.replace(/'/g, "\\'") + '\')"><i class="fab fa-whatsapp"></i> Réserver ce service</button></div></div>'
+  ).join("");
+  /* double le contenu du marquee pour une boucle parfaite */
+  const mq = document.getElementById("taMarqueeInner");
+  mq.innerHTML += mq.innerHTML;
+}
+function filterTaarifs(k, btn){
+  document.querySelectorAll("#taFilterRow .ta-chip").forEach(c => { c.classList.remove("active"); c.setAttribute("aria-selected","false"); });
+  btn.classList.add("active"); btn.setAttribute("aria-selected","true");
+  document.querySelectorAll("#taTarifsGrid .ta-price-card").forEach(card => {
+    card.classList.toggle("hidden", !(k === "all" || card.dataset.k === k));
+  });
+}
+function bookTaaru(service){
+  openWhatsApp("Bonjour Taaru Auto,\n\nJe souhaite réserver le service suivant :\n*Service :* " + service + "\n\nMerci de me communiquer la disponibilité et le devis (gratuit).");
+  showToast("Votre demande a été transmise à Taaru Auto");
+}
+function toggleTaDrawer(){
+  document.getElementById("taDrawer").classList.toggle("active");
+  document.getElementById("taDrawerBackdrop").classList.toggle("active");
+}
+const TA_HASH = { "ta-home": "accueil", "ta-services-p": "services", "ta-tarifs-p": "tarifs", "ta-maison-p": "maison", "ta-contact-p": "contact" };
+const HASH_TA = { "accueil": "ta-home", "services": "ta-services-p", "tarifs": "ta-tarifs-p", "maison": "ta-maison-p", "contact": "ta-contact-p" };
+function taGoTo(pageId){
+  const drw = document.getElementById("taDrawer");
+  if (drw && drw.classList.contains("active")) toggleTaDrawer();
+  const target = document.getElementById(pageId);
+  if (!target || target.classList.contains("active")) { updateTaLinks(pageId); return; }
+  taaruScroll.scrollTop = 0;
+  document.querySelectorAll("#world-taaru .ta-page").forEach(p => p.classList.remove("active"));
+  void target.offsetWidth;
+  target.classList.add("active");
+  updateTaLinks(pageId);
+  observeReveals(target, taaruScroll);
+  try { history.replaceState(null, "", "#taaru/" + (TA_HASH[pageId] || "accueil")); } catch(e){}
+}
+function updateTaLinks(pageId){
+  document.querySelectorAll("#world-taaru a[data-tp]").forEach(a => {
+    const on = a.dataset.tp === pageId;
+    a.classList.toggle("on-page", on && a.closest(".taaru-links"));
+    if (a.closest(".taaru-links")) a.classList.toggle("active", on);
+  });
+}
+function taNav(e, pageId){
+  if (e) e.preventDefault();
+  taGoTo(pageId);
+}
+
+/* ---------- 9. REVEAL ON SCROLL (roots par monde) ---------- */
+function observeReveals(rootEl, scroller){
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (en.isIntersecting){ en.target.classList.add("visible"); io.unobserve(en.target); }
+    });
+  }, { root: scroller, threshold: 0.06, rootMargin: "0px 0px -5% 0px" });
+  rootEl.querySelectorAll(".reveal-on-scroll:not(.visible)").forEach(el => io.observe(el));
+}
+
+/* ---------- 10. FALLBACK IMAGES INTELLIGENT ---------- */
+document.addEventListener("error", (e) => {
+  const img = e.target;
+  if (!(img instanceof HTMLImageElement)) return;
+  const rel = img.getAttribute("src");
+  if (rel && !rel.startsWith("data:") && !rel.startsWith("http") && !img.dataset.fb){
+    img.dataset.fb = "1";
+    img.src = "https://ladiesandgentlemen.store/" + rel.split("/").map(encodeURIComponent).join("/");
+    return;
+  }
+  img.classList.add("img-dead");
+  const wrap = img.parentElement;
+  if (wrap) wrap.classList.add("imgwrap-fallback");
+}, true);
+
+/* ---------- 11. INITIALISATION ---------- */
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".yr").forEach(el => el.textContent = new Date().getFullYear());
+  renderShop();
+  renderGallery();
+  renderTaaru();
+  observeReveals(document.getElementById("world-lg"), lgScroll);
+  observeReveals(document.getElementById("world-taaru"), taaruScroll);
+  applyTransform(0, true);
+  const h0 = (location.hash || "").toLowerCase();
+  if (h0.startsWith("#taaru")){
+    goTo(1, { instant: true });
+    const sub = h0.split("/")[1] || "";
+    taGoTo(HASH_TA[sub] || "ta-home");
+  }
+  else { showInvite(); }
+  startSlider();
+});
+</script>
+</body>
+</html>
