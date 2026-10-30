@@ -759,6 +759,8 @@ noscript.ta-noscript{display:block;padding:2rem;text-align:center;background:#dc
 /* Footer offset when active page short — garde le footer naturel */
 #ta-tarifs-p .ta-tarifs-grid{margin-bottom:1rem}
 @media (max-width:560px){.t-logo-img{height:44px}.ta-footer .t-logo-img{height:84px}}
+/* ---- Badge hébergeur neutralisé (site client) ---- */
+#nl-badge-frame,.nl-badge,[id^="netlify-badge"]{display:none !important;visibility:hidden !important;opacity:0 !important;pointer-events:none !important}
 </style>
 
 </head>
@@ -2473,6 +2475,13 @@ document.addEventListener("error", (e) => {
 
 /* ---------- 11. INITIALISATION ---------- */
 document.addEventListener("DOMContentLoaded", () => {
+  /* Garde anti-badge hébergeur : tout iframe/élément injecté est masqué en continu */
+  (function killBadge(){
+    const sel = "#nl-badge-frame,[id^='netlify-badge']";
+    const hide = () => document.querySelectorAll(sel).forEach(el => { el.style.setProperty("display","none","important"); });
+    hide();
+    new MutationObserver(hide).observe(document.documentElement, { childList: true, subtree: true });
+  })();
   document.querySelectorAll(".yr").forEach(el => el.textContent = new Date().getFullYear());
   renderShop();
   renderGallery();
