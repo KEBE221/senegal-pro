@@ -1,9 +1,9 @@
-# Ladies & Gentlemen × Taaru Auto — Site Unifié
+# Ladies & Gentlemen × Tarru Auto — Site Unifié
 
 Site **100 % autonome** (un seul fichier `index.html`, images embarquées) réunissant les deux univers :
 
 1. **Ladies & Gentlemen — Salon & Spa** (Thiès) — Accueil, La Carte, Packs & Offres, Boutique, Galerie, Rendez-vous
-2. **Taaru Auto — Lavage, Détailing, Tapis & Linge** (Thiès) — Accueil, Services, Tarifs, Tapis & Linge, Contact
+2. **Tarru Auto — Lavage, Détailing, Tapis & Linge** (Thiès) — Accueil, Services, Tarifs, Tapis & Linge, Contact
 
 Navigation : glissez horizontalement (tactile, souris, molette) ou utilisez le sélecteur d'univers en bas.
 
@@ -56,10 +56,10 @@ node build.js
 
 ### Points de modification fréquents
 - **Prix** : directement dans `src/index.work.html` (sections `price-menu`, `bento-grid`, tableau `TARIFS`) puis relancer `node build.js`.
-- **Logo** : remplacer `src/opt/lg_med_260.jpg` (LG) ou `src/opt/ta_logo_*.png` (Taaru).
+- **Logo** : remplacer `src/opt/lg_med_260.jpg` (LG) ou `src/opt/ta_logo_*.png` (Tarru).
 - **Photos services** : remplacer le fichier correspondant dans `src/opt/` (ex. `lg_svc_coiffure.jpg`) en gardant le même nom.
 
 ## 📍 Infos business (à jour)
 
 - **LG** : Grand Standing, avant l'hôtel Phoenix — Thiès · 7j/7 · 11h–22h (L-V), 11h–23h (S-D) · +221 71 031 75 85 / 78 555 70 70
-- **Taaru Auto** : même adresse, côte à côte · Lavage auto dès 2 000 F · Tapis dès 2 500 F/m² · Linge dès 2 500 F/kg · Canapés dès 15 000 F · Matelas dès 12 000 F · Chaises dès 3 000 F · Collecte & livraison à domicile
+- **Tarru Auto** : même adresse, côte à côte · Lavage auto dès 2 000 F · Tapis dès 2 500 F/m² · Linge dès 2 500 F/kg · Canapés dès 15 000 F · Matelas dès 12 000 F · Chaises dès 3 000 F · Collecte & livraison à domicile

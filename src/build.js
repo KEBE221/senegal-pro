@@ -94,7 +94,7 @@ t = t.replace(/style="background-image:url\('\{\{([A-Z0-9_]+)\}\}'\)"/g,
 /* 3) CSS var url({{TOK}}) (sans quotes) → uri direct */
 t = t.replace(/url\(\{\{([A-Z0-9_]+)\}\}\)/g, (m, tok) => "url(" + URIS[tok] + ")");
 
-/* 3bis) ré-injection des 3 visuels Taaru d'origine (hero / tapis / detailing) */
+/* 3bis) ré-injection des 3 visuels Tarru d'origine (hero / tapis / detailing) */
 const wpOf = p => fs.existsSync(p) ? p : null;
 const taHeroSrc = wpOf("/home/z/my-project/taaru-assets/hero.webp");
 const taDetailSrc = wpOf("/home/z/my-project/taaru-assets/detailing.webp");
@@ -145,10 +145,16 @@ const ASSETS={${assetsEntries}};
 </script>
 <script>
 /* ═══════════════════════════════════════════════════════════════
-   LADIES & GENTLEMEN × TAARU AUTO — Moteur "Deux Univers"`;
+   LADIES & GENTLEMEN × TARRU AUTO — Moteur "Deux Univers"`;
 t = t.replace(`<script>
 /* ═══════════════════════════════════════════════════════════════
-   LADIES & GENTLEMEN × TAARU AUTO — Moteur "Deux Univers"`, assetScript);
+   LADIES & GENTLEMEN × TARRU AUTO — Moteur "Deux Univers"`, assetScript);
+
+/* Garde-fou : l'injection du script ASSETS + hydratation est OBLIGATOIRE */
+if (!t.includes("const ASSETS={") || !t.includes('hydrate("[data-asset],[data-bg]")')) {
+  console.error("ERREUR: script ASSETS/hydrate non injecté (marqueur introuvable)");
+  process.exit(1);
+}
 
 /* 7) contrôles */
 const leftover = t.match(/\{\{[A-Z0-9_]+\}\}/g);
