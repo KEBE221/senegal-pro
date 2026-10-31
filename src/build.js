@@ -63,9 +63,13 @@ for (const f of fs.readdirSync(OPT).sort()) {
 }
 
 const key = tok => tok.toLowerCase();
+const WEBP = path.join(SRC, "opt-webp");
 const URIS = {};
 const missing = [];
 for (const [tok, [file, mime]] of Object.entries(MAP)) {
+  const stem = file.replace(/\.(jpg|jpeg|png)$/i, "");
+  const wp = path.join(WEBP, stem + ".webp");
+  if (fs.existsSync(wp)) { URIS[tok] = "data:image/webp;base64," + fs.readFileSync(wp).toString("base64"); continue; }
   const p = path.join(OPT, file);
   if (!fs.existsSync(p)) { missing.push(tok); continue; }
   URIS[tok] = `data:${mime};base64,${fs.readFileSync(p).toString("base64")}`;
@@ -91,10 +95,15 @@ t = t.replace(/style="background-image:url\('\{\{([A-Z0-9_]+)\}\}'\)"/g,
 t = t.replace(/url\(\{\{([A-Z0-9_]+)\}\}\)/g, (m, tok) => "url(" + URIS[tok] + ")");
 
 /* 3bis) ré-injection des 3 visuels Taaru d'origine (hero / tapis / detailing) */
+const wpOf = p => fs.existsSync(p) ? p : null;
+const taHeroSrc = wpOf("/home/z/my-project/taaru-assets/hero.webp");
+const taDetailSrc = wpOf("/home/z/my-project/taaru-assets/detailing.webp");
+const taTapisSrc = wpOf(path.join(WEBP, "ta_tapis_v2.webp")) || path.join(OPT, "ta_tapis_v2.jpg");
+const b64data = p => "data:" + (p.endsWith(".webp") ? "image/webp" : "image/jpeg") + ";base64," + fs.readFileSync(p).toString("base64");
 const taOrig = {
-  hero: "data:image/jpeg;base64," + fs.readFileSync("/home/z/my-project/taaru-assets/hero.b64", "utf8").trim(),
-  tapis: "data:image/jpeg;base64," + fs.readFileSync(`${OPT}/ta_tapis_v2.jpg`).toString("base64"),
-  detailing: "data:image/jpeg;base64," + fs.readFileSync("/home/z/my-project/taaru-assets/detailing.b64", "utf8").trim(),
+  hero: b64data(taHeroSrc || "/home/z/my-project/taaru-assets/hero.b64"),
+  tapis: b64data(taTapisSrc),
+  detailing: b64data(taDetailSrc || "/home/z/my-project/taaru-assets/detailing.b64"),
 };
 const taOrigList = [taOrig.hero, taOrig.tapis, taOrig.detailing];
 let b64i = 0;
@@ -118,21 +127,20 @@ const assetScript = `<script>
 /* ASSETS — chaque image embarquée une seule fois (fichier 100% autonome) */
 const ASSETS={${assetsEntries}};
 (function(){
-  function hydrate(){
-    document.querySelectorAll("[data-asset]").forEach(function(el){
-      var u = ASSETS[el.getAttribute("data-asset")];
-      if (u){ el.src = u; }
-    });
-    document.querySelectorAll("[data-bg]").forEach(function(el){
-      var u = ASSETS[el.getAttribute("data-bg")];
-      if (u){
+  function hydrate(sel){
+    document.querySelectorAll(sel).forEach(function(el){
+      var u = ASSETS[el.getAttribute(el.hasAttribute("data-asset") ? "data-asset" : "data-bg")];
+      if (!u){ return; }
+      if (el.hasAttribute("data-asset")){ el.src = u; }
+      else {
         var extra = el.getAttribute("data-bgextra");
         el.style.backgroundImage = "url(" + u + ")" + (extra ? "," + extra : "");
       }
     });
   }
-  if (document.readyState === "loading"){ document.addEventListener("DOMContentLoaded", hydrate); }
-  else { hydrate(); }
+  /* Hydratation immédiate : le script est en fin de <body>, le DOM est déjà prêt.
+     Plus aucune attente DOMContentLoaded → images présentes dès la première peinture. */
+  hydrate("[data-asset],[data-bg]");
 })();
 </script>
 <script>

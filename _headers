@@ -1,2 +1,26 @@
 /*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(self)
+  X-XSS-Protection: 1; mode=block
+
+/index.html
   Content-Type: text/html; charset=UTF-8
+  Cache-Control: public, max-age=0, must-revalidate
+
+/
+  Content-Type: text/html; charset=UTF-8
+  Cache-Control: public, max-age=0, must-revalidate
+
+/og-image.jpg
+  Content-Type: image/jpeg
+  Cache-Control: public, max-age=604800
+
+/sitemap.xml
+  Content-Type: application/xml; charset=UTF-8
+  Cache-Control: public, max-age=86400
+
+/robots.txt
+  Content-Type: text/plain; charset=UTF-8
+  Cache-Control: public, max-age=86400

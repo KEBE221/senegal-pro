@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Moteurs majeurs — exploration complète
+User-agent: Googlebot
+Allow: /
+User-agent: Bingbot
+Allow: /
+
+Sitemap: https://ladiesandgentlemen.store/sitemap.xml
