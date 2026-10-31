@@ -513,8 +513,8 @@ body[data-universe="lg"] #toast{background:#fff;color:var(--primary-dark);border
 .world-lg .video-modal-content{width:90%;max-width:1000px;position:relative;box-shadow:0 0 0 1px rgba(255,255,255,.08),0 30px 70px -10px rgba(0,0,0,.9),0 0 50px rgba(255,255,255,.05);border-radius:16px;overflow:hidden;transform:scale(.92) translateY(20px);transition:transform .7s cubic-bezier(.22,1,.36,1);background:#000}
 .world-lg .video-modal-overlay.active .video-modal-content{transform:scale(1) translateY(0)}
 .world-lg .video-modal-content video{width:100%;height:auto;display:block;max-height:80vh;object-fit:contain}
-.world-lg .close-video-btn{position:absolute;top:-50px;right:0;color:rgba(255,255,255,.7);font-size:18px;cursor:pointer;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;outline:none;transition:all .4s cubic-bezier(.25,.8,.25,1)}
-.world-lg .close-video-btn:hover{color:#fff;background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.4);transform:rotate(90deg) scale(1.1);box-shadow:0 0 20px rgba(255,255,255,.15)}
+.world-lg .close-video-btn{position:absolute;top:14px;right:14px;color:#fff;font-size:20px;cursor:pointer;width:44px;height:44px;border-radius:50%;background:rgba(26,17,12,.55);border:1px solid rgba(255,255,255,.4);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;outline:none;z-index:6;transition:all .4s cubic-bezier(.25,.8,.25,1)}
+.world-lg .close-video-btn:hover{color:#fff;background:rgba(238,181,50,.85);border-color:rgba(238,181,50,.9);transform:rotate(90deg) scale(1.08);box-shadow:0 0 24px rgba(238,181,50,.4)}
 
 /* --- FLOATING NAV (Visible on Mobile Only) --- */
 .world-lg .mobile-float-nav{display:none;position:fixed;top:0;left:0;width:50%;/* 50% du track 200% = 100vw (ancêtre transformé) */height:auto;min-height:max(60px,env(safe-area-inset-top) + 20px);padding-top:max(15px,env(safe-area-inset-top));padding-bottom:15px;padding-left:20px;padding-right:20px;background:#ffffff;border-bottom:1px solid rgba(238,181,50,.2);align-items:center;justify-content:space-between;z-index:2000}
@@ -613,7 +613,7 @@ body[data-universe="lg"] #toast{background:#fff;color:var(--primary-dark);border
 /* Lightbox Adaptation */
 .world-lg .lightbox-overlay{background:rgba(255,255,255,.98)}
 .world-lg .lightbox-content{border-radius:12px;max-width:95%;max-height:85vh;object-fit:contain}
-.world-lg .lightbox-close{top:20px;right:20px;width:50px;height:50px;background:var(--bg-body);color:var(--primary);box-shadow:0 5px 15px rgba(0,0,0,.2)}
+.world-lg .lightbox-close{top:16px;right:16px;width:46px;height:46px;background:rgba(68,50,42,.88);color:#fff;border:1px solid rgba(255,255,255,.35);box-shadow:0 6px 18px rgba(0,0,0,.28);font-size:1.3rem}
 /* Contact Refinement */
 .world-lg .contact-wrapper{display:flex;flex-direction:column;background:transparent;box-shadow:none;border:none;padding:0;margin-bottom:4rem;gap:2rem}
 .world-lg .contact-form-area{padding:3rem 1.5rem;background:#fff;border-radius:30px;box-shadow:var(--shadow-card);order:1}
@@ -627,10 +627,6 @@ body[data-universe="lg"] #toast{background:#fff;color:var(--primary-dark);border
 .world-lg #packs .modern-header{margin-bottom:4rem}
 .world-lg #packs .premium-card{padding:2.5rem 1.5rem;border-radius:20px}
 .world-lg #packs .card-title{font-size:1.8rem}
-}
-@media (max-width:768px){
-.world-lg .close-video-btn{top:-45px;right:0;width:36px;height:36px;font-size:16px;background:rgba(0,0,0,.4);border-color:rgba(255,255,255,.1)}
-.world-lg .close-video-btn:hover{background:rgba(0,0,0,.7);transform:rotate(90deg)}
 }
 
 /* --- SMALL PHONES (< 480px) --- */
@@ -669,18 +665,20 @@ body[data-universe="lg"] #toast{background:#fff;color:var(--primary-dark);border
 .world-lg .product-price{font-size:1.1rem;color:var(--primary);font-family:var(--font-display);font-weight:700;margin-top:auto}
 /* Badges */
 .world-lg .prod-badge{top:15px;left:15px;padding:6px 12px;font-size:.5rem;letter-spacing:1px;background:rgba(255,255,255,.95);backdrop-filter:blur(5px);z-index:2}
-/* 7. MODALE MOBILE (BOTTOM SHEET premium — ajustée au contenu, jamais flottante, tout lisible sans scroll interne) */
+/* 7. MODALE MOBILE (BOTTOM SHEET premium — produit entier visible, CTA Commander toujours à l'écran, croix toujours visible) */
 .world-lg .modal-content{grid-template-columns:1fr;height:auto;max-height:min(88vh,calc(100vh - 56px));width:100%;max-width:none;border-radius:26px 26px 0 0;position:absolute;bottom:0;top:auto;margin-bottom:0;transform:translateY(110%);transition:transform .5s cubic-bezier(.33,1,.68,1);overflow-y:auto;-webkit-overflow-scrolling:touch;border:none;box-shadow:0 -10px 40px rgba(0,0,0,.1)}
 .world-lg .modal-overlay.active .modal-content{transform:translateY(0)}
-.world-lg .modal-img{height:32vh;min-height:210px;max-height:330px}
-.world-lg .modal-details{padding:1.6rem 1.4rem calc(6.6rem + env(safe-area-inset-bottom));background:#fff}
-.world-lg .modal-close{top:14px;right:14px;width:42px;height:42px;background:#fff;border:none;box-shadow:0 2px 10px rgba(0,0,0,.1)}
+.world-lg .modal-img{height:36vh;min-height:230px;max-height:360px;background:#fff}
+.world-lg .modal-img img{object-fit:contain;padding:.5rem}
+.world-lg .modal-details{padding:1.5rem 1.4rem 0;background:#fff}
+.world-lg .modal-close{top:12px;right:12px;width:44px;height:44px;background:rgba(68,50,42,.85);color:#fff;border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 6px 18px rgba(0,0,0,.28);font-size:1.05rem}
 .world-lg .modal-brand{font-size:.6rem;letter-spacing:2.4px;margin-bottom:.55rem}
 .world-lg .modal-brand::before{width:26px}
 .world-lg .modal-title{font-size:1.55rem;line-height:1.22;margin-bottom:.55rem}
 .world-lg .modal-price{font-size:1.45rem;margin-bottom:.95rem}
-.world-lg .modal-desc{font-size:.92rem;line-height:1.72;margin-bottom:1.3rem;padding-left:15px}
-.world-lg .btn-modal-action{width:100%;text-align:center;padding:1.05rem 0}
+.world-lg .modal-desc{font-size:.92rem;line-height:1.72;margin-bottom:1.1rem;padding-left:15px}
+.world-lg .modal-cta{position:sticky;bottom:0;margin:0 -1.4rem;padding:.95rem 1.4rem calc(1rem + env(safe-area-inset-bottom));background:linear-gradient(to top,#fff 72%,rgba(255,255,255,0));z-index:6}
+.world-lg .btn-modal-action{width:100%;text-align:center;padding:1.05rem 0;box-shadow:0 10px 26px rgba(138,83,60,.32)}
 }
 
 /* --- RESPONSIVE RENDEZ-VOUS - PC & LAPTOP HIGH END (MIN-WIDTH: 1025PX) --- */
@@ -1328,20 +1326,25 @@ noscript.ta-noscript{display:block;padding:2rem;text-align:center;background:#dc
   /* Header Tarru compact en tablette : WhatsApp en icône seule */
   .ta-nav-call{padding:10px 13px}
   .ta-nav-call .tn-hide{display:none}
-  /* — Modale produit tablette : proportions équilibrées, colonnes respirantes — */
+  /* — Modale produit tablette : produit entier visible (image fixe), détails scrollables, CTA Commander toujours à l'écran — */
   .world-lg .modal-content{max-width:780px;grid-template-columns:1fr 1fr;border-radius:30px;max-height:82vh}
-  .world-lg .modal-img{min-height:360px;height:100%}
-  .world-lg .modal-details{padding:2.2rem 2rem}
+  .world-lg .modal-img{align-self:start;position:sticky;top:0;height:auto;min-height:0;max-height:82vh;background:#fff}
+  .world-lg .modal-img img{height:auto;max-height:82vh;object-fit:contain;padding:1.2rem}
+  .world-lg .modal-details{padding:2.2rem 2rem 0;min-height:0;justify-content:flex-start}
+  .world-lg .modal-close{top:12px;right:12px;width:44px;height:44px;background:rgba(68,50,42,.85);color:#fff;border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 6px 18px rgba(0,0,0,.28)}
   .world-lg .modal-title{font-size:1.9rem;margin-bottom:.7rem}
   .world-lg .modal-price{font-size:1.7rem;margin-bottom:1.1rem}
-  .world-lg .modal-desc{font-size:.96rem;line-height:1.75;margin-bottom:1.6rem;padding-left:18px}
+  .world-lg .modal-desc{font-size:.96rem;line-height:1.75;margin-bottom:1.4rem;padding-left:18px}
+  .world-lg .modal-cta{position:sticky;bottom:0;margin:0 -2rem;padding:1rem 2rem;background:linear-gradient(to top,#fff 72%,rgba(255,255,255,0))}
   .world-lg .btn-modal-action{padding:1.1rem 0;font-size:.78rem;letter-spacing:1.6px}
 }
 /* Modale produit en paysage bas (téléphone large / tablette couchée) : version compacte horizontale */
 @media (min-width:769px) and (max-width:1024px) and (max-height:520px){
   .world-lg .modal-content{max-width:640px;max-height:88vh}
-  .world-lg .modal-img{min-height:260px}
-  .world-lg .modal-details{padding:1.3rem 1.5rem}
+  .world-lg .modal-img{min-height:240px;max-height:88vh}
+  .world-lg .modal-img img{max-height:88vh;padding:.8rem}
+  .world-lg .modal-details{padding:1.3rem 1.5rem 0}
+  .world-lg .modal-cta{margin:0 -1.5rem;padding:.8rem 1.5rem}
   .world-lg .modal-title{font-size:1.35rem;margin-bottom:.4rem}
   .world-lg .modal-price{font-size:1.2rem;margin-bottom:.65rem}
   .world-lg .modal-desc{font-size:.86rem;line-height:1.6;margin-bottom:1rem}
@@ -1993,7 +1996,7 @@ noscript.ta-noscript{display:block;padding:2rem;text-align:center;background:#dc
 <h2 id="m-title" class="modal-title">Nom du produit</h2>
 <span id="m-price" class="modal-price">00 000 FCFA</span>
 <p id="m-desc" class="modal-desc">Description détaillée du produit…</p>
-<button class="btn-modal-action" onclick="orderProduct()"><i class="fab fa-whatsapp"></i> Commander</button>
+<div class="modal-cta"><button class="btn-modal-action" onclick="orderProduct()"><i class="fab fa-whatsapp"></i> Commander</button></div>
 </div>
 </div>
 </div>
