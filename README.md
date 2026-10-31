@@ -7,6 +7,10 @@ Site **100 % autonome** (un seul fichier `index.html`, images embarquées) réun
 
 Navigation : glissez horizontalement (tactile, souris, molette) ou utilisez le sélecteur d'univers en bas.
 
+Boutique : 65 produits réels du salon (photos et prix officiels) · Galerie : 24 photos + 17 vidéos du salon · Slider : 8 visuels réels.
+
+**Vidéos de la galerie** : elles sont diffusées en streaming directement depuis le serveur du salon (ladiesandgentlemen.store), avec repli automatique sur un dossier `media/` local si vous y déposez les fichiers (`IMG_8989.MOV`, `coiffure.mp4`, `pédicure.mp4`, `soin-de-visage.mp4`).
+
 ## 🚀 Déploiement
 
 Le fichier prêt à l'emploi est **`index.html`** (à la racine).
