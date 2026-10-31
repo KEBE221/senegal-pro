@@ -7,7 +7,7 @@
 <meta name="description" content="Deux univers, une seule adresse à Thiès : Ladies & Gentlemen Salon & Spa (beauté, coiffure, massages, hammam, boutique) et Taaru Auto (lavage auto, detailing, tapis & linge). Glissez pour passer d'un univers à l'autre.">
 <meta name="theme-color" content="#0a0a0c">
 <meta property="og:title" content="Ladies & Gentlemen × Taaru Auto — Deux univers, une seule adresse">
-<meta property="og:description" content="Salon & Spa premium et centre de lavage & detailing automobile à Thiès. Faites laver votre véhicule pendant que vous profitez de votre beauté et bien-être !">
+<meta property="og:description" content="Salon & Spa premium et centre de lavage & detailing automobile à Thiès. Beauté, bien-être et véhicule étincelant — au même endroit !">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/jpeg" href="{{ICO_LG}}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -131,7 +131,7 @@ body[data-universe="taaru"] .edge-right{opacity:0;pointer-events:none;transform:
   --ease-bounce:cubic-bezier(.68,-.55,.265,1.55);
   --ease-luxury:cubic-bezier(.23,1,.32,1);
   --sidebar-width:320px;
-  --img-lg-contact:url({{LG_INTERIOR}});
+  --img-lg-contact:url({{LG_CONTACT}});
   /* --- corps original --- */
   font-family:var(--font-ui);color:var(--text-main);background-color:var(--bg-body);
   -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
@@ -146,7 +146,7 @@ body[data-universe="taaru"] .edge-right{opacity:0;pointer-events:none;transform:
 .world-lg .grid-bg{position:absolute;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(138,83,60,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(138,83,60,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:0;mask-image:radial-gradient(circle,black 30%,transparent 100%);-webkit-mask-image:radial-gradient(circle,black 30%,transparent 100%)}
 
 /* --- LAYOUT GLOBAL --- */
-.world-lg .app-container{display:flex;min-height:100%;position:relative}
+.world-lg .app-container{display:flex;height:100%;overflow:hidden;position:relative}
 
 /* --- SIDEBAR (HEADER) - VERSION LUXE FLOTTANTE --- */
 .world-lg .sidebar{width:var(--sidebar-width);background:#ffffff;position:fixed;top:0;left:0;height:100vh;z-index:1000;padding:4rem 2rem;display:flex;flex-direction:column;transition:transform .6s var(--ease-luxury),all .5s ease}
@@ -637,6 +637,48 @@ body[data-universe="lg"] #toast{background:#fff;color:var(--primary-dark);border
 .wa-widget-container{right:14px;bottom:calc(84px + env(safe-area-inset-bottom))}
 }
 
+/* ════════════════════════════════════════════════════════════════════
+   WIDGET WHATSAPP LG — DESIGN "EXPERT DREAM" (reproduction fidèle du salon)
+   Bouton blob or/cuivre animé + fenêtre crème translucide
+   ════════════════════════════════════════════════════════════════════ */
+#world-lg .wa-widget-container{position:absolute;bottom:30px;right:30px;z-index:3600;display:block;font-family:var(--font-ui);pointer-events:none}
+#world-lg .wa-widget-container .wa-float-btn,#world-lg .wa-widget-container .wa-chat-box.active{pointer-events:all}
+#world-lg .wa-chat-box{position:absolute;bottom:85px;right:0;width:350px;height:500px;background:rgba(255,255,255,.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:24px;box-shadow:var(--shadow-hover);display:flex;flex-direction:column;overflow:hidden;opacity:0;transform:scale(.9) translateY(20px);pointer-events:none;transform-origin:bottom right;transition:all .5s var(--ease-luxury)}
+#world-lg .wa-chat-box.active{opacity:1;transform:scale(1) translateY(0);pointer-events:all}
+#world-lg .wa-header{background:var(--primary);padding:20px;display:flex;align-items:center;justify-content:space-between}
+#world-lg .wa-profile{display:flex;align-items:center;gap:12px}
+#world-lg .wa-avatar{width:45px;height:45px;border-radius:50%;object-fit:cover;border:2px solid var(--secondary-dark)}
+#world-lg .wa-info h4{font-size:16px;color:#fff;margin-bottom:2px;font-weight:600;font-family:var(--font-ui)}
+#world-lg .wa-info span{font-size:11px;color:var(--primary-light);text-transform:uppercase;letter-spacing:1px;display:flex;align-items:center;gap:5px}
+#world-lg .wa-info span::before{content:'';width:6px;height:6px;background:#4ade80;border-radius:50%;box-shadow:0 0 5px #4ade80}
+#world-lg .wa-close-btn{background:rgba(255,255,255,.2);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;transition:.3s;display:flex;align-items:center;justify-content:center}
+#world-lg .wa-close-btn:hover{background:#fff;color:var(--primary)}
+#world-lg .wa-body{flex:1;padding:20px;overflow-y:auto;background:#fffdf9;display:flex;flex-direction:column;gap:15px}
+#world-lg .wa-msg{max-width:80%;padding:12px 16px;font-size:14px;line-height:1.5;border-radius:16px;position:relative;animation:waSlideUpMsg .3s var(--ease-smooth)}
+#world-lg .wa-msg.received{background:var(--bg-body);color:var(--primary-dark);align-self:flex-start;border-bottom-left-radius:4px;border:1px solid rgba(138,83,60,.1)}
+#world-lg .wa-msg.sent{background:var(--primary);color:#fff;align-self:flex-end;border-bottom-right-radius:4px;box-shadow:0 5px 15px rgba(138,83,60,.2)}
+#world-lg .wa-time{display:block;font-size:10px;margin-top:5px;opacity:.7;text-align:right}
+#world-lg .wa-footer{padding:15px;background:#fff;border-top:1px solid var(--secondary-dark);display:flex;gap:10px}
+#world-lg .wa-input{flex:1;background:var(--bg-body);border:none;color:var(--primary-dark);padding:12px 20px;border-radius:30px;font-family:var(--font-ui);font-size:14px}
+#world-lg .wa-send-btn{width:45px;height:45px;border-radius:50%;border:none;background:var(--secondary);color:var(--primary-dark);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-card);transition:.2s;flex-shrink:0}
+#world-lg .wa-send-btn:hover{transform:scale(1.05);background:var(--primary);color:#fff}
+#world-lg .wa-float-btn{position:relative;width:70px;height:70px;cursor:pointer;z-index:10;display:flex;justify-content:center;align-items:center;border-radius:60% 40% 30% 70%/60% 30% 70% 40%;background:linear-gradient(135deg,var(--secondary),var(--primary),var(--primary-light));background-size:200% 200%;animation:waMorph 6s ease-in-out infinite,waGradientShift 5s ease infinite,waFloat 4s ease-in-out infinite;box-shadow:0 10px 25px rgba(138,83,60,.4),inset 0 0 15px rgba(255,255,255,.3);transition:transform .3s var(--ease-bounce);border:none}
+#world-lg .wa-float-btn::after{display:none}
+#world-lg .wa-float-btn:hover{transform:scale(1.15);box-shadow:0 15px 35px rgba(238,181,50,.5),inset 0 0 20px rgba(255,255,255,.5)}
+#world-lg .wa-float-btn::before{content:'';position:absolute;top:50%;left:50%;width:100%;height:100%;border-radius:50%;border:1px solid var(--secondary);transform:translate(-50%,-50%) scale(1);opacity:0;z-index:-1;pointer-events:none;animation:waRippleSoft 3s infinite}
+#world-lg .wa-float-btn i{font-size:32px;color:#fff;z-index:2;filter:drop-shadow(0 2px 3px rgba(68,50,42,.3))}
+#world-lg .wa-badge{position:absolute;top:-2px;right:-2px;background:#e74c3c;color:#fff;font-size:11px;font-weight:700;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg-body);box-shadow:0 2px 5px rgba(0,0,0,.2);z-index:5;animation:waBounceBadge 2s infinite}
+@keyframes waMorph{0%{border-radius:60% 40% 30% 70%/60% 30% 70% 40%}50%{border-radius:30% 60% 70% 40%/50% 60% 30% 60%}100%{border-radius:60% 40% 30% 70%/60% 30% 70% 40%}}
+@keyframes waGradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes waFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes waRippleSoft{0%{transform:translate(-50%,-50%) scale(1);opacity:.6;border-width:2px}100%{transform:translate(-50%,-50%) scale(2.2);opacity:0;border-width:0}}
+@keyframes waBounceBadge{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+@keyframes waSlideUpMsg{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@media (max-width:768px){
+#world-lg .wa-chat-box{width:calc(100vw - 50px);right:10px;bottom:90px;height:65vh}
+#world-lg .wa-widget-container{bottom:20px;right:20px}
+}
+
 /* ====================================================================================================
    AMÉLIORATIONS SPÉCIFIQUES PAGE PACKS (EFFETS "WOW" & RAFFINEMENTS)
    ==================================================================================================== */
@@ -726,6 +768,78 @@ body[data-universe="lg"] #toast{background:#fff;color:var(--primary-dark);border
 .world-lg .item-name{color:var(--text-main);font-weight:400}
 .world-lg .item-price{font-weight:700;color:var(--secondary);font-family:var(--font-display);font-size:1.2rem}
 .world-lg .mini-col-title{font-size:1.5rem;color:var(--primary-dark);margin-bottom:1.5rem;border-left:4px solid var(--secondary);padding-left:1rem}
+/* ═══════ COMPOSANTS V2 — FLYERS PACKS / HOME FLOW / CATÉGORIES / CONTACT ═══════ */
+/* — Cartes Flyers (packs officiels) — */
+.world-lg #packs .flyer-wrap{position:relative;border-radius:18px;overflow:hidden;margin-bottom:1.6rem;box-shadow:0 14px 34px rgba(44,32,26,.14);background:#fff}
+.world-lg #packs .pack-image.flyer{width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;display:block;transition:transform .7s var(--ease-smooth)}
+.world-lg #packs .premium-card:hover .pack-image.flyer{transform:scale(1.045)}
+.world-lg #packs .flyer-wrap::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(44,32,26,.16),transparent 42%);pointer-events:none}
+.world-lg #packs .flyer-card .card-header{display:flex;flex-direction:column;align-items:flex-start;gap:.15rem;text-align:left;padding:0 .3rem;margin-bottom:1rem;border-bottom:1px solid rgba(238,181,50,.28);padding-bottom:.9rem}
+.world-lg #packs .flyer-card .card-title{font-size:1.7rem;margin:0}
+.world-lg #packs .flyer-card .card-price{font-size:1.45rem;margin:0;white-space:nowrap;font-style:italic}
+.world-lg #packs .flyer-card .card-desc{border-left:none;padding:0 .4rem 1.5rem;text-align:left;margin-bottom:0;font-size:.92rem}
+.world-lg #packs .flyer-card .btn-card{width:100%;margin-bottom:.4rem}
+/* — HOME FLOW : richesse sous le hero — */
+.world-lg .home-flow{padding-top:5.5rem}
+.world-lg .home-cta-row{display:flex;gap:1.2rem;justify-content:center;margin-top:2.4rem;flex-wrap:wrap}
+.world-lg .home-services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;margin:4.5rem 0 1rem}
+.world-lg .home-svc{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:4/5;cursor:pointer;box-shadow:var(--shadow-card);border:1px solid rgba(238,181,50,.18);background:#fff}
+.world-lg .home-svc img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease-smooth)}
+.world-lg .home-svc:hover img{transform:scale(1.08)}
+.world-lg .home-svc .home-svc-name{position:absolute;left:0;right:0;bottom:0;padding:2.6rem 1.2rem 1.1rem;background:linear-gradient(to top,rgba(24,16,10,.85),transparent);color:#fff;font-family:var(--font-display);font-size:1.22rem;font-style:italic;display:flex;align-items:center;justify-content:space-between;gap:.6rem;z-index:2}
+.world-lg .home-svc .home-svc-name i{font-size:.78rem;color:var(--secondary);transition:transform .4s var(--ease-smooth)}
+.world-lg .home-svc:hover .home-svc-name i{transform:translateX(6px)}
+.world-lg .home-packs-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1.6rem;margin:3.5rem 0 1rem}
+.world-lg .home-pk{position:relative;border-radius:16px;overflow:hidden;cursor:pointer;aspect-ratio:1/1;box-shadow:var(--shadow-card);border:1px solid rgba(238,181,50,.2);background:#fff}
+.world-lg .home-pk img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease-smooth)}
+.world-lg .home-pk:hover img{transform:scale(1.06)}
+.world-lg .home-pk .home-pk-tag{position:absolute;left:0;right:0;bottom:0;padding:2.4rem 1rem .9rem;background:linear-gradient(to top,rgba(24,16,10,.88),transparent);color:#fff;display:flex;justify-content:space-between;align-items:baseline;gap:.6rem;z-index:2;font-family:var(--font-display)}
+.world-lg .home-pk .home-pk-tag b{font-weight:600;font-size:1rem;font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.world-lg .home-pk .home-pk-tag span{color:var(--secondary);font-weight:700;font-size:.9rem;white-space:nowrap}
+.world-lg .home-info-band{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin:5rem 0 0;padding:2.8rem 2.6rem;background:linear-gradient(135deg,var(--primary-dark),#2a1e15);border-radius:22px;color:#fff;box-shadow:0 24px 60px rgba(44,32,26,.35);position:relative;overflow:hidden}
+.world-lg .home-info-band::before{content:"";position:absolute;top:-40%;right:-8%;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(238,181,50,.25),transparent 70%);pointer-events:none}
+.world-lg .hib-item{display:flex;align-items:center;gap:1.1rem;position:relative;z-index:2}
+.world-lg .hib-item i{font-size:1.45rem;color:var(--secondary);flex-shrink:0}
+.world-lg .hib-item h5{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;opacity:.72;margin:0 0 .35rem 0;font-weight:700}
+.world-lg .hib-item p{font-family:var(--font-display);font-size:1.15rem;font-style:italic;margin:0}
+/* — Boutique : catégories premium — */
+.world-lg .shop-tab{display:inline-flex;align-items:center;gap:.55rem}
+.world-lg .shop-tab .tab-ic{font-size:.82rem;opacity:.7;transition:all .3s var(--ease-luxury)}
+.world-lg .shop-tab:hover .tab-ic{opacity:1}
+.world-lg .shop-tab.active .tab-ic{opacity:1;transform:scale(1.08)}
+.world-lg .shop-tab .tab-count{display:inline-flex;align-items:center;justify-content:center;min-width:21px;height:21px;padding:0 7px;border-radius:50px;background:rgba(138,83,60,.1);color:var(--primary-dark);font-size:.6rem;font-weight:800;letter-spacing:0;transition:all .3s}
+.world-lg .shop-tab.active .tab-count{background:rgba(255,255,255,.28);color:#fff}
+.world-lg .products-grid .cat-head{grid-column:1/-1;display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin:.4rem 0 .6rem;padding-bottom:1.1rem;border-bottom:1px solid rgba(238,181,50,.28)}
+.world-lg .products-grid .cat-head h3{font-family:var(--font-display);font-size:1.9rem;font-style:italic;color:var(--primary-dark);margin:0}
+.world-lg .products-grid .cat-head h3 i{color:var(--secondary);margin-right:.65rem;font-size:1.25rem}
+.world-lg .products-grid .cat-head span{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted);font-weight:700;white-space:nowrap}
+/* — Contact : première partie premium — */
+.world-lg #contact .contact-hero{text-align:center;margin-bottom:3.4rem}
+.world-lg #contact .contact-badge7j{display:inline-flex;align-items:center;gap:.55rem;background:rgba(238,181,50,.14);border:1px solid var(--secondary);color:var(--primary-dark);font-size:.64rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:.55rem 1.2rem;border-radius:50px;margin-bottom:1.5rem}
+.world-lg #contact .contact-badge7j i{color:var(--secondary)}
+.world-lg #contact .contact-lede{max-width:620px;margin:0 auto;color:var(--text-muted);font-size:1.02rem;line-height:1.8}
+.world-lg #contact .contact-chips{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2rem}
+.world-lg #contact .chip-contact{display:inline-flex;align-items:center;gap:.6rem;padding:.95rem 1.7rem;border-radius:50px;background:rgba(255,255,255,.8);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(238,181,50,.35);color:var(--primary-dark);font-size:.78rem;font-weight:700;letter-spacing:.04em;text-decoration:none;transition:all .35s var(--ease-luxury);box-shadow:var(--shadow-card)}
+.world-lg #contact .chip-contact:hover{transform:translateY(-3px);border-color:var(--secondary);box-shadow:0 12px 28px rgba(238,181,50,.22);color:var(--primary)}
+.world-lg #contact .chip-contact i{color:var(--secondary);font-size:.9rem}
+.world-lg #contact .contact-form-area{background:linear-gradient(150deg,rgba(255,255,255,.96),rgba(255,255,255,.84));backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(238,181,50,.3);box-shadow:0 30px 70px rgba(44,32,26,.14);overflow:hidden}
+.world-lg #contact .contact-form-area::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,var(--primary),var(--secondary),var(--primary));z-index:3}
+.world-lg #contact .contact-form-area h3{font-family:var(--font-display);font-style:italic;color:var(--primary-dark)}
+.world-lg #contact .contact-form-area .contact-badge7j{margin-bottom:1.2rem}
+/* — Responsive des nouveaux composants — */
+@media (max-width:1180px){
+  .world-lg .home-packs-strip{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:820px){
+  .world-lg .home-services-grid{grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:3rem}
+  .world-lg .home-packs-strip{grid-template-columns:repeat(2,1fr);gap:1rem}
+  .world-lg .home-info-band{grid-template-columns:1fr;padding:2.2rem 1.7rem;gap:1.7rem}
+  .world-lg #packs .flyer-card .card-title{font-size:1.5rem}
+  .world-lg #packs .flyer-card .card-price{font-size:1.2rem}
+  .world-lg .products-grid .cat-head h3{font-size:1.5rem}
+  .world-lg #contact .chip-contact{padding:.85rem 1.3rem;font-size:.72rem}
+  .world-lg .home-flow{padding-top:3.5rem}
+}
 /* --- ANIMATIONS SCROLL (pont de compatibilité) --- */
 .world-lg .reveal-on-scroll{opacity:0;transform:translateY(30px);transition:all .8s var(--ease-smooth)}
 .world-lg .reveal-on-scroll.visible,.world-lg .reveal-on-scroll.is-visible{opacity:1;transform:translateY(0)}
@@ -1098,18 +1212,22 @@ noscript.ta-noscript{display:block;padding:2rem;text-align:center;background:#dc
 <!-- ===== PAGE ACCUEIL ===== -->
 <section id="home" class="page-view active">
 <div class="hero-slider" id="heroSlider">
-<div class="slide active"><div class="slide-bg" style="background-image:url('{{LG_HERO_HEADSPA}}'),linear-gradient(160deg,#5a4030,#171009)"></div>
+<div class="slide active"><div class="slide-bg" style="background-image:url('{{SL_L2}}'),linear-gradient(160deg,#5a4030,#171009)"></div>
 <div class="hero-content"><div class="hero-text"><span class="hero-label">Head Spa</span><h1 class="hero-title">Lueurs<br>Apaisantes</h1><a onclick="switchPage('services')" class="btn-hero" role="button" tabindex="0">Découvrir</a></div></div></div>
-<div class="slide"><div class="slide-bg" style="background-image:url('{{LG_HERO_GENTLEMAN}}'),linear-gradient(160deg,#3a2a20,#100b07)"></div>
+<div class="slide"><div class="slide-bg" style="background-image:url('{{GAL_BARBER5_JPG}}'),linear-gradient(160deg,#3a2a20,#100b07)"></div>
 <div class="hero-content"><div class="hero-text"><span class="hero-label">Gentleman's Club</span><h1 class="hero-title">Élégance<br>Signature</h1><button onclick="bookPack('Prise de RDV - Pour Lui','Merci de me contacter')" class="btn-hero">Prendre RDV</button></div></div></div>
-<div class="slide"><div class="slide-bg" style="background-image:url('{{LG_HERO_BRAIDS}}'),linear-gradient(160deg,#6a4a34,#1c120b)"></div>
+<div class="slide"><div class="slide-bg" style="background-image:url('{{SL_POUR_ELLE}}'),linear-gradient(160deg,#6a4a34,#1c120b)"></div>
 <div class="hero-content"><div class="hero-text"><span class="hero-label">Pour Elle</span><h1 class="hero-title">Tresses<br>Infinies</h1><a onclick="switchPage('packs')" class="btn-hero" role="button" tabindex="0">Voir les Offres</a></div></div></div>
-<div class="slide"><div class="slide-bg" style="background-image:url('{{LG_HERO_PEDICURE}}'),linear-gradient(160deg,#54402e,#140e08)"></div>
+<div class="slide"><div class="slide-bg" style="background-image:url('{{GAL_PEDICURE_5_JPG}}'),linear-gradient(160deg,#54402e,#140e08)"></div>
 <div class="hero-content"><div class="hero-text"><span class="hero-label">Pédicure Spa</span><h1 class="hero-title">Pas de<br>Velours</h1><button onclick="bookPack('Soin Pédicure','Intéressé par un soin pieds')" class="btn-hero">Réserver</button></div></div></div>
-<div class="slide"><div class="slide-bg" style="background-image:url('{{LG_HERO_MASSAGE}}'),linear-gradient(160deg,#503a2a,#130d08)"></div>
+<div class="slide"><div class="slide-bg" style="background-image:url('{{SL_WELLNESS}}'),linear-gradient(160deg,#503a2a,#130d08)"></div>
+<div class="hero-content"><div class="hero-text"><span class="hero-label">Wellness</span><h1 class="hero-title">Lavage<br>Mystique</h1><button onclick="bookPack('Head Spa','Je veux réserver un Head Spa')" class="btn-hero">Réserver</button></div></div></div>
+<div class="slide"><div class="slide-bg" style="background-image:url('{{SL_M4}}'),linear-gradient(160deg,#463424,#110c07)"></div>
 <div class="hero-content"><div class="hero-text"><span class="hero-label">Relaxation</span><h1 class="hero-title">Mouvement<br>Fluide</h1><button onclick="bookPack('Massage','Je veux réserver un Massage')" class="btn-hero">Réserver</button></div></div></div>
-<div class="slide"><div class="slide-bg" style="background-image:url('{{LG_HERO_HAMMAM}}'),linear-gradient(160deg,#463424,#110c07)"></div>
+<div class="slide"><div class="slide-bg" style="background-image:url('{{GAL_DAMP_1}}'),linear-gradient(160deg,#4a3626,#120d08)"></div>
 <div class="hero-content"><div class="hero-text"><span class="hero-label">Rituel de Chaleur</span><h1 class="hero-title">Danse de<br>Vapeur</h1><button onclick="bookPack('Damp','Je veux réserver un Damp')" class="btn-hero">Réserver</button></div></div></div>
+<div class="slide"><div class="slide-bg" style="background-image:url('{{SL_SOIN3}}'),linear-gradient(160deg,#523d2c,#140f08)"></div>
+<div class="hero-content"><div class="hero-text"><span class="hero-label">Soin Visage</span><h1 class="hero-title">Éclat<br>Doré</h1><button onclick="bookPack('Soin Visage','Je veux réserver un Soin Visage')" class="btn-hero">Réserver</button></div></div></div>
 <div class="slider-dots">
 <div class="dot active" onclick="manualSlide(0)" role="button" aria-label="Slide 1"></div>
 <div class="dot" onclick="manualSlide(1)" role="button" aria-label="Slide 2"></div>
@@ -1117,6 +1235,80 @@ noscript.ta-noscript{display:block;padding:2rem;text-align:center;background:#dc
 <div class="dot" onclick="manualSlide(3)" role="button" aria-label="Slide 4"></div>
 <div class="dot" onclick="manualSlide(4)" role="button" aria-label="Slide 5"></div>
 <div class="dot" onclick="manualSlide(5)" role="button" aria-label="Slide 6"></div>
+<div class="dot" onclick="manualSlide(6)" role="button" aria-label="Slide 7"></div>
+<div class="dot" onclick="manualSlide(7)" role="button" aria-label="Slide 8"></div>
+</div>
+</div>
+
+<!-- ===== HOME FLOW — L'EXPÉRIENCE SOUS LE HERO ===== -->
+<div class="section-dream home-flow">
+<div class="modern-header reveal-on-scroll">
+<span class="modern-subtitle">Bienvenue</span>
+<h2 class="modern-title">L'Expérience Rêve Ultime</h2>
+<p style="max-width:640px;margin:1.4rem auto 0;color:var(--text-muted);font-size:1.05rem;line-height:1.8">Coiffure, spa, massages, hammam, onglerie &amp; institut — un écrin de douceur au cœur de Thiès, où chaque détail est pensé pour sublimer votre beauté et celui de vos proches.</p>
+<div class="home-cta-row">
+<a onclick="switchPage('services')" class="btn-hero" role="button" tabindex="0">Découvrir la Carte</a>
+<a onclick="switchPage('packs')" class="btn-hero" role="button" tabindex="0" style="background:transparent;color:var(--primary);border:1px solid var(--primary)">Nos Packs Signature</a>
+</div>
+</div>
+
+<div class="home-services-grid reveal-on-scroll">
+<div class="home-svc" onclick="switchPage('services')" role="button" tabindex="0" aria-label="Découvrir nos services de coiffure femme">
+<img src="{{LG_SVC_COIFFURE}}" alt="Coiffure femme — tresses et tissages" loading="lazy">
+<div class="home-svc-name">Coiffure Femme <i class="fas fa-arrow-right" aria-hidden="true"></i></div>
+</div>
+<div class="home-svc" onclick="switchPage('services')" role="button" tabindex="0" aria-label="Découvrir notre barber">
+<img src="{{LG_SVC_BARBER}}" alt="Barber homme — dégradé et taille de barbe" loading="lazy">
+<div class="home-svc-name">Gentleman's Club <i class="fas fa-arrow-right" aria-hidden="true"></i></div>
+</div>
+<div class="home-svc" onclick="switchPage('services')" role="button" tabindex="0" aria-label="Découvrir nos soins du visage">
+<img src="{{LG_SVC_VISAGE}}" alt="Soin du visage en institut" loading="lazy">
+<div class="home-svc-name">Soins Visage <i class="fas fa-arrow-right" aria-hidden="true"></i></div>
+</div>
+<div class="home-svc" onclick="switchPage('services')" role="button" tabindex="0" aria-label="Découvrir le head spa">
+<img src="{{LG_SVC_HEADSPA}}" alt="Head spa japonais" loading="lazy">
+<div class="home-svc-name">Head Spa <i class="fas fa-arrow-right" aria-hidden="true"></i></div>
+</div>
+<div class="home-svc" onclick="switchPage('services')" role="button" tabindex="0" aria-label="Découvrir nos massages">
+<img src="{{LG_SVC_MASSAGE}}" alt="Massage relaxant" loading="lazy">
+<div class="home-svc-name">Massages <i class="fas fa-arrow-right" aria-hidden="true"></i></div>
+</div>
+<div class="home-svc" onclick="switchPage('services')" role="button" tabindex="0" aria-label="Découvrir l'onglerie">
+<img src="{{LG_SVC_ONGLERIE}}" alt="Onglerie — pose et vernis" loading="lazy">
+<div class="home-svc-name">Onglerie <i class="fas fa-arrow-right" aria-hidden="true"></i></div>
+</div>
+</div>
+
+<div class="modern-header reveal-on-scroll" style="margin-top:6rem">
+<span class="modern-subtitle">Excellence &amp; Prestige</span>
+<h2 class="modern-title" style="font-size:clamp(1.9rem,4vw,2.8rem)">Packs Signature</h2>
+</div>
+<div class="home-packs-strip reveal-on-scroll">
+<div class="home-pk" onclick="switchPage('packs')" role="button" tabindex="0" aria-label="Voir le Pack Lady">
+<img src="{{LG_FLYER_LADY}}" alt="Pack Lady — 40 000 francs" loading="lazy">
+<div class="home-pk-tag"><b>Pack Lady</b><span>40 000 F</span></div>
+</div>
+<div class="home-pk" onclick="switchPage('packs')" role="button" tabindex="0" aria-label="Voir le Pack Gentleman">
+<img src="{{LG_FLYER_GENTLEMAN}}" alt="Pack Gentleman — 45 000 francs" loading="lazy">
+<div class="home-pk-tag"><b>Pack Gentleman</b><span>45 000 F</span></div>
+</div>
+<div class="home-pk" onclick="switchPage('packs')" role="button" tabindex="0" aria-label="Voir le pack Tom et Jerry">
+<img src="{{LG_FLYER_TOMETJERRY}}" alt="Pack Tom et Jerry — 23 000 francs" loading="lazy">
+<div class="home-pk-tag"><b>Tom &amp; Jerry</b><span>23 000 F</span></div>
+</div>
+<div class="home-pk" onclick="switchPage('packs')" role="button" tabindex="0" aria-label="Voir le pack Reine du Jour">
+<img src="{{LG_FLYER_REINEDUJOUR}}" alt="Pack Reine du Jour — 45 000 francs" loading="lazy">
+<div class="home-pk-tag"><b>Reine du Jour</b><span>45 000 F</span></div>
+</div>
+</div>
+<div class="reveal-on-scroll" style="text-align:center;margin-top:2.6rem">
+<a onclick="switchPage('packs')" class="btn-hero" role="button" tabindex="0">Voir tous les packs</a>
+</div>
+
+<div class="home-info-band reveal-on-scroll">
+<div class="hib-item"><i class="far fa-clock" aria-hidden="true"></i><div><h5>Horaires</h5><p>Ouvert 7j/7 — 11h à 22h</p></div></div>
+<div class="hib-item"><i class="fas fa-phone-alt" aria-hidden="true"></i><div><h5>Réservations</h5><p>+221 78 555 70 70</p></div></div>
+<div class="hib-item"><i class="fas fa-map-marker-alt" aria-hidden="true"></i><div><h5>Adresse</h5><p>Grand Standing — Thiès</p></div></div>
 </div>
 </div>
 </section>
@@ -1311,116 +1503,77 @@ noscript.ta-noscript{display:block;padding:2rem;text-align:center;background:#dc
 <div class="packs-wrapper">
 
 <div class="modern-header reveal-on-scroll" style="margin-bottom:2.5rem">
+<span class="modern-subtitle">Rituels Signature Femme</span>
 <h3 style="font-family:var(--font-display);font-size:2.2rem;color:var(--text-main);font-weight:600">Collection Dame</h3>
 </div>
 <div class="bento-grid">
-<div class="premium-card reveal-on-scroll">
-<img src="{{LG_HERO_PEDICURE}}" alt="Pack Soin Express femme" class="pack-image" loading="lazy">
-<div class="card-header"><span class="card-badge">Essentiel</span><h3 class="card-title">Soin Express</h3><span class="card-price">25 000 FCFA</span></div>
+<div class="premium-card flyer-card reveal-on-scroll">
+<img src="{{LG_FLYER_SOINEXPRESS}}" alt="Pack Soins Express — pédicure, manucure, coup d'éclat, shampoing et massage — 25 000 francs" class="pack-image flyer" loading="lazy">
+<div class="card-header"><h3 class="card-title">Soins Express</h3><span class="card-price">25 000 FCFA</span></div>
 <p class="card-desc">Pédicure et manucure simple, coup d'éclat, shampoing, massage.</p>
-<button onclick="bookPack('Soin Express (Dame)','25 000 FCFA')" class="btn-card">Réserver</button>
+<button onclick="bookPack('Soins Express (Dame)','25 000 FCFA')" class="btn-card">Réserver ce pack</button>
 </div>
-<div class="premium-card reveal-on-scroll">
-<img src="{{LG_SVC_HEADSPA}}" alt="Pack Tête Parfaite" class="pack-image" loading="lazy">
-<div class="card-header"><span class="card-badge">Radiance</span><h3 class="card-title">Tête Parfaite</h3><span class="card-price">25 000 FCFA</span></div>
-<p class="card-desc">Shampoing, casque, massage, tresses simple, soin de visage express.</p>
-<button onclick="bookPack('Tête Parfaite','25 000 FCFA')" class="btn-card">Réserver</button>
+<div class="premium-card flyer-card reveal-on-scroll">
+<img src="{{LG_FLYER_TETEPARFAITE}}" alt="Pack Tête Parfaite — shampoing, casque, massage, tresse simple et soin de visage express — 25 000 francs" class="pack-image flyer" loading="lazy">
+<div class="card-header"><h3 class="card-title">Tête Parfaite</h3><span class="card-price">25 000 FCFA</span></div>
+<p class="card-desc">Shampoing, casque, massage, tresse simple, soin de visage express.</p>
+<button onclick="bookPack('Tête Parfaite','25 000 FCFA')" class="btn-card">Réserver ce pack</button>
 </div>
-<div class="premium-card reveal-on-scroll">
-<img src="{{LG_SVC_VISAGE}}" alt="Pack Relax Max femme" class="pack-image" loading="lazy">
-<div class="card-header"><span class="card-badge">Détente</span><h3 class="card-title">Relax Max</h3><span class="card-price">28 000 FCFA</span></div>
+<div class="premium-card flyer-card reveal-on-scroll">
+<img src="{{LG_FLYER_RELAXFEMME}}" alt="Pack Relax Max femme — pédicure et manucure spa avec massage, coup d'éclat, shampoing — 28 000 francs" class="pack-image flyer" loading="lazy">
+<div class="card-header"><h3 class="card-title">Relax Max</h3><span class="card-price">28 000 FCFA</span></div>
 <p class="card-desc">Pédicure et manucure spa + massage, coup d'éclat, shampoing + massage.</p>
-<button onclick="bookPack('Relax Max','28 000 FCFA')" class="btn-card">Réserver</button>
+<button onclick="bookPack('Relax Max (Femme)','28 000 FCFA')" class="btn-card">Réserver ce pack</button>
 </div>
-<div class="premium-card gold-border reveal-on-scroll">
-<img src="{{LG_PK_ROYAL}}" alt="Pack Lady premium" class="pack-image" loading="lazy">
-<div class="card-header"><span class="card-badge">Premium</span><h3 class="card-title">Pack Lady</h3><span class="card-price">40 000 FCFA</span></div>
-<p class="card-desc">Rituel premium (soin complet, pédicure &amp; manucure VIP), parfum de collection offert.</p>
-<button onclick="bookPack('Pack Lady','40 000 FCFA')" class="btn-card">Réserver</button>
+<div class="premium-card flyer-card reveal-on-scroll">
+<img src="{{LG_FLYER_LADY}}" alt="Pack Lady — rituel premium, soin complet, pédicure et manucure VIP, parfum de collection offert — 40 000 francs" class="pack-image flyer" loading="lazy">
+<div class="card-header"><h3 class="card-title">Pack Lady</h3><span class="card-price">40 000 FCFA</span></div>
+<p class="card-desc">Rituel premium : soin complet, pédicure &amp; manucure VIP, parfum de collection offert.</p>
+<button onclick="bookPack('Pack Lady','40 000 FCFA')" class="btn-card">Réserver ce pack</button>
 </div>
-<div class="premium-card copper-border reveal-on-scroll">
-<img src="{{LG_HERO_BRAIDS}}" alt="Pack Reine du Jour" class="pack-image" loading="lazy">
-<div class="card-header"><span class="card-badge" style="color:var(--primary);border-color:var(--primary)">Ultimate</span><h3 class="card-title">Reine du Jour</h3><span class="card-price" style="color:var(--primary)">45 000 FCFA</span></div>
-<p class="card-desc">Soin complet, pédicure et manucure VIP, pose ongles, coiffure, maquillage &amp; jus offert.</p>
-<button onclick="bookPack('Reine du Jour','45 000 FCFA')" class="btn-card solid">Réserver</button>
+<div class="premium-card flyer-card reveal-on-scroll">
+<img src="{{LG_FLYER_REINEDUJOUR}}" alt="Pack Reine du Jour — soin complet, pédicure et manucure VIP, pose d'ongles, coiffure, maquillage et jus offert — 45 000 francs" class="pack-image flyer" loading="lazy">
+<div class="card-header"><h3 class="card-title">Reine du Jour</h3><span class="card-price">45 000 FCFA</span></div>
+<p class="card-desc">Soin complet, pédicure &amp; manucure VIP, pose d'ongles, coiffure, maquillage &amp; jus offert.</p>
+<button onclick="bookPack('Reine du Jour','45 000 FCFA')" class="btn-card solid">Réserver ce pack</button>
 </div>
 </div>
 
 <div class="modern-header reveal-on-scroll" style="margin-bottom:2.5rem">
+<span class="modern-subtitle">Rituels Signature Homme</span>
 <h3 style="font-family:var(--font-display);font-size:2.2rem;color:var(--text-main);font-weight:600">Gentleman's Club</h3>
 </div>
 <div class="bento-grid">
-<div class="premium-card reveal-on-scroll">
-<img src="{{LG_HERO_GENTLEMAN}}" alt="Pack Soin Express homme" class="pack-image" loading="lazy">
-<div class="card-header"><span class="card-badge">Essentiel</span><h3 class="card-title">Soin Express</h3><span class="card-price">12 000 FCFA</span></div>
-<p class="card-desc">Coiffure, massage, pédicure express.</p>
-<button onclick="bookPack('Soin Express (Homme)','12 000 FCFA')" class="btn-card">Réserver</button>
-</div>
-<div class="premium-card reveal-on-scroll">
-<img src="{{LG_SVC_BARBER}}" alt="Pack Relax Max homme" class="pack-image" loading="lazy">
-<div class="card-header"><span class="card-badge">Détente</span><h3 class="card-title">Relax Max</h3><span class="card-price">30 000 FCFA</span></div>
+<div class="premium-card flyer-card reveal-on-scroll">
+<img src="{{LG_FLYER_RELAXHOMME}}" alt="Pack Relax Max homme — coiffure, pédicure et manucure spa avec massage, coup d'éclat — 30 000 francs" class="pack-image flyer" loading="lazy">
+<div class="card-header"><h3 class="card-title">Relax Max</h3><span class="card-price">30 000 FCFA</span></div>
 <p class="card-desc">Coiffure, pédicure et manucure spa + massage, coup d'éclat.</p>
-<button onclick="bookPack('Relax Max (Homme)','30 000 FCFA')" class="btn-card">Réserver</button>
+<button onclick="bookPack('Relax Max (Homme)','30 000 FCFA')" class="btn-card">Réserver ce pack</button>
 </div>
-<div class="premium-card copper-border reveal-on-scroll">
-<img src="{{LG_PK_GENTLEMAN}}" alt="Pack Gentleman" class="pack-image" loading="lazy">
-<div class="card-header"><span class="card-badge" style="color:var(--primary);border-color:var(--primary)">Elite</span><h3 class="card-title">Pack Gentleman</h3><span class="card-price" style="color:var(--primary)">45 000 FCFA</span></div>
-<p class="card-desc">Rituel premium (soin complet, coiffure et barbe, pédicure &amp; manucure VIP), parfum de collection offert.</p>
-<button onclick="bookPack('Pack Gentleman','45 000 FCFA')" class="btn-card solid">Réserver</button>
-</div>
-</div>
-
-<div class="modern-header reveal-on-scroll" style="margin-bottom:2.5rem">
-<h3 style="font-family:var(--font-display);font-size:2.2rem;color:var(--text-main);font-weight:600">Rituels Spa</h3>
-</div>
-<div class="bento-grid">
-<div class="premium-card reveal-on-scroll">
-<img src="{{LG_SVC_DAMP}}" alt="Gommage &amp; Damp" class="pack-image" loading="lazy">
-<div class="card-header"><span class="card-badge">Signature</span><h3 class="card-title">Gommage &amp; Damp</h3><span class="card-price">40 000 FCFA</span></div>
-<p class="card-desc">Gommage intégral suivi d'un enveloppement Damp traditionnel — peau neuve garantie.</p>
-<button onclick="bookPack('Gommage & Damp','40 000 FCFA')" class="btn-card">Réserver</button>
-</div>
-<div class="premium-card reveal-on-scroll">
-<img src="{{LG_G_HAMMAM2}}" alt="Hammam Royal" class="pack-image" loading="lazy">
-<div class="card-header"><span class="card-badge">Royal</span><h3 class="card-title">Hammam Royal</h3><span class="card-price">60 000 FCFA</span></div>
-<p class="card-desc">Hammam, gommage et Damp : le rituel complet des reines et des rois.</p>
-<button onclick="bookPack('Hammam Royal','60 000 FCFA')" class="btn-card">Réserver</button>
-</div>
-<div class="premium-card reveal-on-scroll">
-<img src="{{LG_SVC_YOGA}}" alt="Hammam &amp; Yoga" class="pack-image" loading="lazy">
-<div class="card-header"><span class="card-badge">Équilibre</span><h3 class="card-title">Hammam &amp; Yoga</h3><span class="card-price">40 000 FCFA</span></div>
-<p class="card-desc">Hammam + gommage, puis accès à l'espace Yoga &amp; Fitness — corps et esprit alignés.</p>
-<button onclick="bookPack('Hammam & Yoga','40 000 FCFA')" class="btn-card">Réserver</button>
-</div>
-<div class="premium-card gold-border reveal-on-scroll">
-<img src="{{LG_G_HAMMAM3}}" alt="Le Grand Rituel" class="pack-image" loading="lazy">
-<div class="card-header"><span class="card-badge" style="color:var(--primary);border-color:var(--primary)">Ultimate</span><h3 class="card-title">Le Grand Rituel</h3><span class="card-price" style="color:var(--primary)">60 000 FCFA</span></div>
-<p class="card-desc">Hammam + gommage + massage + enveloppement + accès yoga : l'expérience absolue Ladies &amp; Gentlemen.</p>
-<button onclick="bookPack('Le Grand Rituel','60 000 FCFA')" class="btn-card solid">Réserver</button>
+<div class="premium-card flyer-card reveal-on-scroll">
+<img src="{{LG_FLYER_GENTLEMAN}}" alt="Pack Gentleman — rituel premium, soin complet, coiffure et barbe, pédicure et manucure VIP, parfum de collection offert — 45 000 francs" class="pack-image flyer" loading="lazy">
+<div class="card-header"><h3 class="card-title">Pack Gentleman</h3><span class="card-price">45 000 FCFA</span></div>
+<p class="card-desc">Rituel premium : soin complet, coiffure &amp; barbe, pédicure &amp; manucure VIP, parfum de collection offert.</p>
+<button onclick="bookPack('Pack Gentleman','45 000 FCFA')" class="btn-card solid">Réserver ce pack</button>
 </div>
 </div>
 
 <div class="modern-header reveal-on-scroll" style="margin-bottom:2.5rem">
+<span class="modern-subtitle">Packs pour 2</span>
 <h3 style="font-family:var(--font-display);font-size:2.2rem;color:var(--text-main);font-weight:600">Duo &amp; Complicité</h3>
 </div>
 <div class="bento-grid">
-<div class="premium-card reveal-on-scroll">
-<img src="{{LG_PK_COUPLE}}" alt="Pack Tom &amp; Jerry en duo" class="pack-image" loading="lazy">
-<div class="card-header"><span class="card-badge">Fun</span><h3 class="card-title">Tom &amp; Jerry</h3><span class="card-price">23 000 FCFA</span></div>
-<p class="card-desc">Pédicure &amp; manucure express, smoothies, photo souvenir, baby foot, Uno couple gratuite + vidéo.</p>
-<button onclick="bookPack('Tom & Jerry','23 000 FCFA')" class="btn-card">Réserver</button>
+<div class="premium-card flyer-card reveal-on-scroll">
+<img src="{{LG_FLYER_TOMETJERRY}}" alt="Pack Tom et Jerry pour 2 — pédicure et manucure express, smoothies, photo souvenir, baby-foot, Uno couple — 23 000 francs" class="pack-image flyer" loading="lazy">
+<div class="card-header"><h3 class="card-title">Tom &amp; Jerry</h3><span class="card-price">23 000 FCFA</span></div>
+<p class="card-desc">Pédicure &amp; manucure express, smoothies, photo souvenir, baby-foot, Uno couple gratuite + vidéo.</p>
+<button onclick="bookPack('Tom & Jerry','23 000 FCFA')" class="btn-card">Réserver ce pack</button>
 </div>
-<div class="premium-card copper-border reveal-on-scroll">
-<img src="{{LG_PK_ROMANTIC}}" alt="Pack Évasion Amoureuse" class="pack-image" loading="lazy">
-<div class="card-header"><span class="card-badge" style="color:var(--primary);border-color:var(--primary)">Romance</span><h3 class="card-title">Evasion Amoureuse</h3><span class="card-price" style="color:var(--primary)">60 000 FCFA</span></div>
+<div class="premium-card flyer-card reveal-on-scroll">
+<img src="{{LG_FLYER_EVASION}}" alt="Pack Evasion Amoureuse pour 2 — pédicure spa, manucure express, coup d'éclat femme, coiffure homme, smoothies, photo souvenir — 60 000 francs" class="pack-image flyer" loading="lazy">
+<div class="card-header"><h3 class="card-title">Evasion Amoureuse</h3><span class="card-price">60 000 FCFA</span></div>
 <p class="card-desc">Pédicure spa + manucure express, coup d'éclat femme, coiffure homme, smoothies GM, photo souvenir.</p>
-<button onclick="bookPack('Evasion Amoureuse','60 000 FCFA')" class="btn-card solid">Réserver</button>
-</div>
-<div class="premium-card gold-border reveal-on-scroll">
-<img src="{{LG_PK_PARADISE}}" alt="Pack Paradise — écrin spa" class="pack-image" loading="lazy">
-<div class="card-header"><span class="card-badge">Luxe</span><h3 class="card-title">Pack Paradise</h3><span class="card-price">55 000 FCFA</span></div>
-<p class="card-desc">Pédicure &amp; manucure VIP, parfum de collection offert, photo souvenir.</p>
-<button onclick="bookPack('Pack Paradise','55 000 FCFA')" class="btn-card">Réserver</button>
+<button onclick="bookPack('Evasion Amoureuse','60 000 FCFA')" class="btn-card solid">Réserver ce pack</button>
 </div>
 </div>
 
@@ -1558,10 +1711,20 @@ noscript.ta-noscript{display:block;padding:2rem;text-align:center;background:#dc
 <span class="modern-subtitle">Contact</span>
 <h2 class="modern-title">Nous Trouver</h2>
 </div>
+<div class="contact-hero reveal-on-scroll">
+<div class="contact-badge7j"><i class="fas fa-clock" aria-hidden="true"></i> Ouvert 7j/7 — 11h00 à 22h00</div>
+<p class="contact-lede">Une question, une envie, un moment rien qu'à vous ? L'équipe Ladies &amp; Gentlemen vous répond en quelques minutes, 7 jours sur 7.</p>
+<div class="contact-chips">
+<a class="chip-contact" href="tel:+221785557070"><i class="fas fa-phone-alt" aria-hidden="true"></i> +221 78 555 70 70</a>
+<a class="chip-contact" href="https://wa.me/221710317585" target="_blank" rel="noopener"><i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp direct</a>
+<a class="chip-contact" href="https://www.google.com/maps?q=Thi%C3%A8s%2C%20S%C3%A9n%C3%A9gal" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Grand Standing — Thiès</a>
+</div>
+</div>
 <div class="contact-wrapper reveal-on-scroll">
 <div class="contact-form-area">
+<div class="contact-badge7j"><i class="fas fa-calendar-check" aria-hidden="true"></i> Réservation express</div>
 <h3>Prendre Rendez-vous</h3>
-<p>Réservez votre moment de détente en quelques clics.</p>
+<p>Réservez votre moment de détente en quelques clics — confirmation immédiate sur WhatsApp.</p>
 <form onsubmit="handleContactSubmit(event)">
 <div class="form-group"><input type="text" class="form-input" id="contactName" placeholder=" " required><label class="form-label" for="contactName">Votre Nom</label></div>
 <div class="form-group"><input type="tel" class="form-input" id="contactPhone" placeholder=" " required><label class="form-label" for="contactPhone">Téléphone</label></div>
@@ -1646,7 +1809,7 @@ noscript.ta-noscript{display:block;padding:2rem;text-align:center;background:#dc
 <button class="wa-close-btn" onclick="toggleWhatsApp()" aria-label="Fermer le chat"><i class="fas fa-times"></i></button>
 </div>
 <div class="wa-body" id="waBody">
-<div class="wa-msg received">Bonjour et bienvenue chez Ladies &amp; Gentlemen.<br>Comment pouvons-nous sublimer votre journée ?<span class="wa-time">Maintenant</span></div>
+<div class="wa-msg received">Bonjour !<br>Comment pouvons-nous sublimer votre journée ?<span class="wa-time">Maintenant</span></div>
 </div>
 <div class="wa-footer">
 <input type="text" class="wa-input" id="waInput" placeholder="Écrivez votre message…" onkeypress="handleWaEnter(event)">
@@ -1698,7 +1861,7 @@ noscript.ta-noscript{display:block;padding:2rem;text-align:center;background:#dc
 <span class="ta-hero-badge"><span class="blink"></span> Ouvert 7j/7 — Thiès</span>
 <p class="ta-hero-kicker">Lavage · Détailing · Entretien · Tapis &amp; Linge</p>
 <h1><span class="outline">Plus qu'un</span> lavage,<br>un cadre <span class="hl">propre</span> &amp; <span class="hl">sain</span> !</h1>
-<p class="ta-hero-sub">Voitures, motos, canapés, matelas, tapis et linge — un <strong>service professionnel</strong> au Grand Standing, avant l'hôtel Phoenix à Thiès. Faites laver votre véhicule pendant que vous profitez du <strong>Salon Ladies &amp; Gentlemen</strong>, juste à côté.</p>
+<p class="ta-hero-sub">Voitures, motos, canapés, matelas, tapis et linge — un <strong>service professionnel</strong> au Grand Standing, avant l'hôtel Phoenix à Thiès — juste à côté du <strong>Salon Ladies &amp; Gentlemen</strong>.</p>
 <div class="ta-hero-ctas">
 <a class="btn-ta wa" href="https://wa.me/221710317585?text=Bonjour%20Taaru%20Auto%2C%20je%20souhaite%20r%C3%A9server%20un%20lavage" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Réserver sur WhatsApp</a>
 <a class="btn-ta ghost" href="#taaru/tarifs" onclick="taNav(event,'ta-tarifs-p')"><i class="fas fa-tags"></i> Voir les tarifs</a>
@@ -1775,7 +1938,7 @@ noscript.ta-noscript{display:block;padding:2rem;text-align:center;background:#dc
 <img src="{{LG_MED_260}}" alt="Logo Ladies &amp; Gentlemen" loading="lazy">
 <div>
 <h4>Le salon Ladies &amp; Gentlemen, juste à côté</h4>
-<p>Coiffure, spa, massages, hammam… Faites laver votre véhicule pendant que vous profitez de votre moment beauté.</p>
+<p>Coiffure, spa, massages, hammam… Profitez de votre moment beauté en toute sérénité.</p>
 </div>
 <button class="btn-lg-soft" onclick="goTo(0)"><i class="fas fa-scissors"></i> Découvrir le salon</button>
 </div>
@@ -2095,7 +2258,7 @@ stage.addEventListener("wheel", (e) => {
     clearTimeout(wheelTimer);
     wheelTimer = setTimeout(() => { wheelAccV = 0; }, 420);
     const now = Date.now();
-    if (Math.abs(wheelAccV) > 260 && now - wheelCooldown > 500){
+    if (Math.abs(wheelAccV) > 420 && now - wheelCooldown > 700){
       wheelCooldown = now; wheelAccV = 0;
       goTo(current + (dy > 0 ? 1 : -1));
     }
@@ -2348,88 +2511,89 @@ function bookPack(packName, packPrice){
 
 /* ---------- 5. BOUTIQUE LG (données) ---------- */
 const PRODUCTS = [
-  /* — FEMME — */
-  {c:"femme",b:"Victoria's Secret",n:"Pink Cutie",p:"1 500 FCFA",d:"Une ode à la douceur et à la féminité. Notes fruitées entourées de pétales de rose.",i:"{{PR_PINK}}",badge:"Best-Seller"},
-  {c:"femme",b:"Collection Privée",n:"Velour Heart",p:"20 000 FCFA",d:"Un cœur velouté qui bat au rythme de la vanille et de l'ambre. Sensualité absolue.",i:"{{PR_OUD}}"},
-  {c:"femme",b:"Maison Luxe",n:"Velvet Delight",p:"6 000 FCFA",d:"Texture soyeuse et envoûtante. Une caresse olfactive qui dure toute la journée.",i:"{{PR_ROSE}}"},
-  {c:"femme",b:"Makeup Glow",n:"Marshmallow Blush",p:"20 000 FCFA",d:"Une touche de couleur douce et lumineuse pour sublimer vos pommettes.",i:"{{PR_CREAM}}",badge:"Nouveauté"},
-  {c:"femme",b:"Gucci Inspired",n:"Flora Intense",p:"6 000 FCFA",d:"Un bouquet floral luxuriant, intense et vibrant. L'élégance à l'état pur.",i:"{{PR_ROSE}}"},
-  /* — HOMME — */
-  {c:"homme",b:"Rolex",n:"Rolex Submariner",p:"15 000 FCFA",d:"L'horlogerie de légende. Un symbole de succès et de prestige intemporel.",i:"{{PR_WATCH_B}}",badge:"Iconique"},
-  {c:"homme",b:"Dior",n:"Sauvage Intense",p:"15 000 FCFA",d:"Une fraîcheur brute et puissante. Notes de tête bergamote et ambroxan.",i:"{{PR_COLOGNE}}"},
-  {c:"homme",b:"Paco Rabanne",n:"One Million",p:"2 500 FCFA",d:"Le parfum de l'homme audacieux. Fraîcheur épicée et notes cuirées.",i:"{{PR_COLOGNE}}"},
-  {c:"homme",b:"Hermès",n:"Chaussure Cuir Noir",p:"15 000 FCFA",d:"Cuir noir supérieur, cousu main. L'élégance classique.",i:"{{PR_SHOES}}",badge:"Exclusif"},
-  {c:"homme",b:"Moussuf",n:"Moussuf Homme",p:"10 000 FCFA",d:"Un sillage aromatique et boisé. Charisme et assurance naturelle.",i:"{{PR_OUD}}"},
-  {c:"homme",b:"Hublot",n:"Big Bang",p:"15 000 FCFA",d:"Design audacieux et mécanique d'exception. Pour l'homme qui ose.",i:"{{PR_WATCH_S}}"},
-  {c:"homme",b:"Longine",n:"La Grande Classique",p:"50 000 FCFA",d:"L'élégance traditionnelle suisse. Précision et raffinement.",i:"{{PR_WATCH_G}}"},
-  {c:"homme",b:"Patek Philippe",n:"Calatrava",p:"15 000 FCFA",d:"Vous ne possédez jamais vraiment une Patek, vous en êtes le gardien.",i:"{{PR_WATCH_S}}",badge:"Rareté"},
-  {c:"homme",b:"Bolun",n:"Chronograph",p:"10 000 FCFA",d:"Style urbain et mécanisme fiable. Le luxe accessible.",i:"{{PR_WATCH_B}}"},
-  {c:"homme",b:"Calepin",n:"Cuir",p:"4 000 FCFA",d:"Style urbain, cuir de qualité. Le détail qui change tout.",i:"{{PR_WALLET}}"},
-  {c:"homme",b:"Calepin",n:"Porte-Cartes Signature",p:"3 000 FCFA",d:"Compact et raffiné — le porte-cartes qui accompagne chaque grande rencontre.",i:"{{PR_WALLET}}"},
-  {c:"homme",b:"Fétiche",n:"1 Bande",p:"2 000 FCFA",d:"Un parfum de caractère pour l'homme exigeant.",i:"{{PR_COLOGNE}}"},
-  /* — UNISEXE — */
-  {c:"unisexe",b:"Oud Collection",n:"Ameerat Al Arab",p:"1 500 FCFA",d:"La princesse arabe. Un parfum riche, oriental et majestueux.",i:"{{PR_OUD}}",badge:"Signature"},
-  {c:"unisexe",b:"Cerave",n:"Gel",p:"13 650 FCFA",d:"Gel nettoyant anti-imperfections.",i:"{{PR_SERUM}}"},
-  {c:"unisexe",b:"Cerave",n:"Sérum",p:"18 460 FCFA",d:"Sérum anti-imperfections.",i:"{{PR_SERUM}}"},
-  {c:"unisexe",b:"La Roche-Posay",n:"Visage & Corps",p:"18 200 FCFA",d:"Soin visage et corps.",i:"{{PR_CREAM}}"},
-  {c:"unisexe",b:"Louis Martin",n:"Evidence",p:"12 000 FCFA",d:"Laissez libre cours à votre imagination. Créativité et fraîcheur.",i:"{{PR_PINK}}"},
-  {c:"unisexe",b:"The Ordinary",n:"Skincare",p:"20 000 FCFA",d:"La routine skincare minimaliste et efficace.",i:"{{PR_SERUM}}"},
-  {c:"unisexe",b:"Centella",n:"Sérum",p:"12 740 FCFA",d:"Sérum apaisant au Centella.",i:"{{PR_SERUM}}"},
-  {c:"unisexe",b:"SVR",n:"Eau Rénovatrice",p:"11 050 FCFA",d:"L'eau qui renouvelle la peau.",i:"{{PR_CREAM}}"},
-  {c:"unisexe",b:"La Roche-Posay",n:"Protection UVA",p:"15 600 FCFA",d:"Protection solaire UVA renforcée.",i:"{{PR_SUN}}"},
-  {c:"unisexe",b:"Louis Martin",n:"Crème Whisper",p:"20 000 FCFA",d:"Une déclaration d'amour douce et captivante.",i:"{{PR_CREAM}}"},
-  {c:"unisexe",b:"Louis Martin",n:"Symphony",p:"20 000 FCFA",d:"Une harmonie parfaite de notes florales et boisées.",i:"{{PR_PINK}}"},
-  {c:"unisexe",b:"Lovers",n:"My Lover",p:"20 000 FCFA",d:"Passion et intensité pour un moment inoubliable.",i:"{{PR_PINK}}"},
-  {c:"unisexe",b:"D&P",n:"Perfumum",p:"15 000 FCFA",d:"Un voyage sensoriel unique.",i:"{{PR_OUD}}"},
-  {c:"unisexe",b:"Tesori d'Oriente",n:"Byzantium",p:"4 000 FCFA",d:"L'histoire ancienne dans un flacon. Myrrhe et Oud.",i:"{{PR_OUD}}"},
-  {c:"unisexe",b:"Tesori d'Oriente",n:"Gris",p:"4 000 FCFA",d:"Finesse et élégance discrète.",i:"{{PR_OUD}}"},
-  {c:"unisexe",b:"Banafa",n:"For Oud",p:"10 000 FCFA",d:"L'essence pure de l'Oud, sublimée par Banafa.",i:"{{PR_OUD}}"},
-  {c:"unisexe",b:"Tesori d'Oriente",n:"Ayurveda",p:"4 000 FCFA",d:"Bien-être et harmonie spirituelle.",i:"{{PR_OUD}}"},
-  {c:"unisexe",b:"Tesori d'Oriente",n:"Karma",p:"4 000 FCFA",d:"Le cycle de la vie et de la beauté.",i:"{{PR_OUD}}"},
-  {c:"unisexe",b:"Tesori d'Oriente",n:"Noir",p:"4 000 FCFA",d:"Fraîcheur nordique et mystère.",i:"{{PR_OUD}}"},
-  {c:"unisexe",b:"Scent Mark",n:"Signature",p:"7 000 FCFA",d:"Marquez les esprits avec une signature olfactive unique.",i:"{{PR_COLOGNE}}"},
-  {c:"unisexe",b:"Secret Night",n:"Mist",p:"18 000 FCFA",d:"Le mystère de la nuit capturé dans un flacon.",i:"{{PR_COLOGNE}}",badge:"Nuit"},
-  {c:"unisexe",b:"Al Ghalib",n:"Oud Al Ghalib",p:"19 000 FCFA",d:"Le vainqueur. Une dominance absolue de l'Oud.",i:"{{PR_OUD}}"},
-  {c:"unisexe",b:"Al Ghalib",n:"Gold Edition",p:"18 000 FCFA",d:"L'édition dorée, plus précieuse et intense.",i:"{{PR_OUD}}",badge:"Or"},
-  {c:"unisexe",b:"Layl",n:"Oud Al Layl",p:"11 000 FCFA",d:"La nuit. Profond, mystérieux et infini.",i:"{{PR_OUD}}"},
-  {c:"unisexe",b:"Raseediya",n:"Oud Al Raseediya",p:"18 000 FCFA",d:"Un trésor ancestral préservé.",i:"{{PR_OUD}}"},
-  {c:"unisexe",b:"Salam Ziva",n:"Oud Al Salam",p:"19 000 FCFA",d:"La paix de l'âme par le parfum. Sérénité absolue.",i:"{{PR_OUD}}"},
-  {c:"unisexe",b:"True Love",n:"Oud Al Sadiq",p:"7 000 FCFA",d:"Une brise saline mêlée à l'Oud rare.",i:"{{PR_OUD}}"},
-  {c:"unisexe",b:"Sultan",n:"Oud Al Sultan",p:"18 000 FCFA",d:"Le roi des parfums. Puissance royale.",i:"{{PR_OUD}}",badge:"Royal"},
-  {c:"unisexe",b:"Bacarat",n:"Oud Bacarat",p:"11 000 FCFA",d:"L'alliance du cristal et de l'Oud. Brillance et profondeur.",i:"{{PR_OUD}}"},
-  {c:"unisexe",b:"Muattar",n:"Oud Chips",p:"6 000 FCFA",d:"Purification et élévation spirituelle.",i:"{{PR_BUKHOOR}}"},
-  {c:"unisexe",b:"Ghaliya",n:"Oumoul Ghaliya",p:"18 000 FCFA",d:"Mère de toute beauté. Une tendresse infinie.",i:"{{PR_OUD}}"},
-  {c:"unisexe",b:"Khasusi",n:"Special",p:"19 000 FCFA",d:"Un parfum unique, comme une signature.",i:"{{PR_OUD}}"},
-  {c:"unisexe",b:"Sadaat",n:"Eau de Parfum",p:"5 000 FCFA",d:"Bénédictions et prospérité.",i:"{{PR_OUD}}"},
-  {c:"unisexe",b:"Nakahat",n:"Nakahat Al Oud",p:"13 000 FCFA",d:"La chaleur du désert, la fraîcheur de l'oasis.",i:"{{PR_OUD}}"},
-  {c:"unisexe",b:"Al Malik",n:"Ser Al Malik",p:"18 000 FCFA",d:"Le secret du roi. Majesté et discrétion.",i:"{{PR_OUD}}",badge:"Secret"},
-  {c:"unisexe",b:"Sama Dubai",n:"Sky Collection",p:"18 000 FCFA",d:"Le ciel de Dubai. Luxe moderne et tradition.",i:"{{PR_OUD}}"},
-  {c:"unisexe",b:"Woody Rose",n:"Floral",p:"8 500 FCFA",d:"L'équilibre parfait entre le bois et la rose.",i:"{{PR_ROSE}}"},
-  {c:"unisexe",b:"Wardi",n:"Rose Oil",p:"1 500 FCFA",d:"Ma rose. Une classique indémodable.",i:"{{PR_ROSE}}"},
-  {c:"unisexe",b:"Nsayeb",n:"Fortune",p:"6 000 FCFA",d:"Une chance et une grâce divine.",i:"{{PR_OUD}}"},
-  {c:"unisexe",b:"Sahara",n:"Maison",p:"15 000 FCFA",d:"L'accueil chaleureux de la maison.",i:"{{PR_CANDLE}}"},
-  {c:"unisexe",b:"Ummi",n:"Al Ghaliya",p:"18 000 FCFA",d:"Mère de toute richesse. Valeur inestimable.",i:"{{PR_OUD}}"},
-  /* — SENTEURS — */
-  {c:"senteurs",b:"Ana Abiyad",n:"Eau de Parfum",p:"6 000 FCFA",d:"Blancheur pure et éclatante.",i:"{{PR_PINK}}"},
-  {c:"senteurs",b:"Ard Alzaafaran",n:"Safran",p:"1 500 FCFA",d:"Le pays du Safran. Épicé et précieux.",i:"{{PR_OUD}}"},
-  {c:"senteurs",b:"Fatima",n:"Bukhoor",p:"25 000 FCFA",d:"Ambiance sacrée et bienveillante.",i:"{{PR_BUKHOOR}}"},
-  {c:"senteurs",b:"Burphrise",n:"Spring",p:"28 000 FCFA",d:"Fraîcheur printanière enveloppante.",i:"{{PR_PINK}}"},
-  {c:"senteurs",b:"California",n:"Dream",p:"40 000 FCFA",d:"L'esprit libre de la Californie. Soleil et océan.",i:"{{PR_CANDLE}}",badge:"Été"},
-  {c:"senteurs",b:"Fragrant Candle",n:"Bougie Parfumée",p:"40 000 FCFA",d:"Une lumière douce et un parfum d'exception pour la maison.",i:"{{PR_CANDLE}}",badge:"Maison"},
-  /* — COSMÉTIQUES (sur demande) — */
-  {c:"cosmetiques",b:"Sélection Institut",n:"Cosmétiques pro",p:"Sur demande",d:"Masques, sérums, gommages et soins professionnels — disponibilité en salon. Contactez-nous sur WhatsApp.",i:"",badge:"Au salon"},
-  /* — DIVERS — */
-  {c:"divers",b:"Sélection LG",n:"Coffrets & attentions",p:"Sur demande",d:"Coffrets cadeaux, mèches, huiles et petites attentions beauté — disponibilité en salon.",i:"",badge:"Au salon"},
-  /* — ACCESSOIRES — */
-  {c:"accessoires",b:"Sélection LG",n:"Accessoires beauté",p:"Sur demande",d:"Perruques, bonnets en satin, foulards et accessoires capillaires — disponibilité en salon.",i:"",badge:"Au salon"}
-
+{c:"femme",b:"Victoria's Secret",n:"Pink Cutie",t:"Victoria's Favorite Pink Cutie",p:"1 500 FCFA",d:"Une ode à la douceur et à la féminité. Notes fruitées entourées de pétales de rose.",i:"{{PRD_VICTORIA_S_FAVORITE_PINK}}",badge:"Best-Seller"},
+{c:"femme",b:"Collection Privée",n:"Velour Heart",t:"Velour Heart",p:"20 000 FCFA",d:"Un cœur velouté qui bat au rythme de la vanille et de l'ambre. Sensualité absolue.",i:"{{PRD_VELOUR_HEART_JPG}}"},
+{c:"femme",b:"Maison Luxe",n:"Velvet Delight",t:"Velvet Delight",p:"6 000 FCFA",d:"Texture soyeuse et envoûtante. Une caresse olfactive qui dure toute la journée.",i:"{{PRD_VELVET_DELIGHT_JPG}}"},
+{c:"femme",b:"Makeup Glow",n:"Marshmallow Blush",t:"Marshmallow Blush",p:"20 000 FCFA",d:"Une touche de couleur douce et lumineuse pour sublimer vos pommettes.",i:"{{PRD_MARSHMALLOW_BLUSH_JPG}}",badge:"Nouveauté"},
+{c:"femme",b:"Gucci Inspired",n:"Flora Intense",t:"Flora Intense",p:"6 000 FCFA",d:"Un bouquet floral luxuriant, intense et vibrant. L'élégance à l'état pur.",i:"{{PRD_FLORA_INTENSE_JPG}}"},
+{c:"homme",b:"Rolex",n:"Rolex Submariner",t:"Montre Rolex Homme",p:"15 000 FCFA",d:"L'horlogerie de légende. Un symbole de succès et de prestige intemporel.",i:"{{PRD_MONTRE_ROLEX_HOMME_JPG}}",badge:"Iconique"},
+{c:"homme",b:"Dior",n:"Sauvage Intense",t:"Sauvage Intense",p:"15 000 FCFA",d:"Une fraîcheur brute et puissante. Notes de tête bergamote et ambroxan.",i:"{{PRD_SAUVAGE_INTENSE_JPG}}"},
+{c:"homme",b:"Paco Rabanne",n:"One Million",t:"One Million",p:"2 500 FCFA",d:"Le parfum de l'homme audacieux. Fraîcheur épicée et notes cuirées.",i:"{{PRD_ONE_MILLION_JPG}}"},
+{c:"homme",b:"Hermès",n:"Chaussure Cuir Noir",t:"Chaussure Hermès Cuir",p:"15 000 FCFA",d:"Cuir noir supérieur, cousu main. L'élégance classique dakaroise.",i:"{{PRD_CHAUSSURE_HERMES_EN_CUIR}}",badge:"Exclusif"},
+{c:"homme",b:"Moussuf",n:"Moussuf Homme",t:"Moussuf Homme",p:"10 000 FCFA",d:"Un sillage aromatique et boisé. Charisme et assurance naturelle.",i:"{{PRD_MOUSSUF_HOMME_JPEG}}"},
+{c:"homme",b:"Hublot",n:"Big Bang",t:"Montre Hublot",p:"15 000 FCFA",d:"Design audacieux et mécanique d'exception. Pour l'homme qui ose.",i:"{{PRD_MONTRE_HUBLOT_PNG}}"},
+{c:"homme",b:"Longine",n:"La Grande Classique",t:"Montre Longine",p:"50 000 FCFA",d:"L'élégance traditionnelle suisse. Précision et raffinement.",i:"{{PRD_MONTRE_LONGINE_JPG}}"},
+{c:"homme",b:"Patek Philippe",n:"Calatrava",t:"Montre Patek Philippe",p:"15 000 FCFA",d:"Vous ne possédez jamais vraiment une Patek, vous en êtes le gardien.",i:"{{PRD_MONTRE_PATEK_JFIF}}",badge:"Rareté"},
+{c:"homme",b:"Bolun",n:"Chronograph",t:"Montre Bolun",p:"10 000 FCFA",d:"Style urbain et mécanisme fiable. Le luxe accessible.",i:"{{PRD_MONTRE_BOLUN_JPG}}"},
+{c:"homme",b:"calepin",n:"cuir",t:"cuir",p:"4 000 FCFA",d:"Style urbain et mécanisme fiable. Le luxe accessible.",i:"{{PRD_WHATSAPP_IMAGE_2026_02_2}}"},
+{c:"homme",b:"calepin",n:"cuir",t:"cuir",p:"4 000 FCFA",d:"Style urbain et mécanisme fiable. Le luxe accessible.",i:"{{PRD_WHATSAPP_IMAGE_2026_02_2_2}}"},
+{c:"homme",b:"Fétiche",n:"1 Bande",t:"Fétiche 1 Bande",p:"2 000 FCFA",d:"Un parfum de caractère pour l'homme exigeant.",i:"{{PRD_FETICHE_1BANDE_JPG}}"},
+{c:"unisexe",b:"Oud Collection",n:"Ameerat Al Arab",t:"Ameerat Al Arab",p:"1 500 FCFA",d:"La princesse arabe. Un parfum riche, oriental et majestueux.",i:"{{PRD_WHATSAPP_IMAGE_2026_02_2_3}}",badge:"Signature"},
+{c:"unisexe",b:"Cerave",n:"GEL",t:"Gel",p:"13 650 FCFA",d:"Gel anti-imperfections.",i:"{{PRD_WHATSAPP_IMAGE_2026_02_2_4}}"},
+{c:"unisexe",b:"Cerave",n:"Sérum",t:"Gel",p:"18 460 FCFA",d:"Gel anti-imperfections.",i:"{{PRD_WHATSAPP_IMAGE_2026_02_2_5}}"},
+{c:"unisexe",b:"Cerave",n:"Gel",t:"Gel",p:"16 250 FCFA",d:"Gel .",i:"{{PRD_CERAVE_1}}"},
+{c:"unisexe",b:"la Roche-Posay",n:"visage et corps",t:"visage et corps",p:"18 200 FCFA",d:"Gel .",i:"{{PRD_WHATSAPP_IMAGE_2026_02_2_6}}"},
+{c:"unisexe",b:"Louis Martin",n:"Evidence",t:"Imagination",p:"12 000 FCFA",d:"Laissez libre cours à votre imagination. Créativité et fraîcheur.",i:"{{PRD_WHATSAPP_IMAGE_2026_02_2_7}}"},
+{c:"unisexe",b:"The Ordinary",n:"Skincare",t:"Skincare",p:"20 000 FCFA",d:"",i:"{{PRD_THE_ORDINARY_017605TD_1_}}"},
+{c:"unisexe",b:"CENTELLA",n:"Serum",t:"Serum",p:"12 740 FCFA",d:"",i:"{{PRD_WHATSAPP_IMAGE_2026_02_2_8}}"},
+{c:"unisexe",b:"SVR",n:"Eau Rénovatrice",t:"Eau Rénovatrice",p:"11 050 FCFA",d:"",i:"{{PRD_WHATSAPP_IMAGE_2026_02_2_9}}"},
+{c:"unisexe",b:"La Roche-Posay",n:"Protection UVA",t:"Eau Rénovatrice",p:"15 600 FCFA",d:"",i:"{{PRD_WHATSAPP_IMAGE_2026_02_2_10}}"},
+{c:"unisexe",b:"Louis Martin",n:"Crème Whisper",t:"Crème Whisper",p:"20 000 FCFA",d:"Une déclaration d'amour douce et captivante.",i:"{{PRD_WHATSAPP_IMAGE_2026_02_2_11}}"},
+{c:"unisexe",b:"Louis Martin",n:"Symphony",t:"Symphony",p:"20 000 FCFA",d:"Une harmonie parfaite de notes florales et boisées.",i:"{{PRD_LOUIS_MARTIN_SYMFONY_JPG}}"},
+{c:"unisexe",b:"Lovers",n:"My Lover",t:"My Lover",p:"20 000 FCFA",d:"Passion et intensité pour un moment inoubliable.",i:"{{PRD_MY_LOVER_PNG}}"},
+{c:"unisexe",b:"D&P",n:"Perfumum",t:"Perfumum",p:"15 000 FCFA",d:"Un voyage sensoriel .",i:"{{PRD_WHATSAPP_IMAGE_2026_02_2_12}}"},
+{c:"unisexe",b:"Tesori d'Oriente",n:"Byzantium",t:"Byzantium",p:"4 000 FCFA",d:"L'histoire ancienne dans un flacon. Myrrhe et Oud.",i:"{{PRD_ESORI_D_ORIENTE_BYZANTIU}}"},
+{c:"unisexe",b:"Tesori d'Oriente",n:"Gris",t:"Gris",p:"4 000 FCFA",d:"Finesse et élégance discrète.",i:"{{PRD_ESORI_D_ORIENTE_GRIS_JPG}}"},
+{c:"unisexe",b:"Banafa",n:"For Oud",t:"Banafa for Oud",p:"10 000 FCFA",d:"L'essence pure de l'Oud, sublimée par Banafa.",i:"{{PRD_EAU_DE_PARFUM_BANAFA_FOR}}"},
+{c:"unisexe",b:"Tesori d'Oriente",n:"Ayurveda",t:"Ayurveda",p:"4 000 FCFA",d:"Bien-être et harmonie spirituelle.",i:"{{PRD_TESORI_D_ORIENTE_AYURVED}}"},
+{c:"unisexe",b:"Tesori d'Oriente",n:"Karma",t:"Karma",p:"4 000 FCFA",d:"Le cycle de la vie et de la beauté.",i:"{{PRD_TESORI_D_ORIENTE_KARMA_J}}"},
+{c:"unisexe",b:"Tesori d'Oriente",n:"Noir",t:"Noir",p:"4 000 FCFA",d:"Fraîcheur nordique et mystère.",i:"{{PRD_TESORDORIENTE_NOR_JPG}}"},
+{c:"unisexe",b:"Scent Mark",n:"Signature",t:"Scent Mark",p:"7 000 FCFA",d:"Marquez les esprits avec une signature olfactive unique.",i:"{{PRD_SCENT_MARK_JPG}}"},
+{c:"unisexe",b:"Secret Night",n:"Mist",t:"Secret Night",p:"18 000 FCFA",d:"Le mystère de la nuit capturé dans un flacon.",i:"{{PRD_SECRETNIGHT_JPG}}",badge:"Nuit"},
+{c:"unisexe",b:"Al Ghalib",n:"Oud Al Ghalib",t:"Oud Al Ghalib",p:"19 000 FCFA",d:"Le vainqueur. Une dominance absolue de l'Oud.",i:"{{PRD_OUD_AL_GHALIB_JPG}}"},
+{c:"unisexe",b:"Al Ghalib",n:"Gold Edition",t:"Oud Al Ghalib Gold",p:"18 000 FCFA",d:"L'édition dorée, plus précieuse et intense.",i:"{{PRD_OUD_AL_GHALIB_GOLD_JPEG}}",badge:"Or"},
+{c:"unisexe",b:"Layl",n:"Oud Al Layl",t:"Oud Al Layl",p:"11 000 FCFA",d:"La nuit. Profond, mystérieux et infini.",i:"{{PRD_WHATSAPP_IMAGE_2026_02_2_13}}"},
+{c:"unisexe",b:"Raseediya",n:"Oud Al Raseediya",t:"Oud Al Raseediya",p:"18 000 FCFA",d:"Un trésor ancestral préservé.",i:"{{PRD_WHATSAPP_IMAGE_2026_02_2_14}}"},
+{c:"unisexe",b:"Salam Ziva",n:"Oud Al Salam",t:"Oud Al Salam Ziva",p:"19 000 FCFA",d:"La paix de l'âme par le parfum. Sérénité absolue.",i:"{{PRD_WHATSAPP_IMAGE_2026_02_2_15}}"},
+{c:"unisexe",b:"True Love",n:"Oud Al Sadiq",t:"Oud Al Salio",p:"7 000 FCFA",d:"Une brise saline mêlée à l'Oud rare.",i:"{{PRD_WHATSAPP_IMAGE_2026_02_2_16}}"},
+{c:"unisexe",b:"Sultan",n:"Oud Al Sultan",t:"Oud Al Sultan",p:"18 000 FCFA",d:"Le roi des parfums. Puissance royale.",i:"{{PRD_WHATSAPP_IMAGE_2026_02_2_17}}",badge:"Royal"},
+{c:"unisexe",b:"Bacarat",n:"Oud Bacarat",t:"Oud Bacarat",p:"11 000 FCFA",d:"L",i:"{{PRD_WHATSAPP_IMAGE_2026_02_2_18}}",badge:"Royal"},
+{c:"unisexe",b:"Muattar",n:"Oud Chips",t:"Oud Muattar",p:"6 000 FCFA",d:"Purification et élévation spirituelle.",i:"{{PRD_OUD_MUATTAR_JPG}}"},
+{c:"unisexe",b:"Ghaliya",n:"Oumoul Ghaliya",t:"Oumoul Ghaliya",p:"18 000 FCFA",d:"Mère de toute beauté. Une tendresse infinie.",i:"{{PRD_OUMOUL_GHALBI_JPG}}"},
+{c:"unisexe",b:"Khasusi",n:"Special",t:"Khasusi",p:"19 000 FCFA",d:"Un parfum unique, comme une signature.",i:"{{PRD_KHASUSI_JPG}}"},
+{c:"unisexe",b:"Sadaat",n:"Eau de Parfum",t:"Sadaat",p:"5 000 FCFA",d:"Bénédictions et prospérité.",i:"{{PRD_SADAAT_JPG}}"},
+{c:"unisexe",b:"NAKAHAT",n:"NAKAHAT AL OUD",t:"NAKAHAT AL OUD",p:"13 000 FCFA",d:"La chaleur du désert, la fraîcheur de l'oasis.",i:"{{PRD_WHATSAPP_IMAGE_2026_02_2_19}}"},
+{c:"unisexe",b:"Al Malik",n:"Ser Al Malik",t:"Ser Al Malik",p:"18 000 FCFA",d:"Le secret du roi. Majesté et discrétion.",i:"{{PRD_WHATSAPP_IMAGE_2026_02_2_20}}",badge:"Secret"},
+{c:"unisexe",b:"Sama Dubai",n:"Sky Collection",t:"Sama Dubai",p:"18 000 FCFA",d:"Le ciel de Dubai. Luxe moderne et tradition.",i:"{{PRD_WHATSAPP_IMAGE_2026_02_2_21}}"},
+{c:"unisexe",b:"Woody Rose",n:"Floral",t:"Woody Rose",p:"8 500 FCFA",d:"L'équilibre parfait entre le bois et la rose.",i:"{{PRD_WHATSAPP_IMAGE_2026_02_2_22}}"},
+{c:"unisexe",b:"Wardi",n:"Rose Oil",t:"Wardi",p:"1 500 FCFA",d:"Ma rose. Une classique indémodable.",i:"{{PRD_WARDI_JPG}}"},
+{c:"unisexe",b:"Nsayeb",n:"Fortune",t:"Nsayeb",p:"6 000 FCFA",d:"Une chance et une grâce divine.",i:"{{PRD_NSAYEB_JPG}}"},
+{c:"unisexe",b:"SAHARA",n:"Maison",t:"SAHARA",p:"15 000 FCFA",d:"Une chance et une grâce divine.",i:"{{PRD_WHATSAPP_IMAGE_2026_02_2_23}}"},
+{c:"unisexe",b:"Ummi",n:"Al Ghaliya",t:"Ummi Al Ghaliya",p:"18 000 FCFA",d:"Mère de toute richesse. Valeur inestimable.",i:"{{PRD_UMMI_AL_GHALIYA_JPG}}"},
+{c:"senteurs",b:"Ana Abiyad",n:"Eau de Parfum",t:"Ana Abiyad",p:"6 000 FCFA",d:"Blancheur pure et éclatante.",i:"{{PRD_ANA_ABIYAD_JPG}}"},
+{c:"senteurs",b:"Ard Alzaafaran",n:"Safran",t:"Ard Alzaafaran",p:"1 500 FCFA",d:"Le pays du Safran. Épicé et précieux.",i:"{{PRD_ARD_ALZAAFARAN_JPG}}"},
+{c:"senteurs",b:"Fatima",n:"Bukhoor",t:"Bukhoor Fatima",p:"25 000 FCFA",d:"Ambiance sacrée et bienveillante.",i:"{{PRD_BUKHOOR_FATIMA_JPG}}"},
+{c:"senteurs",b:"Burphrise",n:"Spring",t:"Burphrise",p:"28 000 FCFA",d:"Fraîcheur printanière enveloppante.",i:"{{PRD_BURPHRISE_JPG}}"},
+{c:"senteurs",b:"California",n:"Dream",t:"California Dream",p:"40 000 FCFA",d:"L'esprit libre de la Californie. Soleil et océan.",i:"{{PRD_CALIFORNIA_DREAM_JPG}}",badge:"Été"},
+{c:"senteurs",b:"FRAGRANT CANDLE",n:"CANDLE",t:"FRAGRANT CANDLE",p:"40 000 FCFA",d:"L'esprit libre de la FRAGRANT CANDLE. Soleil et océan.",i:"{{PRD_FRAGRANT_CANDLE_JPG}}",badge:"Été"}
 ];
+const CATMETA = { femme:{t:"L'Univers Femme",ic:"fa-crown"}, homme:{t:"L'Univers Gentleman",ic:"fa-user-tie"}, unisexe:{t:"Collection Partagée",ic:"fa-star"}, senteurs:{t:"Senteurs & Ambiances",ic:"fa-spa"}, cosmetiques:{t:"Cosmétiques & Soins",ic:"fa-pump-soap"}, divers:{t:"Coffrets & Divers",ic:"fa-gift"}, accessoires:{t:"Accessoires Précieux",ic:"fa-gem"} };
 function renderShop(){
   document.querySelectorAll("[data-shop]").forEach(grid => {
     const cat = grid.dataset.shop;
     const items = PRODUCTS.filter(p => p.c === cat);
-    if (!items.length) return;
-    grid.innerHTML = items.map((p, idx) =>
+    if (!items.length){
+      const label = ({cosmetiques:"Cosmétiques",divers:"Coffrets & Divers",accessoires:"Accessoires"})[cat] || "Cette sélection";
+      grid.innerHTML = '<div class="shop-empty reveal-on-scroll visible" style="grid-column:1/-1;text-align:center;padding:4rem 2rem;background:#fff;border:1px dashed rgba(138,83,60,.35);border-radius:24px">' +
+        '<h3 style=\'font-family:var(--font-display);font-size:1.5rem;color:var(--primary-dark);margin-bottom:.6rem\'>' + esc(label) + ' — disponible en salon</h3>' +
+        '<p style=\'color:var(--text-muted);max-width:420px;margin:0 auto 1.4rem auto\'>Notre sélection ' + esc(label.toLowerCase()) + ' vous attend au salon. Contactez-nous sur WhatsApp pour découvrir les pièces disponibles.</p>' +
+        '<button class="btn-dream" onclick="openWhatsApp(\'Bonjour, je souhaite découvrir votre sélection en salon\')" style=\'padding:1rem 2.4rem;font-size:.72rem\'>Nous contacter <i class="fab fa-whatsapp" style="margin-left:6px"></i></button>' +
+      '</div>';
+      return;
+    }
+    const meta = CATMETA[cat] || { t: cat };
+    const head = '<div class="cat-head"><h3>' + esc(meta.t) + '</h3></div>';
+    grid.innerHTML = head + items.map((p, idx) =>
       '<div class="product-card reveal-on-scroll" style="transition-delay:' + Math.min(idx * 0.05, 0.4) + 's" onclick="openModal(this)" data-p="' + PRODUCTS.indexOf(p) + '" role="button" tabindex="0" aria-label="' + esc(p.n) + '">' +
       (p.badge ? '<div class="prod-badge">' + esc(p.badge) + '</div>' : '') +
       '<div class="product-img-wrap">' + (p.i ? '<img src="' + p.i + '" alt="' + esc(p.n) + '" loading="lazy">' : '') + '</div>' +
@@ -2446,7 +2610,7 @@ function openModal(card){
   const p = PRODUCTS[+card.dataset.p];
   if (!p) return;
   modalProduct = p;
-  document.getElementById("m-title").textContent = p.n;
+  document.getElementById("m-title").textContent = p.t || p.n;
   document.getElementById("m-brand").textContent = p.b;
   document.getElementById("m-price").textContent = p.p;
   document.getElementById("m-desc").textContent = p.d;
@@ -2477,37 +2641,72 @@ function switchShopCategory(cat, tab){
 
 /* ---------- 6. GALERIE LG (données) ---------- */
 const GALLERY = [
-  {cat:"headspa",img:"{{LG_SVC_HEADSPA}}",label:"Rituel au Bassin"},
-  {cat:"headspa",img:"{{LG_HERO_HEADSPA}}",label:"Détente Absolue"},
-  {cat:"headspa",img:"{{LG_SVC_COIFFURE}}",label:"Soin & Préparation"},
-  {cat:"massage",img:"{{LG_SVC_MASSAGE}}",label:"Rituel Relaxant"},
-  {cat:"massage",img:"{{LG_HERO_MASSAGE}}",label:"Mouvement Fluide"},
-  {cat:"massage",img:"{{LG_PK_COUPLE}}",label:"Quatre Mains"},
-  {cat:"damp",img:"{{LG_SVC_DAMP}}",label:"Chaleur & Résine"},
-  {cat:"damp",img:"{{LG_G_HAMMAM2}}",label:"Pierres & Vapeur"},
-  {cat:"damp",img:"{{LG_HERO_HAMMAM}}",label:"Enveloppement"},
-  {cat:"hammam",img:"{{LG_G_HAMMAM3}}",label:"Le Grand Rituel"},
-  {cat:"hammam",img:"{{LG_PK_PARADISE}}",label:"Espace Sérénité"},
-  {cat:"hammam",img:"{{LG_HERO_HAMMAM}}",label:"Tradition"},
-  {cat:"visage",img:"{{LG_SVC_VISAGE}}",label:"Masque Précieux"},
-  {cat:"visage",img:"{{LG_G_VISAGE2}}",label:"Préparation Douce"},
-  {cat:"visage",img:"{{LG_PK_ROYAL}}",label:"Éclat Doré"},
-  {cat:"pedicure",img:"{{LG_HERO_PEDICURE}}",label:"Bain de Pétales"},
-  {cat:"pedicure",img:"{{LG_SVC_ONGLERIE}}",label:"Vernis Parfait"},
-  {cat:"pedicure",img:"{{LG_G_PEDI2}}",label:"Art & Douceur"},
-  {cat:"barber",img:"{{LG_SVC_BARBER}}",label:"Coupe Précision"},
-  {cat:"barber",img:"{{LG_HERO_GENTLEMAN}}",label:"Élégance Signature"},
-  {cat:"barber",img:"{{LG_PK_GENTLEMAN}}",label:"Style & Barbe"}
-
+{cat:"headspa",poster:"{{P1_HEADSPA_POSTER}}",v:"vid_headspa",label:"Rituel Cuir Chevelu",dur:"0:45"},
+{cat:"headspa",img:"{{GAL_HEAD_SPA_2}}",label:"Head Spa Détente Absolue"},
+{cat:"headspa",poster:"{{P1_HEADSPA_POSTER}}",v:"vid_headspa",label:"Soin à l'Huile",dur:"1:10"},
+{cat:"headspa",img:"{{GAL_HEAD_SPA_3}}",label:"Head Spa Hydratation Profonde"},
+{cat:"headspa",poster:"{{P1_HEADSPA_POSTER}}",v:"vid_headspa",label:"Massage Crânien",dur:"2:30"},
+{cat:"headspa",img:"{{GAL_HEAD_SPA_4}}",label:"Head Spa Bien-être"},
+{cat:"damp",poster:"{{P1_DAMP_POSTER}}",v:"vid_headspa",label:"Enveloppement",dur:"1:00"},
+{cat:"damp",img:"{{GAL_DAMP_1}}",label:"Damp Chaleur Humide"},
+{cat:"damp",poster:"{{P1_DAMP_POSTER}}",v:"vid_headspa",label:"Vapeur & Huiles",dur:"0:50"},
+{cat:"damp",img:"{{GAL_DAMP_2}}",label:"Damp Bien-être Respiratoire"},
+{cat:"damp",poster:"{{P1_DAMP_POSTER}}",v:"vid_headspa",label:"Vapeur Visage",dur:"0:35"},
+{cat:"damp",img:"{{GAL_DAMP_3}}",label:"Damp Pureté"},
+{cat:"damp",img:"{{GAL_DAMP_4}}",label:"Damp Espace Zen"},
+{cat:"damp",img:"{{GAL_DAMP_5}}",label:"Damp Confort"},
+{cat:"hammam",poster:"{{GAL_DAMP_5}}",v:"vid_headspa",label:"Le Grand Rituel",dur:"2:00"},
+{cat:"hammam",img:"{{GAL_DAMP_6}}",label:"Hammam Tradition"},
+{cat:"hammam",poster:"{{GAL_DAMP_7}}",v:"vid_headspa",label:"Gommage Noir",dur:"1:15"},
+{cat:"visage",poster:"{{PS_SOIN1}}",v:"vid_soinvisage",label:"Soin Glow",dur:"1:30"},
+{cat:"visage",img:"{{GAL_SOIN2_JPG}}",label:"Soin Visage Teint Lumineux"},
+{cat:"visage",poster:"{{SL_SOIN3}}",v:"vid_soinvisage",label:"Lifting Naturel",dur:"0:50"},
+{cat:"visage",img:"{{GAL_SOIN4_JPG}}",label:"Soin Visage Masque Argile"},
+{cat:"visage",poster:"{{PS_SOIN5}}",v:"vid_soinvisage",label:"Exfoliation",dur:"0:40"},
+{cat:"visage",img:"{{GAL_SOIN7_JPG}}",label:"Soin Visage Sérum Précieux"},
+{cat:"visage",img:"{{GAL_SOIN8_JPG}}",label:"Soin Visage Détente"},
+{cat:"visage",img:"{{GAL_SOIN9_JPG}}",label:"Soin Visage Contour des Yeux"},
+{cat:"pedicure",poster:"{{P1_PEDICURE_1}}",v:"vid_pedicure",label:"Bain de Fleurs",dur:"1:00"},
+{cat:"pedicure",img:"{{GAL_PEDICURE_2_JPG}}",label:"Pédicure Art & Douceur"},
+{cat:"pedicure",poster:"{{P1_PEDICURE_3}}",v:"vid_pedicure",label:"Réflexologie",dur:"0:45"},
+{cat:"pedicure",img:"{{GAL_PEDICURE_4_JPG}}",label:"Pédicure Soins des Pieds"},
+{cat:"pedicure",poster:"{{P1_PEDICURE_1}}",v:"vid_pedicure",label:"Rituel Complet",dur:"1:20"},
+{cat:"pedicure",img:"{{GAL_PEDICURE_6_JPG}}",label:"Pédicure Pétales de Rose"},
+{cat:"pedicure",img:"{{GAL_PEDICURE_5_JPG}}",label:"Pédicure Vernis Parfait"},
+{cat:"pedicure",img:"{{GAL_PEDICURE_7_JPG}}",label:"Pédicure Hydratation"},
+{cat:"barber",poster:"{{P1_BARBER1}}",v:"vid_coiffure",label:"Coupe Précision",dur:"0:45"},
+{cat:"barber",img:"{{GAL_BARBER2_JPG}}",label:"Barber Dégradé & Texture"},
+{cat:"barber",poster:"{{P1_BARBER1}}",v:"vid_coiffure",label:"Taille de Barbe",dur:"1:00"},
+{cat:"barber",img:"{{GAL_BARBER3_JPG}}",label:"Barber Coupe & Barbe"},
+{cat:"barber",poster:"{{P1_BARBER1}}",v:"vid_coiffure",label:"Finition Soignée",dur:"0:30"},
+{cat:"barber",img:"{{GAL_BARBER4_JPG}}",label:"Barber Coloration & Style"},
+{cat:"barber",img:"{{GAL_BARBER5_JPG}}",label:"Barber Fade Afro"},
+{cat:"barber",img:"{{GAL_BARBER6_JPG}}",label:"Barber Texture Bouclée"}
 ];
 const CAT_LABELS = {headspa:"Head Spa",massage:"Massage",damp:"Damp",hammam:"Hammam",visage:"Soin Visage",pedicure:"Pédicure",barber:"Barber"};
+/* Sources vidéo : serveur d'origine du salon (streaming direct), fichier local media/ en repli */
+const VID_SRC = {
+  vid_headspa: ["https://ladiesandgentlemen.store/IMG_8989.MOV", "media/IMG_8989.MOV"],
+  vid_coiffure: ["https://ladiesandgentlemen.store/coiffure.mp4", "media/coiffure.mp4"],
+  vid_pedicure: ["https://ladiesandgentlemen.store/p\u00e9dicure.mp4", "media/p\u00e9dicure.mp4"],
+  vid_soinvisage: ["https://ladiesandgentlemen.store/soin-de-visage.mp4", "media/soin-de-visage.mp4"]
+};
 function renderGallery(){
   const grid = document.getElementById("galleryGrid");
   grid.innerHTML = GALLERY.map((g, idx) => {
-    return '<div class="gallery-item reveal-on-scroll" data-category="' + g.cat + '" style="transition-delay:' + Math.min((idx % 8) * 0.05, 0.4) + 's" onclick="openLightbox(this)" role="button" tabindex="0" aria-label="' + esc(g.label) + '">' +
+    const delay = ' style="transition-delay:' + Math.min((idx % 8) * 0.05, 0.4) + 's"';
+    if (g.v){
+      return '<div class="gallery-video-card reveal-on-scroll" data-category="' + g.cat + '"' + delay + ' onclick="openVideoModal(this.dataset.v)" data-v="' + g.v + '" role="button" tabindex="0" aria-label="' + esc(g.label) + ' — vidéo">' +
+        '<img src="' + g.poster + '" class="gallery-video-bg" alt="' + esc(CAT_LABELS[g.cat]) + ' — ' + esc(g.label) + '" loading="lazy">' +
+        '<div class="video-badge"><i class="fas fa-video" aria-hidden="true"></i>' + esc(g.dur || "Vid\u00e9o") + '</div>' +
+        '<div class="video-play-button"><i class="fas fa-play" aria-hidden="true"></i></div>' +
+        '<div class="video-label">' + esc(g.label) + '</div></div>';
+    }
+    return '<div class="gallery-item reveal-on-scroll" data-category="' + g.cat + '"' + delay + ' onclick="openLightbox(this)" role="button" tabindex="0" aria-label="' + esc(g.label) + '">' +
       '<img src="' + g.img + '" alt="' + esc(CAT_LABELS[g.cat]) + ' — ' + esc(g.label) + '" loading="lazy">' +
-      '<div class="gallery-overlay"><span class="gallery-text"><span class="gallery-cat-tag">' + CAT_LABELS[g.cat] + '</span>' + esc(g.label) + '</span></div></div>';
+      '<div class="gallery-overlay"><span class="gallery-text"><span class="gallery-cat-tag">' + CAT_LABELS[g.cat] + '</span>' + esc(g.label.replace(CAT_LABELS[g.cat] + ' ', '')) + '</span></div></div>';
   }).join("");
+  observeReveals(grid, lgScroll);
 }
 function filterGallery(cat){
   document.querySelectorAll("#galleryFilters .filter-btn").forEach(b => b.classList.remove("active"));
@@ -2527,13 +2726,19 @@ function closeLightbox(){
   document.getElementById("lightbox").classList.remove("active");
   lgScroll.style.overflow = "";
 }
-function openVideoModal(src){
+function openVideoModal(vidKey){
   const modal = document.getElementById("videoModal");
   const video = document.getElementById("mainVideoPlayer");
-  video.src = src;
+  const sources = VID_SRC[vidKey] || [];
+  video.dataset.fallbackIdx = "0";
+  video.onerror = function(){
+    const idx = (+video.dataset.fallbackIdx || 0) + 1;
+    if (idx < sources.length){ video.dataset.fallbackIdx = String(idx); video.src = sources[idx]; video.play().catch(()=>{}); }
+  };
+  if (sources.length){ video.src = sources[0]; }
   modal.classList.add("active");
   lgScroll.style.overflow = "hidden";
-  video.play().catch(() => {});
+  if (sources.length) video.play().catch(() => {});
 }
 function closeVideoModal(){
   const modal = document.getElementById("videoModal");

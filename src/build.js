@@ -13,15 +13,15 @@ const MAP = {
   LG_MED_260: ["lg_med_260.jpg", "image/jpeg"],
   LG_MED_150: ["lg_med_150.jpg", "image/jpeg"],
   LG_INTERIOR: ["lg_interior.jpg", "image/jpeg"],
+  LG_CONTACT: ["lg_contact.jpg", "image/jpeg"],
   TA_LOGO_460: ["ta_logo_460.png", "image/png"],
   TA_LOGO_150: ["ta_logo_150.png", "image/png"],
   TA_LOGO_64: ["ta_logo_64.png", "image/png"],
-  LG_HERO_HEADSPA: ["lg_hero_headspa.jpg", "image/jpeg"],
-  LG_HERO_GENTLEMAN: ["lg_hero_gentleman.jpg", "image/jpeg"],
-  LG_HERO_BRAIDS: ["lg_hero_braids.jpg", "image/jpeg"],
-  LG_HERO_PEDICURE: ["lg_hero_pedicure.jpg", "image/jpeg"],
-  LG_HERO_MASSAGE: ["lg_hero_massage.jpg", "image/jpeg"],
-  LG_HERO_HAMMAM: ["lg_hero_hammam.jpg", "image/jpeg"],
+  LG_PK_COUPLE: ["lg_pk_couple.jpg", "image/jpeg"],
+  LG_PK_ROYAL: ["lg_pk_royal.jpg", "image/jpeg"],
+  LG_PK_GENTLEMAN: ["lg_pk_gentleman.jpg", "image/jpeg"],
+  LG_PK_ROMANTIC: ["lg_pk_romantic.jpg", "image/jpeg"],
+  LG_PK_PARADISE: ["lg_pk_paradise.jpg", "image/jpeg"],
   LG_SVC_COIFFURE: ["lg_svc_coiffure.jpg", "image/jpeg"],
   LG_SVC_BARBER: ["lg_svc_barber.jpg", "image/jpeg"],
   LG_SVC_VISAGE: ["lg_svc_visage.jpg", "image/jpeg"],
@@ -32,29 +32,17 @@ const MAP = {
   LG_SVC_YOGA: ["lg_svc_yoga.jpg", "image/jpeg"],
   LG_SVC_MAKEUP: ["lg_svc_makeup.jpg", "image/jpeg"],
   LG_SVC_EPILATION: ["lg_svc_epilation.jpg", "image/jpeg"],
-  LG_PK_COUPLE: ["lg_pk_couple.jpg", "image/jpeg"],
-  LG_PK_ROYAL: ["lg_pk_royal.jpg", "image/jpeg"],
-  LG_PK_GENTLEMAN: ["lg_pk_gentleman.jpg", "image/jpeg"],
-  LG_PK_ROMANTIC: ["lg_pk_romantic.jpg", "image/jpeg"],
-  LG_PK_PARADISE: ["lg_pk_paradise.jpg", "image/jpeg"],
+  LG_FLYER_SOINEXPRESS: ["lg_flyer_soinexpress.jpg", "image/jpeg"],
+  LG_FLYER_TETEPARFAITE: ["lg_flyer_teteparfaite.jpg", "image/jpeg"],
+  LG_FLYER_RELAXFEMME: ["lg_flyer_relaxfemme.jpg", "image/jpeg"],
+  LG_FLYER_LADY: ["lg_flyer_lady.jpg", "image/jpeg"],
+  LG_FLYER_REINEDUJOUR: ["lg_flyer_reinedujour.jpg", "image/jpeg"],
+  LG_FLYER_RELAXHOMME: ["lg_flyer_relaxhomme.jpg", "image/jpeg"],
+  LG_FLYER_GENTLEMAN: ["lg_flyer_gentleman.jpg", "image/jpeg"],
+  LG_FLYER_TOMETJERRY: ["lg_flyer_tometjerry.jpg", "image/jpeg"],
+  LG_FLYER_EVASION: ["lg_flyer_evasion.jpg", "image/jpeg"],
   LG_G_HAMMAM2: ["g_hammam2.jpg", "image/jpeg"],
   LG_G_HAMMAM3: ["g_hammam3.jpg", "image/jpeg"],
-  LG_G_VISAGE2: ["g_visage2.jpg", "image/jpeg"],
-  LG_G_PEDI2: ["g_pedi2.jpg", "image/jpeg"],
-  PR_PINK: ["pr_pink.jpg", "image/jpeg"],
-  PR_OUD: ["pr_oud.jpg", "image/jpeg"],
-  PR_COLOGNE: ["pr_cologne.jpg", "image/jpeg"],
-  PR_WATCH_B: ["pr_watch_b.jpg", "image/jpeg"],
-  PR_WATCH_S: ["pr_watch_s.jpg", "image/jpeg"],
-  PR_WATCH_G: ["pr_watch_g.jpg", "image/jpeg"],
-  PR_SHOES: ["pr_shoes.jpg", "image/jpeg"],
-  PR_WALLET: ["pr_wallet.jpg", "image/jpeg"],
-  PR_SERUM: ["pr_serum.jpg", "image/jpeg"],
-  PR_CREAM: ["pr_cream.jpg", "image/jpeg"],
-  PR_SUN: ["pr_sun.jpg", "image/jpeg"],
-  PR_CANDLE: ["pr_candle.jpg", "image/jpeg"],
-  PR_BUKHOOR: ["pr_bukhoor.jpg", "image/jpeg"],
-  PR_ROSE: ["pr_rose.jpg", "image/jpeg"],
   PR_SHOP: ["pr_shop.jpg", "image/jpeg"],
   TA_FOAM: ["ta_foam.jpg", "image/jpeg"],
   TA_INTERIOR: ["ta_interior.jpg", "image/jpeg"],
@@ -62,6 +50,17 @@ const MAP = {
   TA_DETAIL2: ["ta_detail2.jpg", "image/jpeg"],
   TA_LINGE: ["ta_linge.jpg", "image/jpeg"],
 };
+
+/* Scan automatique des nouveaux jetons boutique/galerie/slider (PRD_/GAL_/P1_/PS_/SL_) */
+const NEW_PREFIXES = /^(prd_|gal_|p1_|ps_|sl_)/;
+for (const f of fs.readdirSync(OPT).sort()) {
+  const stem = f.replace(/\.(jpg|jpeg|png|webp)$/i, "");
+  if (!NEW_PREFIXES.test(stem)) continue;
+  const tok = stem.toUpperCase();
+  if (Object.prototype.hasOwnProperty.call(MAP, tok)) continue;
+  const mime = f.endsWith(".png") ? "image/png" : "image/jpeg";
+  MAP[tok] = [f, mime];
+}
 
 const key = tok => tok.toLowerCase();
 const URIS = {};
@@ -102,14 +101,16 @@ let b64i = 0;
 t = t.replace(/url\(data:B64\)/g, () => "url(" + taOrigList[b64i++] + ")");
 if (b64i !== 3) { console.error("data:B64 injectés:", b64i, "(attendu 3)"); process.exit(1); }
 
-/* 4) tableaux JS : i:"{{TOK}}" / img:"{{TOK}}" → clés */
+/* 4) tableaux JS : i:"{{TOK}}" / img:"{{TOK}}" / poster:"{{TOK}}" → clés */
 t = t.replace(/i:"\{\{([A-Z0-9_]+)\}\}"/g, (m, tok) => `i:"${key(tok)}"`);
 t = t.replace(/img:"\{\{([A-Z0-9_]+)\}\}"/g, (m, tok) => `img:"${key(tok)}"`);
+t = t.replace(/poster:"\{\{([A-Z0-9_]+)\}\}"/g, (m, tok) => `poster:"${key(tok)}"`);
 
 /* 5) résolution ASSETS dans les render JS */
 t = t.replace("'<img src=\"' + p.i + '\"", "'<img src=\"' + (ASSETS[p.i] || p.i) + '\"");
 t = t.replace("img.src = p.i;", "img.src = ASSETS[p.i] || p.i;");
 t = t.replace("'<img src=\"' + g.img + '\"", "'<img src=\"' + (ASSETS[g.img] || g.img) + '\"");
+t = t.replace("'<img src=\"' + g.poster + '\"", "'<img src=\"' + (ASSETS[g.poster] || g.poster) + '\"");
 
 /* 6) script ASSETS + hydratation, juste avant le script principal */
 const assetsEntries = Object.entries(URIS).map(([k, u]) => `"${key(k)}":"${u}"`).join(",");
