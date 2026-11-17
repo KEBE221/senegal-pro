@@ -49,6 +49,7 @@ const MAP = {
   TA_MOTO: ["ta_moto.jpg", "image/jpeg"],
   TA_DETAIL2: ["ta_detail2.jpg", "image/jpeg"],
   TA_LINGE: ["ta_linge.jpg", "image/jpeg"],
+  TA_CARTE: ["ta_carte.jpg", "image/jpeg"],
 };
 
 /* Scan automatique des nouveaux jetons boutique/galerie/slider (PRD_/GAL_/P1_/PS_/SL_) */
@@ -145,10 +146,10 @@ const ASSETS={${assetsEntries}};
 </script>
 <script>
 /* ═══════════════════════════════════════════════════════════════
-   LADIES & GENTLEMEN × TARRU AUTO — Moteur "Deux Univers"`;
+   LADIES & GENTLEMEN × TAARU AUTO — Moteur "Deux Univers"`;
 t = t.replace(`<script>
 /* ═══════════════════════════════════════════════════════════════
-   LADIES & GENTLEMEN × TARRU AUTO — Moteur "Deux Univers"`, assetScript);
+   LADIES & GENTLEMEN × TAARU AUTO — Moteur "Deux Univers"`, assetScript);
 
 /* Garde-fou : l'injection du script ASSETS + hydratation est OBLIGATOIRE */
 if (!t.includes("const ASSETS={") || !t.includes('hydrate("[data-asset],[data-bg]")')) {
